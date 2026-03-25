@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>USDA 3月种植意向报告前瞻 | 2026专题页</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+    --primary: #1A56DB;
+    --secondary: #E02424;
+    --tertiary: #057A55;
+    --neutral: #F3F4F6;
+    --ink: #111827;
+    --muted: rgba(17, 24, 39, 0.68);
+    --radius: 18px;
+    --radius-sm: 14px;
+}
+body {
+    font-family: 'Source Han Sans', 'Noto Sans CJK SC', sans-serif;
+    color: var(--ink);
+    background: linear-gradient(180deg, var(--neutral) 0%, #FFFFFF 100%);
+    -webkit-font-smoothing: antialiased;
+}
+a {
+    color: var(--primary);
+}
+.pb-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+.fed-btn-dark {
+    background: var(--primary);
+    color: var(--neutral);
+    border: 1px solid var(--primary);
+}
+.fed-btn-dark:hover {
+    background: var(--tertiary);
+    border-color: var(--tertiary);
+}
+.gold-download {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--tertiary) 100%);
+    color: var(--neutral);
+}
+.gold-download:hover {
+    filter: brightness(1.05);
+}
+.font-display {
+    font-family: 'Source Han Sans', 'Noto Sans CJK SC', sans-serif;
+}
+.glass {
+    background: rgba(243, 244, 246, 0.88);
+    backdrop-filter: blur(18px);
+}
+.shadow-soft {
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+}
+.card-ring {
+    border: 1px solid rgba(26, 86, 219, 0.12);
+    box-shadow:
+        0 16px 36px rgba(17, 24, 39, 0.06),
+        inset 0 1px 0 rgba(243, 244, 246, 0.9);
+}
+.sticky-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(243, 244, 246, 0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(26, 86, 219, 0.12);
+}
+.tab-btn {
+    transition: all 0.25s ease;
+    color: var(--muted);
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    font-weight: 500;
+}
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 700;
+}
+.metric-bar {
+    position: relative;
+    overflow: hidden;
+}
+.metric-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: grow 1.2s ease forwards;
+    background: linear-gradient(90deg, var(--primary), var(--tertiary));
+}
+.metric-bar.green::after {
+    background: linear-gradient(90deg, var(--tertiary), var(--tertiary));
+}
+.metric-bar.red::after {
+    background: linear-gradient(90deg, var(--secondary), var(--secondary));
+}
+.metric-bar > span {
+    position: relative;
+    z-index: 1;
+}
+.animate-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rise 0.7s ease forwards;
+}
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+.pill {
+    border: 1px solid rgba(224, 36, 36, 0.20);
+    background: rgba(224, 36, 36, 0.10);
+    color: var(--secondary);
+}
+.source-link {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.source-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(26, 86, 219, 0.08);
+}
+.chart-toggle {
+    transition: all 0.22s ease;
+    border-radius: var(--radius-sm);
+}
+.chart-toggle.active {
+    background: var(--ink);
+    color: var(--neutral);
+    border-color: var(--ink);
+}
+.module-tag {
+    transition: all 0.22s ease;
+    border-radius: var(--radius-sm);
+}
+.module-tag.active {
+    background: var(--primary);
+    color: var(--neutral);
+    border-color: var(--primary);
+}
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 6px;
+    bottom: 10px;
+    width: 2px;
+    background: rgba(17, 24, 39, 0.12);
+}
+header.page-hero {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(180deg, rgba(243, 244, 246, 0.82) 0%, rgba(243, 244, 246, 0.90) 100%),
+        url("https://img.jin10.com/gallary/25/07/0NC--6p0fJy_xSgZNOJvF.png/lite") center/cover no-repeat;
+    color: var(--ink);
+    border-bottom: 1px solid rgba(26, 86, 219, 0.10);
+}
+header.page-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(243, 244, 246, 0.44) 0%, rgba(243, 244, 246, 0.22) 100%);
+}
+.hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(243, 244, 246, 0.88);
+    padding: 12px 16px;
+    color: var(--ink);
+}
+.beginner-banner {
+    background: linear-gradient(135deg, rgba(26, 86, 219, 0.92) 0%, rgba(5, 122, 85, 0.92) 100%);
+    color: var(--neutral);
+}
+.beginner-banner .eyebrow,
+.beginner-banner p,
+.beginner-banner h2 {
+    color: var(--neutral) !important;
+}
+.hero-accent {
+    color: var(--ink);
+    font-weight: 700;
+}
+main > section > div[class*="rounded-[28px]"],
+main > section > div.grid > div[class*="rounded-[28px]"],
+footer > div[class*="rounded-[24px]"] {
+    position: relative;
+    overflow: hidden;
+    background: #FFFFFF !important;
+}
+main > section > div[class*="rounded-[28px]"]::before,
+main > section > div.grid > div[class*="rounded-[28px]"]::before,
+footer > div[class*="rounded-[24px]"]::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(17, 24, 39, 0.06);
+}
+.section-card,
+[class*="rounded-[28px]"],
+[class*="rounded-[24px]"] {
+    border-radius: var(--radius) !important;
+}
+.rounded-2xl,
+.rounded-lg,
+.rounded-full {
+    border-radius: var(--radius-sm) !important;
+}
+[class*="bg-white"],
+[class*="bg-slate-50"],
+[class*="bg-slate-100"],
+[class*="bg-amber-50"],
+[class*="bg-amber-100"],
+[class*="bg-emerald-50"],
+[class*="bg-red-50"] {
+    background: var(--neutral) !important;
+}
+[class*="border-white"],
+[class*="border-slate-"],
+[class*="border-amber-"],
+[class*="border-emerald-"],
+[class*="border-red-"] {
+    border-color: rgba(26, 86, 219, 0.12) !important;
+}
+.text-white,
+.text-slate-900,
+.text-slate-700,
+.text-slate-600,
+.text-slate-500,
+.text-slate-400 {
+    color: var(--ink) !important;
+}
+.text-red-700 {
+    color: var(--secondary) !important;
+}
+.bg-slate-400 {
+    background: var(--tertiary) !important;
+}
+.text-emerald-700,
+.text-emerald-600 {
+    color: var(--tertiary) !important;
+}
+.shadow-lg,
+.shadow-soft {
+    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08) !important;
+}
+.bg-slate-950 {
+    background: transparent !important;
+}
+.text-slate-600,
+.text-slate-500,
+.text-slate-400 {
+    color: var(--muted) !important;
+}
+.text-decoration-none {
+    text-decoration: none;
+}
+.scenario-primary {
+    border-color: rgba(26, 86, 219, 0.20) !important;
+}
+.scenario-secondary {
+    border-color: rgba(224, 36, 36, 0.20) !important;
+}
+.scenario-tertiary {
+    border-color: rgba(5, 122, 85, 0.20) !important;
+}
+.status-primary {
+    background: rgba(26, 86, 219, 0.10) !important;
+    color: var(--primary) !important;
+}
+.status-secondary {
+    background: rgba(224, 36, 36, 0.10) !important;
+    color: var(--secondary) !important;
+}
+.status-tertiary {
+    background: rgba(5, 122, 85, 0.10) !important;
+    color: var(--tertiary) !important;
+}
+.progress-lines {
+    position: relative;
+}
+.progress-lines::after {
+    content: "";
+    display: block;
+    height: 4px;
+    margin-top: 16px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary) 0 33%, var(--secondary) 33% 66%, var(--tertiary) 66% 100%);
+}
+main h2 {
+    position: relative;
+    padding-left: 14px;
+    letter-spacing: -0.02em;
+}
+main h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.25em;
+    width: 6px;
+    height: 1.05em;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--tertiary) 0%, var(--primary) 100%);
+}
+.beginner-banner h2 {
+    padding-left: 0;
+}
+.beginner-banner h2::before {
+    display: none;
+}
+.data-hub {
+    background: #FFFFFF !important;
+}
+.data-hub-header {
+    position: relative;
+    z-index: 1;
+}
+.data-hub-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(26, 86, 219, 0.10);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.data-hub-kicker::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--tertiary) 0%, var(--primary) 100%);
+}
+.data-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 16px;
+    background: #FFFFFF;
+}
+.data-switcher .module-tag {
+    background: transparent !important;
+    color: var(--muted) !important;
+    border-color: transparent !important;
+}
+.data-switcher .module-tag.active {
+    background: #FFFFFF !important;
+    color: var(--ink) !important;
+    border-color: rgba(26, 86, 219, 0.24) !important;
+    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
+}
+.crop-switcher {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 16px;
+    background: #FFFFFF;
+    border: 1px solid rgba(17, 24, 39, 0.06);
+}
+.crop-switcher .chart-toggle {
+    background: transparent !important;
+    color: var(--ink) !important;
+    border-color: transparent !important;
+}
+.crop-switcher .chart-toggle.active {
+    background: #FFFFFF !important;
+    color: var(--ink) !important;
+    border-color: rgba(17, 24, 39, 0.16) !important;
+}
+.data-stage {
+    position: relative;
+    padding: 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: #FFFFFF;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+.data-stage::before {
+    display: none;
+}
+.data-chart {
+    position: relative;
+    z-index: 1;
+}
+.data-note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.data-note span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(17, 24, 39, 0.05);
+    color: var(--muted);
+    font-size: 12px;
+}
+.data-note span::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--primary);
+}
+.data-note span.note-corn::before {
+    background: var(--secondary);
+}
+.data-note span.note-soy::before {
+    background: var(--tertiary);
+}
+.data-note span.note-structure::before {
+    background: var(--primary);
+}
+.primer-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: #FFFFFF;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+.primer-summary {
+    margin-top: 2px;
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+}
+.primer-summary strong {
+    color: var(--ink);
+}
+.primer-list {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+.primer-item {
+    min-width: 0;
+    padding: 14px 14px 16px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.86);
+}
+.primer-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--primary);
+}
+.primer-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+}
+.primer-copy {
+    margin-top: 2px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+.primer-panel {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(255, 255, 255, 0.72);
+}
+.module-help-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+.module-help-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 24, 39, 0.12);
+    background: #FFFFFF;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+.module-help-panel {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(255, 255, 255, 0.8);
+}
+.scenario-wheel-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.scenario-wheel {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 320px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: #FFFFFF;
+    box-shadow: 0 14px 32px rgba(17, 24, 39, 0.08);
+}
+.scenario-wheel::before,
+.scenario-wheel::after {
+    content: "";
+    position: absolute;
+    background: rgba(17, 24, 39, 0.08);
+    z-index: 1;
+}
+.scenario-wheel::before {
+    top: 50%;
+    left: 16%;
+    right: 16%;
+    height: 1px;
+    transform: translateY(-50%);
+}
+.scenario-wheel::after {
+    left: 50%;
+    top: 16%;
+    bottom: 16%;
+    width: 1px;
+    transform: translateX(-50%);
+}
+.scenario-slice {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 20px;
+    background: transparent;
+    color: var(--ink);
+    text-align: center;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.scenario-slice span {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+}
+.scenario-slice small {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+.scenario-slice.active small {
+    color: inherit;
+}
+.scenario-slice.active {
+    background: rgba(26, 86, 219, 0.10);
+    color: var(--primary);
+}
+.scenario-wheel-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 92px;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.5;
+    transform: translate(-50%, -50%);
+}
+.scenario-detail {
+    width: 100%;
+    max-width: 720px;
+    padding: 18px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    background: #FFFFFF;
+}
+.scenario-detail h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+}
+.scenario-detail p {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+}
+.scenario-detail-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.scenario-detail-badge.red {
+    background: rgba(224, 36, 36, 0.10);
+    color: var(--secondary);
+}
+.scenario-detail-badge.green {
+    background: rgba(5, 122, 85, 0.10);
+    color: var(--tertiary);
+}
+.scenario-detail-badge.blue {
+    background: rgba(26, 86, 219, 0.10);
+    color: var(--primary);
+}
+@media (max-width: 640px) {
+    .data-stage {
+        padding: 10px;
+    }
+    .data-switcher {
+        padding: 6px;
+    }
+    .primer-item {
+        padding: 12px;
+    }
+    .primer-summary,
+    .primer-copy {
+        font-size: 14px;
+    }
+    .primer-list {
+        gap: 8px;
+    }
+    .primer-title {
+        font-size: 14px;
+    }
+    .primer-kicker {
+        font-size: 11px;
+    }
+    .scenario-wheel {
+        width: min(100%, 280px);
+    }
+    .scenario-wheel-center {
+        width: 82px;
+        height: 82px;
+        font-size: 11px;
+    }
+}
+@keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+</style>
+</head>
+<body class="pb-28 md:pb-32">
+<header class="page-hero">
+    <div class="relative mx-auto max-w-5xl px-5 pb-10 pt-12 text-center">
+        <h1 class="font-display mx-auto max-w-4xl text-4xl font-semibold leading-tight text-white md:text-5xl">
+            USDA 3月种植意向报告前瞻
+        </h1>
+
+        <div class="hero-meta mx-auto mt-6 text-sm">
+            <span class="hero-accent">报告公布时间：北京时间 2026年4月1日 00:00</span>
+        </div>
+    </div>
+</header>
+
+<main class="mx-auto mt-8 max-w-5xl space-y-8 px-4">
+    <section id="view-deep" class="space-y-8">
+        <div class="animate-fade rounded-[28px] border border-white/70 bg-white/80 p-5 shadow-soft backdrop-blur md:p-7">
+            <div class="mb-5 flex items-center gap-2 progress-lines">
+                <h2 class="text-2xl font-black text-slate-900">一眼看懂这份报告</h2>
+                <button id="primer-trigger" type="button" class="primer-btn" onclick="togglePrimer()" aria-expanded="false" aria-controls="primer-panel" aria-label="什么是种植意向报告" title="什么是种植意向报告">
+                    ?
+                </button>
+            </div>
+            <p class="primer-summary"><strong>当前基线：</strong>大豆 <strong>8500 万英亩</strong>，玉米 <strong>9400 万英亩</strong>，市场仍在交易“豆进米退”。</p>
+            <div class="primer-list">
+                <div class="primer-item">
+                    <div class="primer-kicker">01</div>
+                    <div>
+                        <div class="primer-title">发布时间</div>
+                        <p class="primer-copy">北京时间 4 月 1 日 0 点，同时公布种植意向报告和季度谷物库存报告。</p>
+                    </div>
+                </div>
+                <div class="primer-item">
+                    <div class="primer-kicker">02</div>
+                    <div>
+                        <div class="primer-title">核心看点</div>
+                        <p class="primer-copy">关键不在大豆会不会增种，而在最终数据是否偏离基线。</p>
+                    </div>
+                </div>
+                <div class="primer-item">
+                    <div class="primer-kicker">03</div>
+                    <div>
+                        <div class="primer-title">先看三个数</div>
+                        <p class="primer-copy">大豆种植面积、玉米种植面积、3 月 1 日大豆库存。</p>
+                    </div>
+                </div>
+            </div>
+            <div id="primer-panel" class="primer-panel hidden">
+                <div class="space-y-3 text-[14px] leading-7 text-slate-600">
+                    <p><strong class="text-slate-900">种植意向报告是什么：</strong>它是 USDA 在春播前向农户调查“准备种什么、种多少”后形成的年度第一份官方面积图。</p>
+                    <p><strong class="text-slate-900">为什么重要：</strong>面积一旦明显偏离预期，市场就会立刻重算秋季供给，所以它常常是新作价格第一轮重定价的起点。</p>
+                    <p><strong class="text-slate-900">为什么同一天还要看库存：</strong>因为种植意向代表新作，季度库存代表旧作，当天盘面往往会同时交易两者。</p>
+                    <div class="mt-4 rounded-2xl border border-slate-200/80 bg-white/80 p-4">
+                        <p class="text-sm font-bold text-slate-900">历史复盘：种植意向为什么常能引爆行情</p>
+                        <div class="mt-3 space-y-3 text-[13px] leading-6 text-slate-600">
+                            <p><strong class="text-slate-900">2024年3月29日：</strong>USDA 公布的大豆和玉米种植面积都低于市场预期，美豆走高，国内豆粕期货次日跳空高开，说明“面积偏低”叠加“原本已有悲观预期”时，修正会很快。</p>
+                            <p><strong class="text-slate-900">2021年4月1日：</strong>USDA 预计美豆面积仅 8760 万英亩，明显低于市场大约 9000 万英亩的预估，CBOT 豆系多个合约一度触及涨停，是经典的“面积惊吓”行情。</p>
+                            <p><strong class="text-slate-900">2025年3月31日：</strong>USDA 种植意向报告显示，玉米 9530 万英亩、同比增 5%，大豆 8350 万英亩、同比降 4%，再次说明面积切换从来不是线性的，报告经常会打脸平均预期。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-hub animate-fade delay-2 rounded-[28px] border border-white/70 bg-white/80 p-5 shadow-soft md:p-7">
+            <div class="data-hub-header mb-6">
+                <div class="flex flex-wrap items-end justify-between gap-3">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">核心数据图表</h2>
+                    </div>
+                </div>
+                <div class="data-switcher mt-4">
+                    <button type="button" class="module-tag active rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="acreage" onclick="switchDataPanel('acreage')">历史种植面积走势</button>
+                    <button type="button" class="module-tag rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="share" onclick="switchDataPanel('share')">种植结构占比变化</button>
+                    <button type="button" class="module-tag rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="ratio" onclick="switchDataPanel('ratio')">玉米、大豆比价图</button>
+                    <button type="button" class="module-tag rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="profit" onclick="switchDataPanel('profit')">种植利润模型</button>
+                </div>
+            </div>
+
+            <div id="panel-acreage" class="data-panel space-y-4">
+                <div class="crop-switcher">
+                    <button class="chart-toggle active rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-crop="corn" type="button">玉米</button>
+                    <button class="chart-toggle rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-crop="soybeans" type="button">大豆</button>
+                    <button class="chart-toggle rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-crop="wheat" type="button">小麦</button>
+                </div>
+                <div class="data-stage">
+                    <div id="acreage-chart" class="data-chart h-[420px] w-full"></div>
+                </div>
+                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
+                    <p><strong class="text-slate-900">直观看点：</strong>2021-2025 这 5 个完整年份里，玉米在 2023 和 2025 年都出现了“3 月意向上修到 6 月进一步确认”的特征；大豆则在 2022、2023、2024 年都经历了从展望论坛到正式报告的方向再修正。也就是说，展望论坛很重要，但它从来不是最后答案。</p>
+                </div>
+            </div>
+
+            <div id="panel-share" class="data-panel hidden space-y-4">
+                <div class="module-help-row">
+                    <div class="data-note">
+                        <span class="note-structure">只看玉米和大豆之间的面积分配</span>
+                        <span class="note-corn">玉米占比</span>
+                        <span class="note-soy">大豆占比</span>
+                    </div>
+                    <button type="button" class="module-help-btn" id="share-help-trigger" onclick="toggleHelp('share-help-panel','share-help-trigger')" aria-expanded="false" aria-controls="share-help-panel">?</button>
+                </div>
+                <div id="share-help-panel" class="module-help-panel hidden">
+                    <div class="space-y-3 text-[14px] leading-7 text-slate-600">
+                        <p><strong class="text-slate-900">口径说明：</strong>本页仅比较美国大豆与玉米两大主作物的种植面积占比，用于观察“豆进米退”或“米进豆退”。</p>
+                        <p><strong class="text-slate-900">计算方式：</strong>各自种植面积 ÷（大豆种植面积 + 玉米种植面积），数据均采用当年3月种植意向报告。</p>
+                    </div>
+                </div>
+                <div class="data-stage">
+                    <div id="share-chart" class="data-chart h-[380px] w-full"></div>
+                </div>
+                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
+                    <p><strong class="text-slate-900">图上能看到什么：</strong>2022 年是近几年大豆占比最高的一次，因为当年 3 月意向里大豆 9100 万英亩高于玉米 8950 万；2025 年则明显转向玉米，大豆占比被压到近年低位。2026 年数据还未公布，因此当前只能把 2021-2025 当成历史参照，等待 4 月 1 日凌晨的新值落点。</p>
+                </div>
+            </div>
+
+            <div id="panel-ratio" class="data-panel hidden space-y-4">
+                <div class="module-help-row">
+                    <div class="data-note">
+                        <span class="note-structure">2.2-2.5 是播种决策模糊区</span>
+                        <span class="note-soy">高于 2.5 倾向多种大豆</span>
+                        <span class="note-corn">低于 2.2 倾向多种玉米</span>
+                    </div>
+                    <button type="button" class="module-help-btn" id="ratio-help-trigger" onclick="toggleHelp('ratio-help-panel','ratio-help-trigger')" aria-expanded="false" aria-controls="ratio-help-panel">?</button>
+                </div>
+                <div id="ratio-help-panel" class="module-help-panel hidden">
+                    <div class="space-y-3 text-[14px] leading-7 text-slate-600">
+                        <p><strong class="text-slate-900">采用口径：</strong>这里使用RMA春季projected price对应的豆玉比，底层反映的是2月CBOT大豆和玉米期货的平均定价信号，相比单日盘面，更适合观察播种决策变化。</p>
+                        <p><strong class="text-slate-900">阈值逻辑：</strong>豆玉比通常高于2.5时，大豆对边际亩数的吸引力更强；低于2.2时，玉米相对更占优势；介于2.2至2.5之间时，通常属于决策摇摆区。</p>
+                    </div>
+                </div>
+                <div class="data-stage">
+                    <div id="ratio-chart" class="data-chart h-[380px] w-full"></div>
+                </div>
+                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
+                    <p><strong class="text-slate-900">当前含义：</strong>2026 年官方豆玉比约为 2.40，仍在模糊区偏上沿，说明大豆仍有抢地条件，但远没有高到形成单边压倒性的“疯狂种豆”信号。对今年来说，比价更多是在支持“豆子能抢回一部分面积”，而不是支持“大豆面积无上限扩张”。</p>
+                </div>
+            </div>
+
+            <div id="panel-profit" class="data-panel hidden space-y-4">
+                <div class="module-help-row">
+                    <div class="data-note">
+                        <span class="note-structure">利润 = 价格 × 单产 - 成本</span>
+                    </div>
+                    <button type="button" class="module-help-btn" id="profit-help-trigger" onclick="toggleHelp('profit-help-panel','profit-help-trigger')" aria-expanded="false" aria-controls="profit-help-panel">?</button>
+                </div>
+                <div id="profit-help-panel" class="module-help-panel hidden">
+                    <div class="space-y-3 text-[14px] leading-7 text-slate-600">
+                        <p><strong class="text-slate-900">模型口径：</strong>价格采用2026年3月25日的CBOT前月合约快照，单产采用USDA2026年1月口径，成本采用USDAERS2026F。该模型用于观察播种激励的相对变化，不代表农户实际利润。</p>
+                        <p><strong class="text-slate-900">结果显示：</strong>按上述口径估算，玉米每英亩收入约857美元、大豆约612美元；扣除经营成本后，玉米利润约408美元、大豆约363美元。这意味着，尽管豆玉比在2.4附近仍支持大豆争夺边际亩数，但若将单产纳入比较，玉米在收入端仍更占优势。</p>
+                    </div>
+                </div>
+                <div class="data-stage">
+                    <div id="profit-chart" class="data-chart h-[380px] w-full"></div>
+                </div>
+                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
+                    <p><strong class="text-slate-900">为什么还会出现“玉米让地”预期：</strong>因为玉米成本更重，尤其是肥料。ERS 2026F 预测里，玉米肥料成本 `165.88` 美元/英亩，大豆只有 `57.14` 美元/英亩，单是肥料一项就高出 `108.74` 美元。换句话说，玉米利润虽然看起来更高，但它对价格回落和成本扰动也更敏感，所以当比价处于 2.2-2.5 的模糊区时，农户仍有动力把边际亩数转向大豆。</p>
+                    <p><strong class="text-slate-900">再看总成本：</strong>若把土地机会成本、设备资本回收等全部算进去，玉米总成本约 `916.75` 美元/英亩、大豆约 `678.25` 美元/英亩，两者在当前盘面下都仍是负的总利润。这也说明春播决策并不只是“谁赚得更多”，更是“谁更能扛波动、谁的现金流压力更小”。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate-fade delay-2 rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft md:p-7">
+            <div class="space-y-10">
+                <div>
+                    <div class="mb-5 flex items-end justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900">情形观察与后续跟踪</h2>
+                            <p class="mt-2 text-[14px] leading-7 text-slate-500">口径说明：本模块基于种植面积与库存数据的不同组合情形进行整理，用于帮助理解报告关注点，不对应任何价格方向或交易建议。</p>
+                        </div>
+                    </div>
+                    <div class="scenario-wheel-wrap">
+                        <div class="scenario-wheel" role="tablist" aria-label="四种观察情形">
+                            <button type="button" class="scenario-slice scenario-slice-a active" data-scenario="a" onclick="switchScenario('a')" aria-selected="true">
+                                <span>A</span>
+                                <small>玉米面积低于基线</small>
+                            </button>
+                            <button type="button" class="scenario-slice scenario-slice-b" data-scenario="b" onclick="switchScenario('b')" aria-selected="false">
+                                <span>B</span>
+                                <small>大豆面积高于基线</small>
+                            </button>
+                            <button type="button" class="scenario-slice scenario-slice-c" data-scenario="c" onclick="switchScenario('c')" aria-selected="false">
+                                <span>C</span>
+                                <small>大豆面积低于基线</small>
+                            </button>
+                            <button type="button" class="scenario-slice scenario-slice-d" data-scenario="d" onclick="switchScenario('d')" aria-selected="false">
+                                <span>D</span>
+                                <small>面积与库存需结合观察</small>
+                            </button>
+                            <div class="scenario-wheel-center">点击查看<br>观察要点</div>
+                        </div>
+
+                        <div id="scenario-detail-a" class="scenario-detail">
+                            <h3>情形 A <span class="scenario-detail-badge blue">玉米面积低于基线</span></h3>
+                            <p>若玉米种植面积低于 9400 万英亩，且库存端未显示明显宽松，市场通常会提高对新作供给变化的关注。后续仍需结合天气、播种进度及 6 月最终种植面积报告继续观察。</p>
+                        </div>
+                        <div id="scenario-detail-b" class="scenario-detail hidden">
+                            <h3>情形 B <span class="scenario-detail-badge blue">大豆面积高于基线</span></h3>
+                            <p>若大豆种植面积明显高于 8500 万英亩，说明大豆扩种力度强于当前基线设想。后续需要结合季度库存报告、播种节奏以及 6 月最终种植面积报告，继续观察新作供给预期是否进一步强化。</p>
+                        </div>
+                        <div id="scenario-detail-c" class="scenario-detail hidden">
+                            <h3>情形 C <span class="scenario-detail-badge blue">大豆面积低于基线</span></h3>
+                            <p>若大豆种植面积低于 8500 万英亩，说明农户扩种意愿弱于官方基线。后续仍需结合库存、天气与播种进度继续观察，判断这种偏离是否会在后续报告中得到确认。</p>
+                        </div>
+                        <div id="scenario-detail-d" class="scenario-detail hidden">
+                            <h3>情形 D <span class="scenario-detail-badge blue">面积与库存需结合观察</span></h3>
+                            <p>若种植面积与季度库存报告释放出不同信号，解读时需要把新作面积和旧作库存放在一起观察。后续还应继续跟踪播种进度、天气变化及 6 月最终种植面积报告，避免单独依据某一个数据点做判断。</p>
+                        </div>
+                        <p class="w-full max-w-[720px] text-[14px] leading-7 text-slate-500">风险提示：上述内容仅为基于公开数据口径的情形归纳，用于帮助理解报告关注点，不构成对任何品种价格走势的判断，不构成任何投资建议或交易依据。</p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-black text-slate-900">报告后还要继续追什么</h3>
+                        <p class="mt-1 text-sm text-slate-500">3 月 31 日不是终点，它只是春季交易叙事的起点。</p>
+                    </div>
+                    <div class="timeline relative space-y-6 pl-8">
+                        <div class="relative">
+                            <div class="absolute left-[-30px] top-1.5 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></div>
+                            <div class="text-sm font-bold">4月上旬</div>
+                            <p class="mt-1 text-[15px] leading-7 text-slate-600">看市场是否把 3 月 31 日结果重新映射到新作平衡表，尤其是大豆单产还未进入天气交易前，面积权重会很高。</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute left-[-30px] top-1.5 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></div>
+                            <div class="text-sm font-bold text-slate-700">4月中下旬</div>
+                            <p class="mt-1 text-[15px] leading-7 text-slate-600">播种进度和土壤墒情会逐步接管叙事。若玉米播种慢、豆类播种快，资金会进一步强化“豆进米退”。</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute left-[-30px] top-1.5 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></div>
+                            <div class="text-sm font-bold text-slate-700">6月种植面积报告</div>
+                            <p class="mt-1 text-[15px] leading-7 text-slate-600">这是对 3 月意向的第一次官方复核。若两次数字偏差大，6 月通常会成为第二次重定价窗口。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate-fade delay-4 rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft md:p-7">
+            <div class="mb-5">
+                <h2 class="text-2xl font-black text-slate-900">资料来源与说明</h2>
+            </div>
+            <div class="space-y-4 text-[15px] leading-8 text-slate-600">
+                <p>本页主要依据 USDA、NASS、RMA 等公开官方资料整理，相关发布时间、面积基线、库存数据及比价参考均以官方口径为准。</p>
+                <p>页内关于市场关注点和情形推演的内容，系基于公开数据的整理与归纳，仅供信息参考，不构成任何投资建议或交易依据。</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="fixed bottom-0 left-0 z-40 w-full border-t border-slate-200 bg-white/95 shadow-soft backdrop-blur-md pb-safe-bottom">
+    <div class="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3 md:gap-4">
+        <button id="share-btn" onclick="handleSharePage()" style="display: none;" class="fed-btn-dark flex-1 h-11 rounded-lg text-sm font-medium transition-all active:scale-95 md:text-base">
+            <span class="flex items-center justify-center gap-2">
+                <svg class="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C9.886 12.511 11.338 12 12.91 12c1.572 0 3.024.511 4.226 1.342M8.684 10.658C9.886 11.489 11.338 12 12.91 12c1.572 0 3.024-.511 4.226-1.342M17 5a2 2 0 110 4 2 2 0 010-4zM7 10a2 2 0 110 4 2 2 0 010-4zm10 5a2 2 0 110 4 2 2 0 010-4z"></path>
+                </svg>
+                <span>分享专题</span>
+            </span>
+        </button>
+
+        <a id="download-btn" href="https://qihuo.jin10.com/app/index.html" target="_blank" rel="noopener noreferrer" class="gold-download flex-1 h-11 rounded-lg text-decoration-none shadow-lg transition-all active:scale-95">
+            <span class="flex h-full flex-col items-center justify-center leading-none">
+                <span class="text-sm font-bold md:text-base">下载金十期货APP</span>
+                <span class="scale-90 text-[10px] font-normal opacity-80 md:text-xs">获取完整油脂资讯</span>
+            </span>
+        </a>
+    </div>
+</div>
+
+<script>
+function togglePrimer() {
+    const panel = document.getElementById("primer-panel");
+    const trigger = document.getElementById("primer-trigger");
+    if (!panel || !trigger) {
+        return;
+    }
+    const willOpen = panel.classList.contains("hidden");
+    panel.classList.toggle("hidden");
+    trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+}
+
+function toggleHelp(panelId, triggerId) {
+    const panel = document.getElementById(panelId);
+    const trigger = document.getElementById(triggerId);
+    if (!panel || !trigger) {
+        return;
+    }
+    const willOpen = panel.classList.contains("hidden");
+    panel.classList.toggle("hidden");
+    trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+}
+
+function switchScenario(scenarioKey) {
+    const slices = document.querySelectorAll(".scenario-slice");
+    const details = document.querySelectorAll("[id^='scenario-detail-']");
+
+    slices.forEach(function(slice) {
+        const isActive = slice.dataset.scenario === scenarioKey;
+        slice.classList.toggle("active", isActive);
+        slice.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    details.forEach(function(detail) {
+        detail.classList.toggle("hidden", detail.id !== "scenario-detail-" + scenarioKey);
+    });
+}
+
+function switchDataPanel(panelName) {
+    const panels = document.querySelectorAll(".data-panel");
+    const tags = document.querySelectorAll(".module-tag");
+
+    panels.forEach(function(panel) {
+        panel.classList.add("hidden");
+    });
+    tags.forEach(function(tag) {
+        tag.classList.remove("active");
+    });
+
+    const activePanel = document.getElementById("panel-" + panelName);
+    const activeTag = document.querySelector('.module-tag[data-panel="' + panelName + '"]');
+    if (activePanel) {
+        activePanel.classList.remove("hidden");
+    }
+    if (activeTag) {
+        activeTag.classList.add("active");
+    }
+
+    if (panelName === "acreage" && !acreageChart) {
+        initAcreageChart();
+    }
+    if (panelName === "share" && !shareChart) {
+        initShareChart();
+    }
+    if (panelName === "ratio" && !ratioChart) {
+        initRatioChart();
+    }
+    if (panelName === "profit" && !profitChart) {
+        initProfitChart();
+    }
+
+    setTimeout(function() {
+        if (panelName === "acreage" && acreageChart) acreageChart.resize();
+        if (panelName === "share" && shareChart) shareChart.resize();
+        if (panelName === "ratio" && ratioChart) ratioChart.resize();
+        if (panelName === "profit" && profitChart) profitChart.resize();
+    }, 80);
+}
+
+const releaseTime = new Date("2026-03-31T16:00:00Z").getTime();
+function millionToWanAcres(value) {
+    return value == null ? null : Number((value * 100).toFixed(0));
+}
+
+const acreageSeries = {
+    corn: {
+        label: "玉米",
+        forum: [92.0, 92.0, 91.0, 91.0, 94.0, 94.0],
+        prospective: [91.1, 89.5, 92.0, 90.0, 95.3, null],
+        acreage: [92.7, 89.9, 94.1, 91.5, 95.2, null],
+        summary: "2026 论坛基线 9400 万英亩，较 2025 最终种植面积 9880 万英亩回落 480 万。"
+    },
+    soybeans: {
+        label: "大豆",
+        forum: [90.0, 88.0, 87.5, 87.5, 84.0, 85.0],
+        prospective: [87.6, 91.0, 87.5, 86.5, 83.5, null],
+        acreage: [87.6, 88.3, 83.5, 86.1, 83.4, null],
+        summary: "2026 论坛基线 8500 万英亩，较 2025 最终种植面积 8120 万英亩回升 380 万。"
+    },
+    wheat: {
+        label: "小麦",
+        forum: [45.0, 48.0, 49.5, 47.0, 47.0, 45.0],
+        prospective: [46.4, 47.4, 49.9, 47.5, 45.4, null],
+        acreage: [46.7, 47.1, 49.6, 47.2, 45.5, null],
+        summary: "2026 论坛基线 4500 万英亩，较 2025 最终种植面积 4530 万英亩略低。"
+    }
+};
+
+Object.keys(acreageSeries).forEach(function(key) {
+    ["forum", "prospective", "acreage"].forEach(function(seriesKey) {
+        acreageSeries[key][seriesKey] = acreageSeries[key][seriesKey].map(millionToWanAcres);
+    });
+});
+
+const acreageYears = ["2021", "2022", "2023", "2024", "2025", "2026"];
+const shareYears = ["2021", "2022", "2023", "2024", "2025"];
+
+const prospectiveMix = {
+    corn: [91.1, 89.5, 92.0, 90.0, 95.3].map(millionToWanAcres),
+    soybeans: [87.6, 91.0, 87.5, 86.5, 83.5].map(millionToWanAcres)
+};
+
+const shareSeries = {
+    corn: prospectiveMix.corn.map(function(value, index) {
+        const total = value + prospectiveMix.soybeans[index];
+        return Number(((value / total) * 100).toFixed(1));
+    }),
+    soybeans: prospectiveMix.soybeans.map(function(value, index) {
+        const total = value + prospectiveMix.corn[index];
+        return Number(((value / total) * 100).toFixed(1));
+    })
+};
+
+const ratioYears = ["2021", "2022", "2023", "2024", "2025", "2026"];
+const ratioData = [
+    { year: "2021", corn: 4.58, soy: 11.87, ratio: 2.59 },
+    { year: "2022", corn: 5.90, soy: 14.33, ratio: 2.43 },
+    { year: "2023", corn: 5.91, soy: 13.76, ratio: 2.33 },
+    { year: "2024", corn: 4.66, soy: 11.55, ratio: 2.48 },
+    { year: "2025", corn: 4.70, soy: 10.54, ratio: 2.24 },
+    { year: "2026", corn: 4.62, soy: 11.09, ratio: 2.40 }
+];
+
+const profitModel = {
+    corn: {
+        label: "玉米",
+        price: 4.595,
+        yield: 186.5,
+        operatingCost: 449.02,
+        totalCost: 916.75,
+        fertilizer: 165.88
+    },
+    soybeans: {
+        label: "大豆",
+        price: 11.545,
+        yield: 53.0,
+        operatingCost: 248.87,
+        totalCost: 678.25,
+        fertilizer: 57.14
+    }
+};
+
+Object.keys(profitModel).forEach(function(key) {
+    const item = profitModel[key];
+    item.revenue = Number((item.price * item.yield).toFixed(2));
+    item.operatingMargin = Number((item.revenue - item.operatingCost).toFixed(2));
+    item.totalMargin = Number((item.revenue - item.totalCost).toFixed(2));
+});
+
+function buildAcreageOption(cropKey) {
+    const crop = acreageSeries[cropKey];
+    const seriesColors = {
+        forum: "#2563EB",
+        prospective: "#F97316",
+        acreage: "#16A34A"
+    };
+    return {
+        animationDuration: 700,
+        color: [seriesColors.forum, seriesColors.prospective, seriesColors.acreage],
+        grid: { left: 44, right: 22, top: 54, bottom: 48 },
+        tooltip: {
+            trigger: "axis",
+            backgroundColor: "#FFFFFF",
+            borderWidth: 1,
+            borderColor: "rgba(17,24,39,0.08)",
+            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
+            textStyle: { color: "#111827" },
+            formatter: function(params) {
+                const lines = ['<div style="font-weight:700;margin-bottom:6px;">' + params[0].axisValue + '年 ' + crop.label + '</div>'];
+                params.forEach(function(item) {
+                    const val = item.data == null ? "待公布" : item.data.toLocaleString("zh-CN") + " 万英亩";
+                    lines.push('<div style="margin:4px 0;">' + item.marker + item.seriesName + '：' + val + '</div>');
+                });
+                if (params[0].axisValue === "2026") {
+                    lines.push('<div style="margin-top:6px;color:rgba(17,24,39,0.62);">截至 2026-03-25，2026 年仅论坛值已公布</div>');
+                }
+                return lines.join("");
+            }
+        },
+        legend: {
+            top: 6,
+            itemWidth: 12,
+            itemHeight: 12,
+            textStyle: { color: "#1A56DB", fontSize: 12 },
+            data: ["展望论坛", "种植意向报告", "种植面积报告"]
+        },
+        xAxis: {
+            type: "category",
+            data: acreageYears,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: "#1A56DB" } },
+            axisLabel: { color: "#1A56DB" }
+        },
+        yAxis: {
+            type: "value",
+            name: "万英亩",
+            nameTextStyle: { color: "#1A56DB", padding: [0, 0, 6, 0] },
+            axisLabel: {
+                color: "#1A56DB",
+                formatter: function(value) { return value.toLocaleString("zh-CN"); }
+            },
+            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+        },
+        series: [
+            {
+                name: "展望论坛",
+                type: "line",
+                smooth: 0.28,
+                symbol: "circle",
+                symbolSize: 8,
+                data: crop.forum,
+                lineStyle: { width: 3 },
+                itemStyle: { color: seriesColors.forum }
+            },
+            {
+                name: "种植意向报告",
+                type: "line",
+                smooth: 0.28,
+                symbol: "circle",
+                symbolSize: 8,
+                data: crop.prospective,
+                connectNulls: false,
+                lineStyle: { width: 3, type: "dashed" },
+                itemStyle: { color: seriesColors.prospective }
+            },
+            {
+                name: "种植面积报告",
+                type: "line",
+                smooth: 0.28,
+                symbol: "circle",
+                symbolSize: 8,
+                data: crop.acreage,
+                connectNulls: false,
+                lineStyle: { width: 3 },
+                itemStyle: { color: seriesColors.acreage },
+                areaStyle: {
+                    color: {
+                        type: "linear",
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            { offset: 0, color: "rgba(22,163,74,0.18)" },
+                            { offset: 1, color: "rgba(22,163,74,0.03)" }
+                        ]
+                    }
+                },
+                markPoint: {
+                    symbolSize: 54,
+                    label: {
+                        color: "#F3F4F6",
+                        fontWeight: "bold",
+                        fontSize: 9,
+                        lineHeight: 10,
+                        formatter: "待公布"
+                    },
+                    itemStyle: { color: "#1A56DB" },
+                    data: crop.acreage[5] == null ? [{ coord: ["2026", crop.forum[5]], value: "待公布" }] : []
+                }
+            }
+        ]
+    };
+}
+
+let acreageChart = null;
+let shareChart = null;
+let ratioChart = null;
+let profitChart = null;
+
+function initAcreageChart() {
+    const chartEl = document.getElementById("acreage-chart");
+    if (!chartEl || typeof echarts === "undefined") {
+        return;
+    }
+    acreageChart = echarts.init(chartEl, null, { renderer: "svg" });
+    acreageChart.setOption(buildAcreageOption("corn"));
+
+    const buttons = document.querySelectorAll(".chart-toggle");
+    buttons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            buttons.forEach(function(btn) {
+                btn.classList.remove("active");
+            });
+            button.classList.add("active");
+            acreageChart.setOption(buildAcreageOption(button.dataset.crop), true);
+        });
+    });
+
+    window.addEventListener("resize", function() {
+        if (acreageChart) {
+            acreageChart.resize();
+        }
+        if (shareChart) {
+            shareChart.resize();
+        }
+        if (ratioChart) {
+            ratioChart.resize();
+        }
+        if (profitChart) {
+            profitChart.resize();
+        }
+    });
+}
+
+function initShareChart() {
+    const chartEl = document.getElementById("share-chart");
+    if (!chartEl || typeof echarts === "undefined") {
+        return;
+    }
+    shareChart = echarts.init(chartEl, null, { renderer: "svg" });
+    shareChart.setOption({
+        animationDuration: 700,
+        color: ["#E02424", "#057A55"],
+        grid: { left: 44, right: 22, top: 34, bottom: 42 },
+        tooltip: {
+            trigger: "axis",
+            axisPointer: { type: "shadow" },
+            backgroundColor: "#FFFFFF",
+            borderWidth: 1,
+            borderColor: "rgba(17,24,39,0.08)",
+            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
+            textStyle: { color: "#111827" },
+            formatter: function(params) {
+                const year = params[0].axisValue;
+                const cornAcres = prospectiveMix.corn[params[0].dataIndex];
+                const soyAcres = prospectiveMix.soybeans[params[0].dataIndex];
+                return [
+                    '<div style="font-weight:700;margin-bottom:6px;">' + year + '年 3月种植意向报告</div>',
+                    '<div style="margin:4px 0;">' + params[0].marker + '玉米占比：' + params[0].data + '%</div>',
+                    '<div style="margin:4px 0;">' + params[1].marker + '大豆占比：' + params[1].data + '%</div>',
+                    '<div style="margin-top:6px;color:rgba(17,24,39,0.62);">玉米面积：' + cornAcres.toLocaleString("zh-CN") + ' / 大豆面积：' + soyAcres.toLocaleString("zh-CN") + ' 万英亩</div>'
+                ].join("");
+            }
+        },
+        legend: {
+            top: 0,
+            itemWidth: 12,
+            itemHeight: 12,
+            textStyle: { color: "#1A56DB", fontSize: 12 },
+            data: ["玉米占比", "大豆占比"]
+        },
+        xAxis: {
+            type: "category",
+            data: shareYears,
+            axisLine: { lineStyle: { color: "#1A56DB" } },
+            axisLabel: { color: "#1A56DB" }
+        },
+        yAxis: {
+            type: "value",
+            min: 0,
+            max: 100,
+            axisLabel: {
+                color: "#1A56DB",
+                formatter: "{value}%"
+            },
+            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+        },
+        series: [
+            {
+                name: "玉米占比",
+                type: "bar",
+                stack: "share",
+                barWidth: 34,
+                emphasis: { focus: "series" },
+                data: shareSeries.corn
+            },
+            {
+                name: "大豆占比",
+                type: "bar",
+                stack: "share",
+                barWidth: 34,
+                emphasis: { focus: "series" },
+                data: shareSeries.soybeans
+            }
+        ]
+    });
+}
+
+function initRatioChart() {
+    const chartEl = document.getElementById("ratio-chart");
+    if (!chartEl || typeof echarts === "undefined") {
+        return;
+    }
+    ratioChart = echarts.init(chartEl, null, { renderer: "svg" });
+    ratioChart.setOption({
+        animationDuration: 700,
+        grid: { left: 44, right: 24, top: 30, bottom: 42 },
+        tooltip: {
+            trigger: "axis",
+            backgroundColor: "#FFFFFF",
+            borderWidth: 1,
+            borderColor: "rgba(17,24,39,0.08)",
+            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
+            textStyle: { color: "#111827" },
+            formatter: function(params) {
+                const item = ratioData[params[0].dataIndex];
+                return [
+                    '<div style="font-weight:700;margin-bottom:6px;">' + item.year + '年 豆玉比</div>',
+                    '<div style="margin:4px 0;">' + params[0].marker + '比价：' + item.ratio.toFixed(2) + '</div>',
+                    '<div style="margin:4px 0;color:rgba(17,24,39,0.62);">大豆：' + item.soy.toFixed(2) + ' / 玉米：' + item.corn.toFixed(2) + '</div>'
+                ].join("");
+            }
+        },
+        xAxis: {
+            type: "category",
+            data: ratioYears,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: "#1A56DB" } },
+            axisLabel: { color: "#1A56DB" }
+        },
+        yAxis: {
+            type: "value",
+            min: 2.0,
+            max: 2.7,
+            axisLabel: {
+                color: "#1A56DB",
+                formatter: function(value) { return value.toFixed(1); }
+            },
+            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+        },
+        series: [
+            {
+                name: "豆玉比",
+                type: "line",
+                smooth: 0.28,
+                symbol: "circle",
+                symbolSize: 9,
+                data: ratioData.map(function(item) { return item.ratio; }),
+                lineStyle: { width: 3, color: "#1A56DB" },
+                itemStyle: {
+                    color: function(params) {
+                        const v = ratioData[params.dataIndex].ratio;
+                        if (v >= 2.5) return "#057A55";
+                        if (v <= 2.2) return "#E02424";
+                        return "#1A56DB";
+                    }
+                },
+                areaStyle: {
+                    color: {
+                        type: "linear",
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            { offset: 0, color: "rgba(26,86,219,0.18)" },
+                            { offset: 1, color: "rgba(26,86,219,0.03)" }
+                        ]
+                    }
+                },
+                markArea: {
+                    silent: true,
+                    data: [
+                        [
+                            { yAxis: 2.5, itemStyle: { color: "rgba(5,122,85,0.10)" } },
+                            { yAxis: 2.7 }
+                        ],
+                        [
+                            { yAxis: 2.2, itemStyle: { color: "rgba(26,86,219,0.10)" } },
+                            { yAxis: 2.5 }
+                        ],
+                        [
+                            { yAxis: 2.0, itemStyle: { color: "rgba(224,36,36,0.10)" } },
+                            { yAxis: 2.2 }
+                        ]
+                    ]
+                },
+                markLine: {
+                    symbol: "none",
+                    lineStyle: { color: "#1A56DB", type: "dashed" },
+                    label: { color: "#1A56DB" },
+                    data: [
+                        { yAxis: 2.2, label: { formatter: "2.2" } },
+                        { yAxis: 2.5, label: { formatter: "2.5" } }
+                    ]
+                }
+            }
+        ]
+    });
+}
+
+function initProfitChart() {
+    const chartEl = document.getElementById("profit-chart");
+    if (!chartEl || typeof echarts === "undefined") {
+        return;
+    }
+    profitChart = echarts.init(chartEl, null, { renderer: "svg" });
+    profitChart.setOption({
+        animationDuration: 700,
+        legend: {
+            top: 0,
+            itemWidth: 12,
+            itemHeight: 12,
+            textStyle: { color: "#1A56DB", fontSize: 12 },
+            data: ["玉米", "大豆"]
+        },
+        grid: { left: 94, right: 22, top: 34, bottom: 24 },
+        tooltip: {
+            trigger: "axis",
+            axisPointer: { type: "shadow" },
+            backgroundColor: "#FFFFFF",
+            borderWidth: 1,
+            borderColor: "rgba(17,24,39,0.08)",
+            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
+            textStyle: { color: "#111827" },
+            formatter: function(params) {
+                const lines = ['<div style="font-weight:700;margin-bottom:6px;">' + params[0].axisValue + '</div>'];
+                params.forEach(function(item) {
+                    lines.push('<div style="margin:4px 0;">' + item.marker + item.seriesName + '：$' + Number(item.data).toFixed(2) + '/英亩</div>');
+                });
+                return lines.join("");
+            }
+        },
+        xAxis: {
+            type: "value",
+            axisLabel: {
+                color: "#1A56DB",
+                formatter: function(value) { return "$" + value; }
+            },
+            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+        },
+        yAxis: {
+            type: "category",
+            data: ["价格×单产收入", "经营成本", "总成本"],
+            axisLabel: { color: "#1A56DB" },
+            axisLine: { lineStyle: { color: "#1A56DB" } }
+        },
+        series: [
+            {
+                name: "玉米",
+                type: "bar",
+                barWidth: 16,
+                itemStyle: { color: "#E02424", borderRadius: [0, 8, 8, 0] },
+                data: [profitModel.corn.revenue, profitModel.corn.operatingCost, profitModel.corn.totalCost]
+            },
+            {
+                name: "大豆",
+                type: "bar",
+                barWidth: 16,
+                itemStyle: { color: "#057A55", borderRadius: [0, 8, 8, 0] },
+                data: [profitModel.soybeans.revenue, profitModel.soybeans.operatingCost, profitModel.soybeans.totalCost]
+            }
+        ]
+    });
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove("modal-hidden");
+    requestAnimationFrame(function() {
+        modal.classList.add("modal-visible");
+    });
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove("modal-visible");
+    setTimeout(function() {
+        modal.classList.add("modal-hidden");
+        document.body.style.overflow = "";
+    }, 300);
+}
+
+function handleSharePage() {
+    if (typeof window.Jin10JSBridge !== "undefined") {
+        try {
+            const bridge = new window.Jin10JSBridge();
+            if (bridge.isApp) {
+                bridge.dispatch("appShare", { url: location.href });
+            }
+        } catch (e) {
+        }
+    }
+}
+
+function initAppEnvironment() {
+    const downloadBtn = document.getElementById("download-btn");
+    const shareBtn = document.getElementById("share-btn");
+
+    function browserMode() {
+        if (downloadBtn) {
+            downloadBtn.style.display = "";
+            downloadBtn.classList.remove("flex-1");
+            downloadBtn.classList.add("w-full");
+        }
+        if (shareBtn) {
+            shareBtn.style.display = "none";
+            shareBtn.classList.remove("w-full");
+            shareBtn.classList.add("flex-1");
+        }
+    }
+
+    if (typeof window.Jin10JSBridge !== "undefined") {
+        try {
+            const bridge = new window.Jin10JSBridge();
+            if (bridge.isApp) {
+                if (shareBtn) {
+                    shareBtn.style.display = "";
+                    shareBtn.classList.remove("flex-1");
+                    shareBtn.classList.add("w-full");
+                }
+                if (downloadBtn) {
+                    downloadBtn.style.display = "none";
+                    downloadBtn.classList.remove("w-full");
+                    downloadBtn.classList.add("flex-1");
+                }
+            } else {
+                browserMode();
+            }
+        } catch (e) {
+            browserMode();
+        }
+    } else {
+        browserMode();
+    }
+
+    if (
+        shareBtn &&
+        downloadBtn &&
+        shareBtn.style.display !== "none" &&
+        downloadBtn.style.display !== "none"
+    ) {
+        shareBtn.classList.add("flex-1");
+        shareBtn.classList.remove("w-full");
+        downloadBtn.classList.add("flex-1");
+        downloadBtn.classList.remove("w-full");
+    }
+}
+
+function handleArticleLink(event) {
+    const link = event.currentTarget;
+    const url = link.href;
+    if (!url || url.indexOf("http") !== 0) {
+        return;
+    }
+
+    if (link.id === "download-btn") {
+        return;
+    }
+
+    event.preventDefault();
+
+    if (typeof window.Jin10JSBridge !== "undefined") {
+        try {
+            const bridge = new window.Jin10JSBridge();
+            if (bridge.isApp) {
+                bridge.dispatch("openAppWebViewWithNav", { url: url });
+            } else if (window.innerWidth > 768) {
+                window.open(url, "_blank");
+            } else {
+                window.location.href = url;
+            }
+        } catch (e) {
+            window.location.href = url;
+        }
+    } else if (window.innerWidth > 768) {
+        window.open(url, "_blank");
+    } else {
+        window.location.href = url;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    initAppEnvironment();
+    const externalLinks = document.querySelectorAll('a[href^="http"]');
+    externalLinks.forEach(function(link) {
+        link.addEventListener("click", handleArticleLink);
+    });
+});
+
+function updateCountdown() {
+    const now = Date.now();
+    const distance = releaseTime - now;
+    const el = document.getElementById("countdown");
+    if (!el) {
+        return;
+    }
+    if (distance <= 0) {
+        el.textContent = "报告已发布";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+    el.textContent =
+        String(days).padStart(2, "0") + ":" +
+        String(hours).padStart(2, "0") + ":" +
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+initAcreageChart();
+</script>
+</body>
+</html>
