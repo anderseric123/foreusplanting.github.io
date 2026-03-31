@@ -1,1691 +1,1942 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>USDA 3月种植意向报告前瞻 | 2026专题页</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<style>
-:root {
-    --primary: #1A56DB;
-    --secondary: #E02424;
-    --tertiary: #057A55;
-    --neutral: #F3F4F6;
-    --ink: #111827;
-    --muted: rgba(17, 24, 39, 0.68);
-    --radius: 18px;
-    --radius-sm: 14px;
-}
-body {
-    font-family: 'Source Han Sans', 'Noto Sans CJK SC', sans-serif;
-    color: var(--ink);
-    background: linear-gradient(180deg, var(--neutral) 0%, #FFFFFF 100%);
-    -webkit-font-smoothing: antialiased;
-}
-a {
-    color: var(--primary);
-}
-.pb-safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-}
-.fed-btn-dark {
-    background: var(--primary);
-    color: var(--neutral);
-    border: 1px solid var(--primary);
-}
-.fed-btn-dark:hover {
-    background: var(--tertiary);
-    border-color: var(--tertiary);
-}
-.gold-download {
-    background: linear-gradient(90deg, var(--primary) 0%, var(--tertiary) 100%);
-    color: var(--neutral);
-}
-.gold-download:hover {
-    filter: brightness(1.05);
-}
-.font-display {
-    font-family: 'Source Han Sans', 'Noto Sans CJK SC', sans-serif;
-}
-.glass {
-    background: rgba(243, 244, 246, 0.88);
-    backdrop-filter: blur(18px);
-}
-.shadow-soft {
-    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
-}
-.card-ring {
-    border: 1px solid rgba(26, 86, 219, 0.12);
-    box-shadow:
-        0 16px 36px rgba(17, 24, 39, 0.06),
-        inset 0 1px 0 rgba(243, 244, 246, 0.9);
-}
-.sticky-tabs {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    background: rgba(243, 244, 246, 0.92);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(26, 86, 219, 0.12);
-}
-.tab-btn {
-    transition: all 0.25s ease;
-    color: var(--muted);
-    border-bottom: 3px solid transparent;
-    border-radius: 0;
-    font-weight: 500;
-}
-.tab-btn.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
-    font-weight: 700;
-}
-.metric-bar {
-    position: relative;
-    overflow: hidden;
-}
-.metric-bar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform-origin: left;
-    transform: scaleX(0);
-    animation: grow 1.2s ease forwards;
-    background: linear-gradient(90deg, var(--primary), var(--tertiary));
-}
-.metric-bar.green::after {
-    background: linear-gradient(90deg, var(--tertiary), var(--tertiary));
-}
-.metric-bar.red::after {
-    background: linear-gradient(90deg, var(--secondary), var(--secondary));
-}
-.metric-bar > span {
-    position: relative;
-    z-index: 1;
-}
-.animate-fade {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: rise 0.7s ease forwards;
-}
-.delay-1 { animation-delay: 0.08s; }
-.delay-2 { animation-delay: 0.16s; }
-.delay-3 { animation-delay: 0.24s; }
-.delay-4 { animation-delay: 0.32s; }
-.pill {
-    border: 1px solid rgba(224, 36, 36, 0.20);
-    background: rgba(224, 36, 36, 0.10);
-    color: var(--secondary);
-}
-.source-link {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.source-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 22px rgba(26, 86, 219, 0.08);
-}
-.chart-toggle {
-    transition: all 0.22s ease;
-    border-radius: var(--radius-sm);
-}
-.chart-toggle.active {
-    background: var(--ink);
-    color: var(--neutral);
-    border-color: var(--ink);
-}
-.module-tag {
-    transition: all 0.22s ease;
-    border-radius: var(--radius-sm);
-}
-.module-tag.active {
-    background: var(--primary);
-    color: var(--neutral);
-    border-color: var(--primary);
-}
-.timeline::before {
-    content: "";
-    position: absolute;
-    left: 9px;
-    top: 6px;
-    bottom: 10px;
-    width: 2px;
-    background: rgba(17, 24, 39, 0.12);
-}
-header.page-hero {
-    position: relative;
-    overflow: hidden;
-    background:
-        linear-gradient(180deg, rgba(243, 244, 246, 0.82) 0%, rgba(243, 244, 246, 0.90) 100%),
-        url("https://img.jin10.com/gallary/25/07/0NC--6p0fJy_xSgZNOJvF.png/lite") center/cover no-repeat;
-    color: var(--ink);
-    border-bottom: 1px solid rgba(26, 86, 219, 0.10);
-}
-header.page-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(243, 244, 246, 0.44) 0%, rgba(243, 244, 246, 0.22) 100%);
-}
-.hero-meta {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: rgba(243, 244, 246, 0.88);
-    padding: 12px 16px;
-    color: var(--ink);
-}
-.beginner-banner {
-    background: linear-gradient(135deg, rgba(26, 86, 219, 0.92) 0%, rgba(5, 122, 85, 0.92) 100%);
-    color: var(--neutral);
-}
-.beginner-banner .eyebrow,
-.beginner-banner p,
-.beginner-banner h2 {
-    color: var(--neutral) !important;
-}
-.hero-accent {
-    color: var(--ink);
-    font-weight: 700;
-}
-main > section > div[class*="rounded-[28px]"],
-main > section > div.grid > div[class*="rounded-[28px]"],
-footer > div[class*="rounded-[24px]"] {
-    position: relative;
-    overflow: hidden;
-    background: #FFFFFF !important;
-}
-main > section > div[class*="rounded-[28px]"]::before,
-main > section > div.grid > div[class*="rounded-[28px]"]::before,
-footer > div[class*="rounded-[24px]"]::before {
-    content: "";
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    top: 0;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(17, 24, 39, 0.06);
-}
-.section-card,
-[class*="rounded-[28px]"],
-[class*="rounded-[24px]"] {
-    border-radius: var(--radius) !important;
-}
-.rounded-2xl,
-.rounded-lg,
-.rounded-full {
-    border-radius: var(--radius-sm) !important;
-}
-[class*="bg-white"],
-[class*="bg-slate-50"],
-[class*="bg-slate-100"],
-[class*="bg-amber-50"],
-[class*="bg-amber-100"],
-[class*="bg-emerald-50"],
-[class*="bg-red-50"] {
-    background: var(--neutral) !important;
-}
-[class*="border-white"],
-[class*="border-slate-"],
-[class*="border-amber-"],
-[class*="border-emerald-"],
-[class*="border-red-"] {
-    border-color: rgba(26, 86, 219, 0.12) !important;
-}
-.text-white,
-.text-slate-900,
-.text-slate-700,
-.text-slate-600,
-.text-slate-500,
-.text-slate-400 {
-    color: var(--ink) !important;
-}
-.text-red-700 {
-    color: var(--secondary) !important;
-}
-.bg-slate-400 {
-    background: var(--tertiary) !important;
-}
-.text-emerald-700,
-.text-emerald-600 {
-    color: var(--tertiary) !important;
-}
-.shadow-lg,
-.shadow-soft {
-    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08) !important;
-}
-.bg-slate-950 {
-    background: transparent !important;
-}
-.text-slate-600,
-.text-slate-500,
-.text-slate-400 {
-    color: var(--muted) !important;
-}
-.text-decoration-none {
-    text-decoration: none;
-}
-.scenario-primary {
-    border-color: rgba(26, 86, 219, 0.20) !important;
-}
-.scenario-secondary {
-    border-color: rgba(224, 36, 36, 0.20) !important;
-}
-.scenario-tertiary {
-    border-color: rgba(5, 122, 85, 0.20) !important;
-}
-.status-primary {
-    background: rgba(26, 86, 219, 0.10) !important;
-    color: var(--primary) !important;
-}
-.status-secondary {
-    background: rgba(224, 36, 36, 0.10) !important;
-    color: var(--secondary) !important;
-}
-.status-tertiary {
-    background: rgba(5, 122, 85, 0.10) !important;
-    color: var(--tertiary) !important;
-}
-.progress-lines {
-    position: relative;
-}
-.progress-lines::after {
-    content: "";
-    display: block;
-    height: 4px;
-    margin-top: 16px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--primary) 0 33%, var(--secondary) 33% 66%, var(--tertiary) 66% 100%);
-}
-main h2 {
-    position: relative;
-    padding-left: 14px;
-    letter-spacing: -0.02em;
-}
-main h2::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.25em;
-    width: 6px;
-    height: 1.05em;
-    border-radius: 999px;
-    background: linear-gradient(180deg, var(--tertiary) 0%, var(--primary) 100%);
-}
-.beginner-banner h2 {
-    padding-left: 0;
-}
-.beginner-banner h2::before {
-    display: none;
-}
-.data-hub {
-    background: #FFFFFF !important;
-}
-.data-hub-header {
-    position: relative;
-    z-index: 1;
-}
-.data-hub-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(26, 86, 219, 0.10);
-    color: var(--primary);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-}
-.data-hub-kicker::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, var(--tertiary) 0%, var(--primary) 100%);
-}
-.data-switcher {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 16px;
-    background: #FFFFFF;
-}
-.data-switcher .module-tag {
-    background: transparent !important;
-    color: var(--muted) !important;
-    border-color: transparent !important;
-}
-.data-switcher .module-tag.active {
-    background: #FFFFFF !important;
-    color: var(--ink) !important;
-    border-color: rgba(26, 86, 219, 0.24) !important;
-    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
-}
-.crop-switcher {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 8px;
-    border-radius: 16px;
-    background: #FFFFFF;
-    border: 1px solid rgba(17, 24, 39, 0.06);
-}
-.crop-switcher .chart-toggle {
-    background: transparent !important;
-    color: var(--ink) !important;
-    border-color: transparent !important;
-}
-.crop-switcher .chart-toggle.active {
-    background: #FFFFFF !important;
-    color: var(--ink) !important;
-    border-color: rgba(17, 24, 39, 0.16) !important;
-}
-.data-stage {
-    position: relative;
-    padding: 14px;
-    border-radius: 20px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: #FFFFFF;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
-}
-.data-stage::before {
-    display: none;
-}
-.data-chart {
-    position: relative;
-    z-index: 1;
-}
-.data-note {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.data-note span {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 10px;
-    border-radius: 999px;
-    background: rgba(17, 24, 39, 0.05);
-    color: var(--muted);
-    font-size: 12px;
-}
-.data-note span::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--primary);
-}
-.data-note span.note-corn::before {
-    background: var(--secondary);
-}
-.data-note span.note-soy::before {
-    background: var(--tertiary);
-}
-.data-note span.note-structure::before {
-    background: var(--primary);
-}
-.primer-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    border: 1px solid rgba(17, 24, 39, 0.10);
-    background: #FFFFFF;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 700;
-}
-.primer-summary {
-    margin-top: 2px;
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--muted);
-}
-.primer-summary strong {
-    color: var(--ink);
-}
-.primer-list {
-    margin-top: 12px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-}
-.primer-item {
-    min-width: 0;
-    padding: 14px 14px 16px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.86);
-}
-.primer-kicker {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--primary);
-}
-.primer-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink);
-}
-.primer-copy {
-    margin-top: 2px;
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--muted);
-}
-.primer-panel {
-    margin-top: 12px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: rgba(255, 255, 255, 0.72);
-}
-.module-help-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-}
-.module-help-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    flex: 0 0 auto;
-    border-radius: 999px;
-    border: 1px solid rgba(17, 24, 39, 0.12);
-    background: #FFFFFF;
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 700;
-}
-.module-help-panel {
-    margin-top: 12px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: rgba(255, 255, 255, 0.8);
-}
-.scenario-wheel-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-.scenario-wheel {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: min(100%, 320px);
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border-radius: 999px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: #FFFFFF;
-    box-shadow: 0 14px 32px rgba(17, 24, 39, 0.08);
-}
-.scenario-wheel::before,
-.scenario-wheel::after {
-    content: "";
-    position: absolute;
-    background: rgba(17, 24, 39, 0.08);
-    z-index: 1;
-}
-.scenario-wheel::before {
-    top: 50%;
-    left: 16%;
-    right: 16%;
-    height: 1px;
-    transform: translateY(-50%);
-}
-.scenario-wheel::after {
-    left: 50%;
-    top: 16%;
-    bottom: 16%;
-    width: 1px;
-    transform: translateX(-50%);
-}
-.scenario-slice {
-    position: relative;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 20px;
-    background: transparent;
-    color: var(--ink);
-    text-align: center;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-.scenario-slice span {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1;
-}
-.scenario-slice small {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.4;
-}
-.scenario-slice.active small {
-    color: inherit;
-}
-.scenario-slice.active {
-    background: rgba(26, 86, 219, 0.10);
-    color: var(--primary);
-}
-.scenario-wheel-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 92px;
-    height: 92px;
-    border-radius: 999px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-    line-height: 1.5;
-    transform: translate(-50%, -50%);
-}
-.scenario-detail {
-    width: 100%;
-    max-width: 720px;
-    padding: 18px 20px;
-    border-radius: 20px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    background: #FFFFFF;
-}
-.scenario-detail h3 {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--ink);
-}
-.scenario-detail p {
-    margin-top: 10px;
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--muted);
-}
-.scenario-detail-badge {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 10px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-}
-.scenario-detail-badge.red {
-    background: rgba(224, 36, 36, 0.10);
-    color: var(--secondary);
-}
-.scenario-detail-badge.green {
-    background: rgba(5, 122, 85, 0.10);
-    color: var(--tertiary);
-}
-.scenario-detail-badge.blue {
-    background: rgba(26, 86, 219, 0.10);
-    color: var(--primary);
-}
-@media (max-width: 640px) {
-    .data-stage {
-        padding: 10px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>交割风险预警雷达 | 焦煤2604</title>
+  <style>
+    :root {
+      --bg: #07111d;
+      --bg-soft: #0b1828;
+      --panel: rgba(13, 26, 42, 0.92);
+      --panel-strong: rgba(17, 32, 51, 0.96);
+      --line: rgba(149, 177, 214, 0.16);
+      --line-strong: rgba(149, 177, 214, 0.28);
+      --text: #edf4ff;
+      --muted: #8ea3bf;
+      --faint: #6e8098;
+      --accent: #67c1ff;
+      --accent-soft: rgba(103, 193, 255, 0.16);
+      --warning: #ffb55a;
+      --danger: #ff6b6b;
+      --danger-soft: rgba(255, 107, 107, 0.14);
+      --success: #4fd2a2;
+      --success-soft: rgba(79, 210, 162, 0.14);
+      --observe: #f2cd5c;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 16px;
+      --press: translateY(1px) scale(0.996);
     }
-    .data-switcher {
-        padding: 6px;
+
+    * {
+      box-sizing: border-box;
     }
-    .primer-item {
-        padding: 12px;
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top right, rgba(103, 193, 255, 0.12), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(79, 210, 162, 0.08), transparent 28%),
+        linear-gradient(180deg, #07111d 0%, #091523 48%, #08121d 100%);
+      color: var(--text);
+      font-family: "SF Pro Display", "PingFang SC", "Segoe UI", "Noto Sans SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
-    .primer-summary,
-    .primer-copy {
-        font-size: 14px;
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.16;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.4), transparent 85%);
     }
-    .primer-list {
-        gap: 8px;
+
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
     }
-    .primer-title {
-        font-size: 14px;
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
     }
-    .primer-kicker {
-        font-size: 11px;
+
+    .shell {
+      width: min(100%, 460px);
+      margin: 0 auto;
+      padding: max(16px, env(safe-area-inset-top)) 14px max(28px, env(safe-area-inset-bottom));
+      position: relative;
+      z-index: 1;
     }
-    .scenario-wheel {
-        width: min(100%, 280px);
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
     }
-    .scenario-wheel-center {
-        width: 82px;
-        height: 82px;
-        font-size: 11px;
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
-}
-@keyframes rise {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes grow {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-}
-</style>
+
+    .brand-kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ghost-btn,
+    .source-btn {
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(13, 26, 42, 0.72);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .ghost-btn:active,
+    .source-btn:active,
+    .metric-card:active,
+    .segmented button:active,
+    details summary:active {
+      transform: var(--press);
+    }
+
+    .app {
+      display: grid;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+
+    .app.ready {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero {
+      padding: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -60px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103, 193, 255, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(11, 24, 40, 0.9);
+      border: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .banner strong {
+      display: block;
+      font-size: 12px;
+      color: #dfe9f6;
+    }
+
+    .banner span {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .banner-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex: none;
+      background: var(--warning);
+      box-shadow: 0 0 16px rgba(255, 181, 90, 0.42);
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .chip.neutral {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.08);
+      color: #dbe5f1;
+    }
+
+    .chip.status {
+      background: rgba(255, 181, 90, 0.14);
+      border-color: rgba(255, 181, 90, 0.28);
+      color: #ffd28a;
+    }
+
+    .chip.risk-low {
+      background: var(--success-soft);
+      border-color: rgba(79, 210, 162, 0.28);
+      color: #80e2bd;
+    }
+
+    .chip.risk-mid {
+      background: rgba(242, 205, 92, 0.14);
+      border-color: rgba(242, 205, 92, 0.28);
+      color: #f4d773;
+    }
+
+    .chip.risk-high,
+    .chip.risk-extreme {
+      background: var(--danger-soft);
+      border-color: rgba(255, 107, 107, 0.28);
+      color: #ff9a9a;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.22;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 10px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .hero-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-foot div:last-child {
+      text-align: right;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--faint);
+      margin-bottom: 5px;
+    }
+
+    .hero-value {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .hero-subvalue {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .gauge-panel {
+      display: grid;
+      place-items: center;
+      padding: 8px 0 4px;
+    }
+
+    .gauge {
+      --deg: 230deg;
+      position: relative;
+      width: 172px;
+      height: 172px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(9, 21, 35, 0.98) 0 54%, transparent 54% 100%),
+        conic-gradient(from 210deg,
+          #3fd09c 0deg 70deg,
+          #f0cb63 70deg 130deg,
+          #ff9f4c 130deg 195deg,
+          #ff6669 195deg 280deg,
+          rgba(255,255,255,0.07) 280deg 360deg);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 10px rgba(255,255,255,0.02);
+      overflow: hidden;
+    }
+
+    .gauge::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .needle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 3px;
+      height: 62px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffffff 0%, #8fd5ff 100%);
+      transform-origin: center calc(100% - 8px);
+      transform: translate(-50%, -100%) rotate(var(--deg));
+      box-shadow: 0 0 18px rgba(255,255,255,0.34);
+    }
+
+    .needle::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -7px;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #eff7ff;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.08);
+    }
+
+    .gauge-center {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding-top: 18px;
+    }
+
+    .gauge-score {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .gauge-caption {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .metric-value {
+      margin-top: 10px;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-unit {
+      margin-left: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .metric-change,
+    .metric-source {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .metric-change.negative {
+      color: #ff8a8f;
+    }
+
+    .metric-change.positive {
+      color: #73ddae;
+    }
+
+    .metric-card.accent {
+      border-color: rgba(103, 193, 255, 0.24);
+      background: linear-gradient(180deg, rgba(17, 32, 51, 0.98), rgba(11, 26, 42, 0.98));
+    }
+
+    .split-panel {
+      display: grid;
+      gap: 10px;
+    }
+
+    .subpanel {
+      padding: 14px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      margin-top: 3px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .countdown-main {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(7, 17, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .countdown-days {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .countdown-days strong {
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .countdown-days span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .heat-band {
+      margin-top: 12px;
+      padding: 12px 12px 14px;
+      border-radius: 18px;
+      background: rgba(7, 17, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .band-track {
+      position: relative;
+      margin-top: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #45d19e 0%, #f2cc63 40%, #ff9f4c 70%, #ff6669 100%);
+      overflow: hidden;
+    }
+
+    .band-marker {
+      position: absolute;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #f5fbff;
+      border: 3px solid rgba(7, 17, 29, 0.88);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 18px rgba(255,255,255,0.24);
+    }
+
+    .band-labels {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 9px;
+      font-size: 11px;
+      color: var(--faint);
+      text-align: center;
+    }
+
+    .heat-note {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .segmented {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .segmented button {
+      min-width: 54px;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background 160ms ease, color 160ms ease;
+    }
+
+    .segmented button.active {
+      background: rgba(103, 193, 255, 0.18);
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .chart-panel,
+    .anchor-panel,
+    .history-panel,
+    .accordion-panel {
+      padding: 14px;
+    }
+
+    .chart-block {
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(7, 17, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .chart-block + .chart-block,
+    .chart-stack {
+      margin-top: 10px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .chart-host {
+      width: 100%;
+      min-height: 230px;
+    }
+
+    .chart-host.compact {
+      min-height: 190px;
+    }
+
+    .chart-note {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .anchor-summary {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .anchor-main {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(7, 17, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .anchor-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(103, 193, 255, 0.14);
+      color: #bfe6ff;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .anchor-main h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .anchor-figure {
+      margin-top: 10px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .anchor-figure strong {
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .anchor-figure span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .anchor-grid,
+    .fee-grid,
+    .history-cards {
+      display: grid;
+      gap: 10px;
+    }
+
+    .anchor-mini,
+    .history-card {
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(7, 17, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .detail-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .detail-row:first-child {
+      padding-top: 0;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .detail-value {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e8f1fb;
+    }
+
+    .anchor-table {
+      margin-top: 12px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .anchor-table table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(7, 17, 29, 0.72);
+    }
+
+    .anchor-table th,
+    .anchor-table td {
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 12px;
+    }
+
+    .anchor-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .anchor-table th {
+      color: var(--faint);
+      font-weight: 700;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .anchor-table td:last-child,
+    .anchor-table th:last-child {
+      text-align: right;
+    }
+
+    .history-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .history-card .meta-line {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .history-card .value-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .value-strip div {
+      padding: 10px 8px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .value-strip strong {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--faint);
+      text-transform: uppercase;
+    }
+
+    .value-strip span {
+      display: block;
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .history-card .note {
+      margin-top: 9px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    details {
+      border-radius: 18px;
+      background: rgba(7, 17, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    details + details {
+      margin-top: 10px;
+    }
+
+    summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-icon {
+      color: var(--muted);
+      transition: transform 180ms ease;
+    }
+
+    details[open] .summary-icon {
+      transform: rotate(45deg);
+    }
+
+    .details-body {
+      padding: 0 14px 14px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .details-body p {
+      margin: 10px 0 0;
+    }
+
+    .details-body ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(4, 9, 15, 0.72);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: min(100%, 440px);
+      max-height: min(82vh, 720px);
+      overflow: auto;
+      border-radius: 22px;
+      background: rgba(10, 20, 33, 0.98);
+      border: 1px solid var(--line-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .close-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .source-list {
+      padding: 12px 16px 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .source-item {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .source-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .source-item .meta {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .source-item .fields {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .field-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(103, 193, 255, 0.1);
+      color: #bfdef7;
+      font-size: 11px;
+    }
+
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, rgba(6, 12, 20, 0.98), rgba(7, 17, 29, 0.96));
+      z-index: 60;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .loading.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-card {
+      width: min(88vw, 320px);
+      padding: 20px 18px;
+      border-radius: 24px;
+      background: rgba(13, 26, 42, 0.94);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 14px;
+      border: 3px solid rgba(255,255,255,0.08);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 900ms linear infinite;
+    }
+
+    .loading strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .loading span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--faint);
+      text-align: center;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
-<body class="pb-28 md:pb-32">
-<header class="page-hero">
-    <div class="relative mx-auto max-w-5xl px-5 pb-10 pt-12 text-center">
-        <h1 class="font-display mx-auto max-w-4xl text-4xl font-semibold leading-tight text-white md:text-5xl">
-            USDA 3月种植意向报告前瞻
-        </h1>
+<body>
+  <!--
+    抓取说明：
+    1. 期货日线/盘口：
+       curl -A 'Mozilla/5.0' -H 'Referer: https://finance.sina.com.cn' 'https://hq.sinajs.cn/?list=nf_JM2604'
+       curl -A 'Mozilla/5.0' -H 'Referer: https://finance.sina.com.cn' 'https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_data=/InnerFuturesNewService.getDailyKLine?symbol=JM2604'
+       curl -A 'Mozilla/5.0' -H 'Referer: https://finance.sina.com.cn' 'https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_data=/InnerFuturesNewService.getDailyKLine?symbol=JM2504'
+       curl -A 'Mozilla/5.0' -H 'Referer: https://finance.sina.com.cn' 'https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_data=/InnerFuturesNewService.getDailyKLine?symbol=JM2404'
+    2. 现货锚：
+       https://www.ccera.com.cn/web/177/list.html
+       https://www.ccera.com.cn/web/177/202603/26574.html
+       https://www.ccera.com.cn/web/177/202603/26552.html
+       周报图经 OCR 与规则解析提取。
+    3. 规则补充：
+       https://www.cctd.com.cn/show-111-253137-1.html
+       https://www.1qh.cn/Commodity/2.html
+  -->
 
-        <div class="hero-meta mx-auto mt-6 text-sm">
-            <span class="hero-accent">报告公布时间：北京时间 2026年4月1日 00:00</span>
-        </div>
+  <div class="loading" id="loading">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <strong>正在更新最新数据</strong>
+      <span>优先尝试实时刷新；如遇跨域或公开接口限制，将自动回退到本次抓取快照。</span>
     </div>
-</header>
+  </div>
 
-<main class="mx-auto mt-8 max-w-5xl space-y-8 px-4">
-    <section id="view-deep" class="space-y-8">
-        <div class="animate-fade rounded-[28px] border border-white/70 bg-white/80 p-5 shadow-soft backdrop-blur md:p-7">
-            <div class="mb-5 flex items-center gap-2 progress-lines">
-                <h2 class="text-2xl font-black text-slate-900">一眼看懂这份报告</h2>
-                <button id="primer-trigger" type="button" class="primer-btn" onclick="togglePrimer()" aria-expanded="false" aria-controls="primer-panel" aria-label="什么是种植意向报告" title="什么是种植意向报告">
-                    ?
-                </button>
-            </div>
-            <p class="primer-summary"><strong>当前基线：</strong>大豆 <strong>8500 万英亩</strong>，玉米 <strong>9400 万英亩</strong>，市场仍在交易“豆进米退”。</p>
-            <div class="primer-list">
-                <div class="primer-item">
-                    <div class="primer-kicker">01</div>
-                    <div>
-                        <div class="primer-title">发布时间</div>
-                        <p class="primer-copy">北京时间 4 月 1 日 0 点，同时公布种植意向报告和季度谷物库存报告。</p>
-                    </div>
-                </div>
-                <div class="primer-item">
-                    <div class="primer-kicker">02</div>
-                    <div>
-                        <div class="primer-title">核心看点</div>
-                        <p class="primer-copy">关键不在大豆会不会增种，而在最终数据是否偏离基线。</p>
-                    </div>
-                </div>
-                <div class="primer-item">
-                    <div class="primer-kicker">03</div>
-                    <div>
-                        <div class="primer-title">先看三个数</div>
-                        <p class="primer-copy">大豆种植面积、玉米种植面积、3 月 1 日大豆库存。</p>
-                    </div>
-                </div>
-            </div>
-            <div id="primer-panel" class="primer-panel hidden">
-                <div class="space-y-3 text-[14px] leading-7 text-slate-600">
-                    <p><strong class="text-slate-900">种植意向报告是什么：</strong>它是 USDA 在春播前向农户调查“准备种什么、种多少”后形成的年度第一份官方面积图。</p>
-                    <p><strong class="text-slate-900">为什么重要：</strong>面积一旦明显偏离预期，市场就会立刻重算秋季供给，所以它常常是新作价格第一轮重定价的起点。</p>
-                    <p><strong class="text-slate-900">为什么同一天还要看库存：</strong>因为种植意向代表新作，季度库存代表旧作，当天盘面往往会同时交易两者。</p>
-                    <div class="mt-4 rounded-2xl border border-slate-200/80 bg-white/80 p-4">
-                        <p class="text-sm font-bold text-slate-900">历史复盘：种植意向为什么常能引爆行情</p>
-                        <div class="mt-3 space-y-3 text-[13px] leading-6 text-slate-600">
-                            <p><strong class="text-slate-900">2024年3月29日：</strong>USDA 公布的大豆和玉米种植面积都低于市场预期，美豆走高，国内豆粕期货次日跳空高开，说明“面积偏低”叠加“原本已有悲观预期”时，修正会很快。</p>
-                            <p><strong class="text-slate-900">2021年4月1日：</strong>USDA 预计美豆面积仅 8760 万英亩，明显低于市场大约 9000 万英亩的预估，CBOT 豆系多个合约一度触及涨停，是经典的“面积惊吓”行情。</p>
-                            <p><strong class="text-slate-900">2025年3月31日：</strong>USDA 种植意向报告显示，玉米 9530 万英亩、同比增 5%，大豆 8350 万英亩、同比降 4%，再次说明面积切换从来不是线性的，报告经常会打脸平均预期。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-kicker">Delivery Structure Monitor</div>
+        <div class="brand-title">交割风险预警雷达</div>
+      </div>
+      <div class="header-actions">
+        <button class="ghost-btn" id="explainButton" type="button">刷新说明</button>
+        <button class="source-btn" id="sourceButton" type="button">数据来源</button>
+      </div>
+    </header>
+
+    <main class="app" id="app">
+      <section class="panel hero">
+        <div class="banner" id="snapshotBanner">
+          <i class="banner-dot"></i>
+          <div>
+            <strong id="snapshotTitle"></strong>
+            <span id="snapshotText"></span>
+          </div>
         </div>
 
-        <div class="data-hub animate-fade delay-2 rounded-[28px] border border-white/70 bg-white/80 p-5 shadow-soft md:p-7">
-            <div class="data-hub-header mb-6">
-                <div class="flex flex-wrap items-end justify-between gap-3">
-                    <div>
-                        <h2 class="text-2xl font-black text-slate-900">核心数据图表</h2>
-                    </div>
-                </div>
-                <div class="data-switcher mt-4">
-                    <button type="button" class="module-tag active rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="acreage" onclick="switchDataPanel('acreage')">历史种植面积走势</button>
-                    <button type="button" class="module-tag rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="share" onclick="switchDataPanel('share')">种植结构占比变化</button>
-                    <button type="button" class="module-tag rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="ratio" onclick="switchDataPanel('ratio')">玉米、大豆比价图</button>
-                    <button type="button" class="module-tag rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-panel="profit" onclick="switchDataPanel('profit')">种植利润模型</button>
-                </div>
-            </div>
+        <div class="hero-grid">
+          <div>
+            <div class="hero-meta" id="heroMeta"></div>
+            <h1 id="headline"></h1>
+            <p id="headlineNote"></p>
+          </div>
 
-            <div id="panel-acreage" class="data-panel space-y-4">
-                <div class="crop-switcher">
-                    <button class="chart-toggle active rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-crop="corn" type="button">玉米</button>
-                    <button class="chart-toggle rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-crop="soybeans" type="button">大豆</button>
-                    <button class="chart-toggle rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700" data-crop="wheat" type="button">小麦</button>
-                </div>
-                <div class="data-stage">
-                    <div id="acreage-chart" class="data-chart h-[420px] w-full"></div>
-                </div>
-                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
-                    <p><strong class="text-slate-900">直观看点：</strong>2021-2025 这 5 个完整年份里，玉米在 2023 和 2025 年都出现了“3 月意向上修到 6 月进一步确认”的特征；大豆则在 2022、2023、2024 年都经历了从展望论坛到正式报告的方向再修正。也就是说，展望论坛很重要，但它从来不是最后答案。</p>
-                </div>
-            </div>
-
-            <div id="panel-share" class="data-panel hidden space-y-4">
-                <div class="module-help-row">
-                    <div class="data-note">
-                        <span class="note-structure">只看玉米和大豆之间的面积分配</span>
-                        <span class="note-corn">玉米占比</span>
-                        <span class="note-soy">大豆占比</span>
-                    </div>
-                    <button type="button" class="module-help-btn" id="share-help-trigger" onclick="toggleHelp('share-help-panel','share-help-trigger')" aria-expanded="false" aria-controls="share-help-panel">?</button>
-                </div>
-                <div id="share-help-panel" class="module-help-panel hidden">
-                    <div class="space-y-3 text-[14px] leading-7 text-slate-600">
-                        <p><strong class="text-slate-900">口径说明：</strong>本页仅比较美国大豆与玉米两大主作物的种植面积占比，用于观察“豆进米退”或“米进豆退”。</p>
-                        <p><strong class="text-slate-900">计算方式：</strong>各自种植面积 ÷（大豆种植面积 + 玉米种植面积），数据均采用当年3月种植意向报告。</p>
-                    </div>
-                </div>
-                <div class="data-stage">
-                    <div id="share-chart" class="data-chart h-[380px] w-full"></div>
-                </div>
-                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
-                    <p><strong class="text-slate-900">图上能看到什么：</strong>2022 年是近几年大豆占比最高的一次，因为当年 3 月意向里大豆 9100 万英亩高于玉米 8950 万；2025 年则明显转向玉米，大豆占比被压到近年低位。2026 年数据还未公布，因此当前只能把 2021-2025 当成历史参照，等待 4 月 1 日凌晨的新值落点。</p>
-                </div>
-            </div>
-
-            <div id="panel-ratio" class="data-panel hidden space-y-4">
-                <div class="module-help-row">
-                    <div class="data-note">
-                        <span class="note-structure">2.2-2.5 是播种决策模糊区</span>
-                        <span class="note-soy">高于 2.5 倾向多种大豆</span>
-                        <span class="note-corn">低于 2.2 倾向多种玉米</span>
-                    </div>
-                    <button type="button" class="module-help-btn" id="ratio-help-trigger" onclick="toggleHelp('ratio-help-panel','ratio-help-trigger')" aria-expanded="false" aria-controls="ratio-help-panel">?</button>
-                </div>
-                <div id="ratio-help-panel" class="module-help-panel hidden">
-                    <div class="space-y-3 text-[14px] leading-7 text-slate-600">
-                        <p><strong class="text-slate-900">采用口径：</strong>这里使用RMA春季projected price对应的豆玉比，底层反映的是2月CBOT大豆和玉米期货的平均定价信号，相比单日盘面，更适合观察播种决策变化。</p>
-                        <p><strong class="text-slate-900">阈值逻辑：</strong>豆玉比通常高于2.5时，大豆对边际亩数的吸引力更强；低于2.2时，玉米相对更占优势；介于2.2至2.5之间时，通常属于决策摇摆区。</p>
-                    </div>
-                </div>
-                <div class="data-stage">
-                    <div id="ratio-chart" class="data-chart h-[380px] w-full"></div>
-                </div>
-                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
-                    <p><strong class="text-slate-900">当前含义：</strong>2026 年官方豆玉比约为 2.40，仍在模糊区偏上沿，说明大豆仍有抢地条件，但远没有高到形成单边压倒性的“疯狂种豆”信号。对今年来说，比价更多是在支持“豆子能抢回一部分面积”，而不是支持“大豆面积无上限扩张”。</p>
-                </div>
-            </div>
-
-            <div id="panel-profit" class="data-panel hidden space-y-4">
-                <div class="module-help-row">
-                    <div class="data-note">
-                        <span class="note-structure">利润 = 价格 × 单产 - 成本</span>
-                    </div>
-                    <button type="button" class="module-help-btn" id="profit-help-trigger" onclick="toggleHelp('profit-help-panel','profit-help-trigger')" aria-expanded="false" aria-controls="profit-help-panel">?</button>
-                </div>
-                <div id="profit-help-panel" class="module-help-panel hidden">
-                    <div class="space-y-3 text-[14px] leading-7 text-slate-600">
-                        <p><strong class="text-slate-900">模型口径：</strong>价格采用2026年3月25日的CBOT前月合约快照，单产采用USDA2026年1月口径，成本采用USDAERS2026F。该模型用于观察播种激励的相对变化，不代表农户实际利润。</p>
-                        <p><strong class="text-slate-900">结果显示：</strong>按上述口径估算，玉米每英亩收入约857美元、大豆约612美元；扣除经营成本后，玉米利润约408美元、大豆约363美元。这意味着，尽管豆玉比在2.4附近仍支持大豆争夺边际亩数，但若将单产纳入比较，玉米在收入端仍更占优势。</p>
-                    </div>
-                </div>
-                <div class="data-stage">
-                    <div id="profit-chart" class="data-chart h-[380px] w-full"></div>
-                </div>
-                <div class="space-y-3 text-[15px] leading-8 text-slate-600">
-                    <p><strong class="text-slate-900">为什么还会出现“玉米让地”预期：</strong>因为玉米成本更重，尤其是肥料。ERS 2026F 预测里，玉米肥料成本 `165.88` 美元/英亩，大豆只有 `57.14` 美元/英亩，单是肥料一项就高出 `108.74` 美元。换句话说，玉米利润虽然看起来更高，但它对价格回落和成本扰动也更敏感，所以当比价处于 2.2-2.5 的模糊区时，农户仍有动力把边际亩数转向大豆。</p>
-                    <p><strong class="text-slate-900">再看总成本：</strong>若把土地机会成本、设备资本回收等全部算进去，玉米总成本约 `916.75` 美元/英亩、大豆约 `678.25` 美元/英亩，两者在当前盘面下都仍是负的总利润。这也说明春播决策并不只是“谁赚得更多”，更是“谁更能扛波动、谁的现金流压力更小”。</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="animate-fade delay-2 rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft md:p-7">
-            <div class="space-y-10">
+          <div class="gauge-panel">
+            <div class="gauge" id="riskGauge">
+              <div class="needle" id="gaugeNeedle"></div>
+              <div class="gauge-center">
                 <div>
-                    <div class="mb-5 flex items-end justify-between gap-4">
-                        <div>
-                            <h2 class="text-2xl font-black text-slate-900">情形观察与后续跟踪</h2>
-                            <p class="mt-2 text-[14px] leading-7 text-slate-500">口径说明：本模块基于种植面积与库存数据的不同组合情形进行整理，用于帮助理解报告关注点，不对应任何价格方向或交易建议。</p>
-                        </div>
-                    </div>
-                    <div class="scenario-wheel-wrap">
-                        <div class="scenario-wheel" role="tablist" aria-label="四种观察情形">
-                            <button type="button" class="scenario-slice scenario-slice-a active" data-scenario="a" onclick="switchScenario('a')" aria-selected="true">
-                                <span>A</span>
-                                <small>玉米面积低于基线</small>
-                            </button>
-                            <button type="button" class="scenario-slice scenario-slice-b" data-scenario="b" onclick="switchScenario('b')" aria-selected="false">
-                                <span>B</span>
-                                <small>大豆面积高于基线</small>
-                            </button>
-                            <button type="button" class="scenario-slice scenario-slice-c" data-scenario="c" onclick="switchScenario('c')" aria-selected="false">
-                                <span>C</span>
-                                <small>大豆面积低于基线</small>
-                            </button>
-                            <button type="button" class="scenario-slice scenario-slice-d" data-scenario="d" onclick="switchScenario('d')" aria-selected="false">
-                                <span>D</span>
-                                <small>面积与库存需结合观察</small>
-                            </button>
-                            <div class="scenario-wheel-center">点击查看<br>观察要点</div>
-                        </div>
-
-                        <div id="scenario-detail-a" class="scenario-detail">
-                            <h3>情形 A <span class="scenario-detail-badge blue">玉米面积低于基线</span></h3>
-                            <p>若玉米种植面积低于 9400 万英亩，且库存端未显示明显宽松，市场通常会提高对新作供给变化的关注。后续仍需结合天气、播种进度及 6 月最终种植面积报告继续观察。</p>
-                        </div>
-                        <div id="scenario-detail-b" class="scenario-detail hidden">
-                            <h3>情形 B <span class="scenario-detail-badge blue">大豆面积高于基线</span></h3>
-                            <p>若大豆种植面积明显高于 8500 万英亩，说明大豆扩种力度强于当前基线设想。后续需要结合季度库存报告、播种节奏以及 6 月最终种植面积报告，继续观察新作供给预期是否进一步强化。</p>
-                        </div>
-                        <div id="scenario-detail-c" class="scenario-detail hidden">
-                            <h3>情形 C <span class="scenario-detail-badge blue">大豆面积低于基线</span></h3>
-                            <p>若大豆种植面积低于 8500 万英亩，说明农户扩种意愿弱于官方基线。后续仍需结合库存、天气与播种进度继续观察，判断这种偏离是否会在后续报告中得到确认。</p>
-                        </div>
-                        <div id="scenario-detail-d" class="scenario-detail hidden">
-                            <h3>情形 D <span class="scenario-detail-badge blue">面积与库存需结合观察</span></h3>
-                            <p>若种植面积与季度库存报告释放出不同信号，解读时需要把新作面积和旧作库存放在一起观察。后续还应继续跟踪播种进度、天气变化及 6 月最终种植面积报告，避免单独依据某一个数据点做判断。</p>
-                        </div>
-                        <p class="w-full max-w-[720px] text-[14px] leading-7 text-slate-500">风险提示：上述内容仅为基于公开数据口径的情形归纳，用于帮助理解报告关注点，不构成对任何品种价格走势的判断，不构成任何投资建议或交易依据。</p>
-                    </div>
+                  <div class="gauge-score" id="gaugeScore"></div>
+                  <div class="gauge-caption">风险热度</div>
                 </div>
-
-                <div>
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-black text-slate-900">报告后还要继续追什么</h3>
-                        <p class="mt-1 text-sm text-slate-500">3 月 31 日不是终点，它只是春季交易叙事的起点。</p>
-                    </div>
-                    <div class="timeline relative space-y-6 pl-8">
-                        <div class="relative">
-                            <div class="absolute left-[-30px] top-1.5 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></div>
-                            <div class="text-sm font-bold">4月上旬</div>
-                            <p class="mt-1 text-[15px] leading-7 text-slate-600">看市场是否把 3 月 31 日结果重新映射到新作平衡表，尤其是大豆单产还未进入天气交易前，面积权重会很高。</p>
-                        </div>
-                        <div class="relative">
-                            <div class="absolute left-[-30px] top-1.5 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></div>
-                            <div class="text-sm font-bold text-slate-700">4月中下旬</div>
-                            <p class="mt-1 text-[15px] leading-7 text-slate-600">播种进度和土壤墒情会逐步接管叙事。若玉米播种慢、豆类播种快，资金会进一步强化“豆进米退”。</p>
-                        </div>
-                        <div class="relative">
-                            <div class="absolute left-[-30px] top-1.5 h-5 w-5 rounded-full border-4 border-white bg-slate-400"></div>
-                            <div class="text-sm font-bold text-slate-700">6月种植面积报告</div>
-                            <p class="mt-1 text-[15px] leading-7 text-slate-600">这是对 3 月意向的第一次官方复核。若两次数字偏差大，6 月通常会成为第二次重定价窗口。</p>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
 
-        <div class="animate-fade delay-4 rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft md:p-7">
-            <div class="mb-5">
-                <h2 class="text-2xl font-black text-slate-900">资料来源与说明</h2>
-            </div>
-            <div class="space-y-4 text-[15px] leading-8 text-slate-600">
-                <p>本页主要依据 USDA、NASS、RMA 等公开官方资料整理，相关发布时间、面积基线、库存数据及比价参考均以官方口径为准。</p>
-                <p>页内关于市场关注点和情形推演的内容，系基于公开数据的整理与归纳，仅供信息参考，不构成任何投资建议或交易依据。</p>
-            </div>
+        <div class="hero-foot">
+          <div>
+            <div class="eyebrow">数据更新时间</div>
+            <div class="hero-value" id="updateTime"></div>
+            <div class="hero-subvalue" id="actualContract"></div>
+          </div>
+          <div>
+            <div class="eyebrow">观察焦点</div>
+            <div class="hero-value" id="focusMetric"></div>
+            <div class="hero-subvalue" id="focusMetricSub"></div>
+          </div>
         </div>
-    </section>
-</main>
+      </section>
 
-<div class="fixed bottom-0 left-0 z-40 w-full border-t border-slate-200 bg-white/95 shadow-soft backdrop-blur-md pb-safe-bottom">
-    <div class="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3 md:gap-4">
-        <button id="share-btn" onclick="handleSharePage()" style="display: none;" class="fed-btn-dark flex-1 h-11 rounded-lg text-sm font-medium transition-all active:scale-95 md:text-base">
-            <span class="flex items-center justify-center gap-2">
-                <svg class="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C9.886 12.511 11.338 12 12.91 12c1.572 0 3.024.511 4.226 1.342M8.684 10.658C9.886 11.489 11.338 12 12.91 12c1.572 0 3.024-.511 4.226-1.342M17 5a2 2 0 110 4 2 2 0 010-4zM7 10a2 2 0 110 4 2 2 0 010-4zm10 5a2 2 0 110 4 2 2 0 010-4z"></path>
-                </svg>
-                <span>分享专题</span>
-            </span>
-        </button>
+      <section class="metrics-grid" id="metricGrid"></section>
 
-        <a id="download-btn" href="https://qihuo.jin10.com/app/index.html" target="_blank" rel="noopener noreferrer" class="gold-download flex-1 h-11 rounded-lg text-decoration-none shadow-lg transition-all active:scale-95">
-            <span class="flex h-full flex-col items-center justify-center leading-none">
-                <span class="text-sm font-bold md:text-base">下载金十期货APP</span>
-                <span class="scale-90 text-[10px] font-normal opacity-80 md:text-xs">获取完整油脂资讯</span>
-            </span>
-        </a>
+      <section class="split-panel">
+        <div class="panel subpanel">
+          <div class="section-head">
+            <div>
+              <div class="section-title">交割倒计时</div>
+              <div class="section-subtitle">按合约月份近似识别敏感阶段，不替代交易所正式日历。</div>
+            </div>
+          </div>
+
+          <div class="countdown-grid">
+            <div class="countdown-main">
+              <div class="eyebrow">距离交割月</div>
+              <div class="countdown-days">
+                <strong id="countdownDays"></strong>
+                <span>天</span>
+              </div>
+              <p class="section-subtitle" id="countdownNote"></p>
+            </div>
+
+            <div class="countdown-main">
+              <div class="eyebrow">持仓拥挤度</div>
+              <div class="countdown-days">
+                <strong id="crowdingPct"></strong>
+                <span>%</span>
+              </div>
+              <p class="section-subtitle">近120个交易日持仓量分位，当前拥挤度已明显回落。</p>
+            </div>
+          </div>
+
+          <div class="heat-band">
+            <div class="section-title">风险热度仪表盘</div>
+            <div class="band-track">
+              <div class="band-marker" id="bandMarker"></div>
+            </div>
+            <div class="band-labels">
+              <span>低风险区</span>
+              <span>观察区</span>
+              <span>高风险区</span>
+              <span>极端区</span>
+            </div>
+            <div class="heat-note" id="heatNote"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="section-head">
+          <div>
+            <div class="section-title">主图表区</div>
+            <div class="section-subtitle">期货收盘价与标准化交割成本线均来自本次抓取或其派生日频映射。</div>
+          </div>
+          <div class="segmented" id="windowToggle">
+            <button type="button" data-window="20">20日</button>
+            <button type="button" data-window="60">60日</button>
+            <button type="button" data-window="120">120日</button>
+          </div>
+        </div>
+
+        <div class="chart-block">
+          <div class="legend">
+            <span><i style="background:#67c1ff"></i>期货收盘价</span>
+            <span><i style="background:#ffd27c"></i>标准化交割成本</span>
+          </div>
+          <div class="chart-host" id="priceCostChart"></div>
+          <div class="chart-note">成本线口径：`蒙5原煤口岸现货日度报价 + 交割升贴水及杂费假设`。若同源公开日更存在缺口，页面按最近公开日度值前向填充。</div>
+        </div>
+
+        <div class="chart-stack">
+          <div class="chart-block">
+            <div class="legend">
+              <span><i style="background:#ff7f82"></i>成本偏离值</span>
+            </div>
+            <div class="chart-host compact" id="deviationChart"></div>
+            <div class="chart-note" id="deviationSummary"></div>
+          </div>
+
+          <div class="chart-block">
+            <div class="legend">
+              <span><i style="background:#86e2bb"></i>持仓量</span>
+            </div>
+            <div class="chart-host compact" id="oiChart"></div>
+            <div class="chart-note">当前持仓量仅 <span id="currentOiText"></span> 手，处于近120个交易日低位区间。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel anchor-panel">
+        <div class="section-head">
+          <div>
+            <div class="section-title">最低成本交割候选 / 成本锚</div>
+            <div class="section-subtitle">不假装精确复原最便宜可交割资源链路，而是明确展示公开口径与标准化假设。</div>
+          </div>
+        </div>
+
+        <div class="anchor-summary">
+          <div class="anchor-main">
+            <div class="anchor-kicker">标准化估算口径</div>
+            <h3 id="anchorName"></h3>
+            <div class="anchor-figure">
+              <strong id="anchorCost"></strong>
+              <span>元/吨</span>
+            </div>
+            <p class="section-subtitle" id="anchorMethod"></p>
+          </div>
+
+          <div class="anchor-grid" id="anchorMiniGrid"></div>
+        </div>
+
+        <div class="anchor-table">
+          <table>
+            <thead>
+              <tr>
+                <th>候选口径</th>
+                <th>最新值</th>
+              </tr>
+            </thead>
+            <tbody id="anchorTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="section-head">
+          <div>
+            <div class="section-title">历史可比阶段</div>
+            <div class="section-subtitle">当前阶段与上两年同月份近月合约对照；当同口径公开成本链缺失时，退化为价格与持仓结构观察。</div>
+          </div>
+          <div class="segmented" id="compareToggle">
+            <button type="button" data-compare="price">价格</button>
+            <button type="button" data-compare="oi">持仓</button>
+          </div>
+        </div>
+
+        <div class="history-cards" id="historyCards"></div>
+
+        <div class="chart-block">
+          <div class="legend" id="phaseLegend"></div>
+          <div class="chart-host compact" id="phaseCompareChart"></div>
+          <div class="chart-note" id="phaseNote"></div>
+        </div>
+      </section>
+
+      <section class="panel accordion-panel">
+        <details open>
+          <summary>指标定义 <span class="summary-icon">+</span></summary>
+          <div class="details-body">
+            <p>标准化交割成本：以公开可得的焦煤价格锚为基础，叠加统一的质量调整与标准化费用假设后得到的观察口径。</p>
+            <p>成本偏离值：当前期货价减去标准化交割成本。数值为负时代表盘面对该成本口径贴水，为正时代表升水。</p>
+            <p>风险热度：综合绝对偏离分位、交割月时间位置与持仓拥挤分位形成的内部观察分值，不代表方向判断。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>数据来源说明 <span class="summary-icon">+</span></summary>
+          <div class="details-body">
+            <p>期货价格、成交量、持仓量与历史日线来自新浪财经期货公开页面与公开接口。</p>
+            <p>成本锚优先来自甘其毛都口岸蒙5#原煤公开市场报价与汾渭 CCI 甘其毛都口岸蒙5#原煤价格指数等公开日度条目；缺口日期使用最近公开日值前向填充。</p>
+            <p>交割规则摘要来自 CCTD 转载的大商所公告及其官方附件链接；合约通用参数补充来自公开合约信息页。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>口径说明 <span class="summary-icon">+</span></summary>
+          <div class="details-body">
+            <p id="degradationText"></p>
+            <p>由于公开可追溯口径无法完整重建“最便宜可交割品”链路，页面将质量调整统一按 0 处理，并把运杂、仓储、检验等费用显式列为标准化估算项。</p>
+            <p>主图成本线优先使用蒙5原煤口岸日度报价 / CCI 日指数，并叠加标准化升贴水与杂费假设；该口径更接近交割博弈中的 CTD 现货底线观察，但仍不等同于可直接开票交仓的精确仓单成本。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>风险提示 <span class="summary-icon">+</span></summary>
+          <div class="details-body">
+            <p>本模块基于公开市场数据、交易所规则及标准化费用假设进行估算，用于观察交割相关价格结构变化，不构成对未来价格走势的判断，也不构成任何投资建议。</p>
+            <p>页面中的“高偏离观察区”“风险敏感度上升”等提示仅用于识别交割阶段可能放大的结构波动，不代表确定性的交易结果。</p>
+          </div>
+        </details>
+      </section>
+
+      <div class="footer-note">当前页面使用抓取时点数据快照，若需自动化重抓，可将顶部注释内的抓取逻辑改造成后端任务。</div>
+    </main>
+  </div>
+
+  <div class="modal" id="sourceModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2>数据来源</h2>
+          <div class="section-subtitle">当前所用来源列表与抓取时间</div>
+        </div>
+        <button class="close-btn" id="closeModal" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="source-list" id="sourceList"></div>
     </div>
-</div>
+  </div>
 
-<script>
-function togglePrimer() {
-    const panel = document.getElementById("primer-panel");
-    const trigger = document.getElementById("primer-trigger");
-    if (!panel || !trigger) {
-        return;
-    }
-    const willOpen = panel.classList.contains("hidden");
-    panel.classList.toggle("hidden");
-    trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
-}
+  <script id="snapshot-data" type="application/json">{"meta":{"product":"交割风险预警雷达","subtitle":"交割月价格结构观察工具","generated_at":"2026-03-31 17:18:34","snapshot_note":"当前页面使用抓取时点数据快照","actual_contract":"JM2604","actual_contract_name":"焦煤2604","requested_contract":"焦煤2604","status_label":"交割敏感期","risk_level":"高","risk_heat_score":74,"headline":"当前盘面对标准化交割成本仍处明显贴水，交割阶段价格结构敏感度上升","hint":"当前贴水已处于历史偏高区间，关注交割阶段价格结构变化","days_to_delivery_month":1,"delivery_month_note":"按合约月份近似，距离2026年4月交割月还有1天。","degradation_note":"2024年3月以前的同口径公开周频现货链未纳入本次抓取，历史可比模块对JM2404退化为近月合约价格与持仓对照。"},"latest_metrics":{"latest_price":{"label":"当前期货价","value":1014.5,"unit":"元/吨","change":-115.5,"change_pct":-10.22,"source":"Sina Futures JM2604 日线/实时盘口快照"},"standard_cost":{"label":"标准化交割成本","value":1216.0,"unit":"元/吨","source":"CCP山西焦煤长协指数 + 标准化费用假设"},"deviation":{"label":"成本偏离值","value":-201.5,"unit":"元/吨","source":"当前期货价 - 标准化交割成本"},"historical_percentile":{"label":"历史分位","value":74.8,"unit":"%","source":"JM2604全样本绝对偏离分位"},"open_interest":{"label":"持仓量","value":898,"unit":"手","source":"Sina Futures JM2604日线"},"deviation_20d_mean":{"label":"近20日偏离均值","value":-127.7,"unit":"元/吨","source":"近20个交易日派生"},"deviation_60d_extreme":{"label":"近60日偏离极值","value":206.5,"unit":"元/吨","source":"近60个交易日绝对值极值"},"oi_120d_percentile":{"label":"持仓拥挤分位","value":0.8,"unit":"%","source":"近120个交易日持仓量分位"}},"cost_anchor":{"methodology":"基于公开市场价格、交易所规则与标准化费用假设估算","anchor_name":"中价·新华山西焦煤价格指数 长协指数","anchor_value":1164.0,"spot_reference_name":"中价·新华山西焦煤价格指数 现货指数","spot_reference_value":1235.0,"quality_adjustment":0,"quality_adjustment_note":"公开口径无法细化到具体可交割煤种与升贴水链条，当前按标准品0处理。","fee_items":[{"name":"入库及短驳","value":22,"type":"assumption"},{"name":"仓储与资金占用","value":18,"type":"assumption"},{"name":"检验及杂费","value":12,"type":"assumption"}],"estimated_cost":1216.0,"candidate_anchors":[{"name":"CCP山西长协指数","value":1164.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"CCP山西现货指数","value":1235.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"CCP综合长协指数","value":1137.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"CCP综合现货指数","value":1212.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"屯兰焦精煤现货(铁路)","value":1520.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"马兰肥精煤现货(铁路)","value":1505.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"双柳肥精煤现货(公路)","value":1500.0,"source":"CCERA周度数据汇总 2026-03-31"}]},"history_compare":[{"label":"当前阶段","contract":"JM2604","date":"2026-03-31","close":1014.5,"open_interest":898,"cost":1216.0,"deviation":-201.5,"note":"公开周频焦煤价格已匹配到同日最近周度值。"},{"label":"去年同期可比阶段","contract":"JM2504","date":"2025-03-31","close":880.0,"open_interest":200,"cost":null,"deviation":null,"note":"使用同品种上年4月合约，成本锚沿用公开周频链。"},{"label":"前年同期可比阶段","contract":"JM2404","date":"2024-03-29","close":1480.0,"open_interest":600,"cost":null,"deviation":null,"note":"2024年3月以前的同口径公开周频现货链未纳入本次抓取，退化为近月合约价格与持仓对照。 当前模块以期货价格与持仓对照为主。"}],"compare_average_deviation":-2.8,"chart_windows":{"20":[{"date":"2026-03-04","close":1033.0,"cost":1216.0,"deviation":-183.0,"open_interest":20000,"volume":9905},{"date":"2026-03-05","close":1044.0,"cost":1216.0,"deviation":-172.0,"open_interest":19444,"volume":9846},{"date":"2026-03-06","close":1054.5,"cost":1216.0,"deviation":-161.5,"open_interest":18624,"volume":7325},{"date":"2026-03-09","close":1095.5,"cost":1216.0,"deviation":-120.5,"open_interest":16321,"volume":16322},{"date":"2026-03-10","close":1032.5,"cost":1216.0,"deviation":-183.5,"open_interest":16063,"volume":7406},{"date":"2026-03-11","close":1057.0,"cost":1216.0,"deviation":-159.0,"open_interest":15830,"volume":6218},{"date":"2026-03-12","close":1064.5,"cost":1216.0,"deviation":-151.5,"open_interest":15517,"volume":8984},{"date":"2026-03-13","close":1088.5,"cost":1216.0,"deviation":-127.5,"open_interest":14192,"volume":11546},{"date":"2026-03-16","close":1099.0,"cost":1216.0,"deviation":-117.0,"open_interest":14039,"volume":8770},{"date":"2026-03-17","close":1058.5,"cost":1216.0,"deviation":-157.5,"open_interest":14580,"volume":9786},{"date":"2026-03-18","close":1062.5,"cost":1216.0,"deviation":-153.5,"open_interest":6007,"volume":8740},{"date":"2026-03-19","close":1075.0,"cost":1216.0,"deviation":-141.0,"open_interest":3575,"volume":3809},{"date":"2026-03-20","close":1089.0,"cost":1216.0,"deviation":-127.0,"open_interest":2430,"volume":1973},{"date":"2026-03-23","close":1197.0,"cost":1216.0,"deviation":-19.0,"open_interest":2033,"volume":2273},{"date":"2026-03-24","close":1156.5,"cost":1216.0,"deviation":-59.5,"open_interest":1420,"volume":1763},{"date":"2026-03-25","close":1157.0,"cost":1216.0,"deviation":-59.0,"open_interest":1296,"volume":402},{"date":"2026-03-26","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1224,"volume":202},{"date":"2026-03-27","close":1128.0,"cost":1216.0,"deviation":-88.0,"open_interest":1125,"volume":407},{"date":"2026-03-30","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1028,"volume":206},{"date":"2026-03-31","close":1014.5,"cost":1216.0,"deviation":-201.5,"open_interest":898,"volume":475}],"60":[{"date":"2025-12-26","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":11512,"volume":4664},{"date":"2025-12-29","close":1035.0,"cost":1240.0,"deviation":-205.0,"open_interest":11270,"volume":3842},{"date":"2025-12-30","close":1067.0,"cost":1240.0,"deviation":-173.0,"open_interest":11059,"volume":3747},{"date":"2025-12-31","close":1062.0,"cost":1240.0,"deviation":-178.0,"open_interest":11067,"volume":2597},{"date":"2026-01-05","close":1033.5,"cost":1240.0,"deviation":-206.5,"open_interest":11203,"volume":2506},{"date":"2026-01-06","close":1041.0,"cost":1240.0,"deviation":-199.0,"open_interest":11528,"volume":3861},{"date":"2026-01-07","close":1110.5,"cost":1240.0,"deviation":-129.5,"open_interest":12176,"volume":6055},{"date":"2026-01-08","close":1133.5,"cost":1240.0,"deviation":-106.5,"open_interest":12750,"volume":13364},{"date":"2026-01-09","close":1140.0,"cost":1240.0,"deviation":-100.0,"open_interest":12831,"volume":6334},{"date":"2026-01-12","close":1181.0,"cost":1240.0,"deviation":-59.0,"open_interest":13326,"volume":8614},{"date":"2026-01-13","close":1133.0,"cost":1240.0,"deviation":-107.0,"open_interest":13257,"volume":5355},{"date":"2026-01-14","close":1139.5,"cost":1240.0,"deviation":-100.5,"open_interest":13209,"volume":5068},{"date":"2026-01-15","close":1131.0,"cost":1240.0,"deviation":-109.0,"open_interest":12878,"volume":2818},{"date":"2026-01-16","close":1117.0,"cost":1240.0,"deviation":-123.0,"open_interest":12904,"volume":4847},{"date":"2026-01-19","close":1119.0,"cost":1240.0,"deviation":-121.0,"open_interest":13276,"volume":4551},{"date":"2026-01-20","close":1071.0,"cost":1240.0,"deviation":-169.0,"open_interest":13556,"volume":5615},{"date":"2026-01-21","close":1078.5,"cost":1240.0,"deviation":-161.5,"open_interest":13461,"volume":4901},{"date":"2026-01-22","close":1078.0,"cost":1240.0,"deviation":-162.0,"open_interest":13818,"volume":4575},{"date":"2026-01-23","close":1096.0,"cost":1240.0,"deviation":-144.0,"open_interest":14922,"volume":7982},{"date":"2026-01-26","close":1099.5,"cost":1240.0,"deviation":-140.5,"open_interest":15184,"volume":6545},{"date":"2026-01-27","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":15081,"volume":6005},{"date":"2026-01-28","close":1075.5,"cost":1240.0,"deviation":-164.5,"open_interest":15562,"volume":5960},{"date":"2026-01-29","close":1103.0,"cost":1240.0,"deviation":-137.0,"open_interest":15959,"volume":8017},{"date":"2026-01-30","close":1090.5,"cost":1240.0,"deviation":-149.5,"open_interest":16468,"volume":11514},{"date":"2026-02-02","close":1075.0,"cost":1240.0,"deviation":-165.0,"open_interest":17570,"volume":11161},{"date":"2026-02-03","close":1093.5,"cost":1240.0,"deviation":-146.5,"open_interest":18425,"volume":8893},{"date":"2026-02-04","close":1128.0,"cost":1240.0,"deviation":-112.0,"open_interest":21221,"volume":11606},{"date":"2026-02-05","close":1094.0,"cost":1240.0,"deviation":-146.0,"open_interest":21496,"volume":8278},{"date":"2026-02-06","close":1066.0,"cost":1216.0,"deviation":-150.0,"open_interest":22431,"volume":7454},{"date":"2026-02-09","close":1076.0,"cost":1216.0,"deviation":-140.0,"open_interest":23350,"volume":5496},{"date":"2026-02-10","close":1050.5,"cost":1216.0,"deviation":-165.5,"open_interest":23724,"volume":4121},{"date":"2026-02-11","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23750,"volume":3710},{"date":"2026-02-12","close":1053.0,"cost":1216.0,"deviation":-163.0,"open_interest":22591,"volume":3779},{"date":"2026-02-13","close":1053.5,"cost":1216.0,"deviation":-162.5,"open_interest":21344,"volume":5013},{"date":"2026-02-24","close":1038.0,"cost":1216.0,"deviation":-178.0,"open_interest":21718,"volume":5325},{"date":"2026-02-25","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23101,"volume":6271},{"date":"2026-02-26","close":1019.5,"cost":1216.0,"deviation":-196.5,"open_interest":23506,"volume":8758},{"date":"2026-02-27","close":1022.5,"cost":1216.0,"deviation":-193.5,"open_interest":23621,"volume":6402},{"date":"2026-03-02","close":1027.0,"cost":1216.0,"deviation":-189.0,"open_interest":21570,"volume":9253},{"date":"2026-03-03","close":1057.5,"cost":1216.0,"deviation":-158.5,"open_interest":20675,"volume":12406},{"date":"2026-03-04","close":1033.0,"cost":1216.0,"deviation":-183.0,"open_interest":20000,"volume":9905},{"date":"2026-03-05","close":1044.0,"cost":1216.0,"deviation":-172.0,"open_interest":19444,"volume":9846},{"date":"2026-03-06","close":1054.5,"cost":1216.0,"deviation":-161.5,"open_interest":18624,"volume":7325},{"date":"2026-03-09","close":1095.5,"cost":1216.0,"deviation":-120.5,"open_interest":16321,"volume":16322},{"date":"2026-03-10","close":1032.5,"cost":1216.0,"deviation":-183.5,"open_interest":16063,"volume":7406},{"date":"2026-03-11","close":1057.0,"cost":1216.0,"deviation":-159.0,"open_interest":15830,"volume":6218},{"date":"2026-03-12","close":1064.5,"cost":1216.0,"deviation":-151.5,"open_interest":15517,"volume":8984},{"date":"2026-03-13","close":1088.5,"cost":1216.0,"deviation":-127.5,"open_interest":14192,"volume":11546},{"date":"2026-03-16","close":1099.0,"cost":1216.0,"deviation":-117.0,"open_interest":14039,"volume":8770},{"date":"2026-03-17","close":1058.5,"cost":1216.0,"deviation":-157.5,"open_interest":14580,"volume":9786},{"date":"2026-03-18","close":1062.5,"cost":1216.0,"deviation":-153.5,"open_interest":6007,"volume":8740},{"date":"2026-03-19","close":1075.0,"cost":1216.0,"deviation":-141.0,"open_interest":3575,"volume":3809},{"date":"2026-03-20","close":1089.0,"cost":1216.0,"deviation":-127.0,"open_interest":2430,"volume":1973},{"date":"2026-03-23","close":1197.0,"cost":1216.0,"deviation":-19.0,"open_interest":2033,"volume":2273},{"date":"2026-03-24","close":1156.5,"cost":1216.0,"deviation":-59.5,"open_interest":1420,"volume":1763},{"date":"2026-03-25","close":1157.0,"cost":1216.0,"deviation":-59.0,"open_interest":1296,"volume":402},{"date":"2026-03-26","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1224,"volume":202},{"date":"2026-03-27","close":1128.0,"cost":1216.0,"deviation":-88.0,"open_interest":1125,"volume":407},{"date":"2026-03-30","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1028,"volume":206},{"date":"2026-03-31","close":1014.5,"cost":1216.0,"deviation":-201.5,"open_interest":898,"volume":475}],"120":[{"date":"2025-09-25","close":1301.0,"cost":1114.0,"deviation":187.0,"open_interest":1145,"volume":246},{"date":"2025-09-26","close":1258.0,"cost":1114.0,"deviation":144.0,"open_interest":1085,"volume":379},{"date":"2025-09-29","close":1217.5,"cost":1114.0,"deviation":103.5,"open_interest":1077,"volume":328},{"date":"2025-09-30","close":1193.5,"cost":1114.0,"deviation":79.5,"open_interest":932,"volume":591},{"date":"2025-10-09","close":1238.0,"cost":1114.0,"deviation":124.0,"open_interest":934,"volume":337},{"date":"2025-10-10","close":1238.0,"cost":1158.0,"deviation":80.0,"open_interest":996,"volume":433},{"date":"2025-10-13","close":1221.0,"cost":1158.0,"deviation":63.0,"open_interest":1019,"volume":468},{"date":"2025-10-14","close":1215.0,"cost":1158.0,"deviation":57.0,"open_interest":1171,"volume":827},{"date":"2025-10-15","close":1208.5,"cost":1158.0,"deviation":50.5,"open_interest":1273,"volume":994},{"date":"2025-10-16","close":1248.0,"cost":1158.0,"deviation":90.0,"open_interest":1264,"volume":530},{"date":"2025-10-17","close":1241.0,"cost":1161.0,"deviation":80.0,"open_interest":1246,"volume":553},{"date":"2025-10-20","close":1264.0,"cost":1161.0,"deviation":103.0,"open_interest":1401,"volume":918},{"date":"2025-10-21","close":1232.5,"cost":1161.0,"deviation":71.5,"open_interest":1138,"volume":779},{"date":"2025-10-22","close":1264.5,"cost":1161.0,"deviation":103.5,"open_interest":1101,"volume":210},{"date":"2025-10-23","close":1304.0,"cost":1161.0,"deviation":143.0,"open_interest":1193,"volume":644},{"date":"2025-10-24","close":1293.5,"cost":1161.0,"deviation":132.5,"open_interest":1012,"volume":846},{"date":"2025-10-27","close":1306.5,"cost":1161.0,"deviation":145.5,"open_interest":1099,"volume":561},{"date":"2025-10-28","close":1288.5,"cost":1161.0,"deviation":127.5,"open_interest":1053,"volume":523},{"date":"2025-10-29","close":1355.5,"cost":1161.0,"deviation":194.5,"open_interest":1299,"volume":983},{"date":"2025-10-30","close":1338.0,"cost":1161.0,"deviation":177.0,"open_interest":1288,"volume":698},{"date":"2025-10-31","close":1333.0,"cost":1161.0,"deviation":172.0,"open_interest":1235,"volume":691},{"date":"2025-11-03","close":1323.5,"cost":1161.0,"deviation":162.5,"open_interest":1772,"volume":1659},{"date":"2025-11-04","close":1293.0,"cost":1161.0,"deviation":132.0,"open_interest":2353,"volume":3029},{"date":"2025-11-05","close":1311.0,"cost":1161.0,"deviation":150.0,"open_interest":2788,"volume":1622},{"date":"2025-11-06","close":1327.0,"cost":1161.0,"deviation":166.0,"open_interest":3202,"volume":2140},{"date":"2025-11-07","close":1301.0,"cost":1216.0,"deviation":85.0,"open_interest":3476,"volume":2395},{"date":"2025-11-10","close":1291.0,"cost":1216.0,"deviation":75.0,"open_interest":3886,"volume":2505},{"date":"2025-11-11","close":1250.0,"cost":1216.0,"deviation":34.0,"open_interest":4974,"volume":4582},{"date":"2025-11-12","close":1258.0,"cost":1216.0,"deviation":42.0,"open_interest":5462,"volume":1993},{"date":"2025-11-13","close":1242.0,"cost":1216.0,"deviation":26.0,"open_interest":5856,"volume":2237},{"date":"2025-11-14","close":1227.0,"cost":1218.0,"deviation":9.0,"open_interest":6192,"volume":2258},{"date":"2025-11-17","close":1255.0,"cost":1218.0,"deviation":37.0,"open_interest":6524,"volume":2345},{"date":"2025-11-18","close":1212.5,"cost":1218.0,"deviation":-5.5,"open_interest":7042,"volume":4241},{"date":"2025-11-19","close":1191.0,"cost":1218.0,"deviation":-27.0,"open_interest":7219,"volume":2811},{"date":"2025-11-20","close":1162.5,"cost":1218.0,"deviation":-55.5,"open_interest":7525,"volume":6969},{"date":"2025-11-21","close":1166.0,"cost":1218.0,"deviation":-52.0,"open_interest":7600,"volume":4974},{"date":"2025-11-24","close":1157.0,"cost":1218.0,"deviation":-61.0,"open_interest":7774,"volume":5922},{"date":"2025-11-25","close":1162.0,"cost":1218.0,"deviation":-56.0,"open_interest":7739,"volume":4153},{"date":"2025-11-26","close":1152.5,"cost":1218.0,"deviation":-65.5,"open_interest":8027,"volume":5083},{"date":"2025-11-27","close":1142.0,"cost":1218.0,"deviation":-76.0,"open_interest":7960,"volume":3322},{"date":"2025-11-28","close":1131.0,"cost":1218.0,"deviation":-87.0,"open_interest":8108,"volume":2899},{"date":"2025-12-01","close":1158.0,"cost":1218.0,"deviation":-60.0,"open_interest":8454,"volume":3953},{"date":"2025-12-02","close":1157.0,"cost":1218.0,"deviation":-61.0,"open_interest":8483,"volume":2073},{"date":"2025-12-03","close":1141.0,"cost":1218.0,"deviation":-77.0,"open_interest":8813,"volume":3384},{"date":"2025-12-04","close":1157.0,"cost":1218.0,"deviation":-61.0,"open_interest":8858,"volume":2264},{"date":"2025-12-05","close":1117.0,"cost":1218.0,"deviation":-101.0,"open_interest":8972,"volume":2167},{"date":"2025-12-08","close":1068.0,"cost":1218.0,"deviation":-150.0,"open_interest":9135,"volume":3638},{"date":"2025-12-09","close":1057.5,"cost":1218.0,"deviation":-160.5,"open_interest":9144,"volume":1708},{"date":"2025-12-10","close":1044.0,"cost":1218.0,"deviation":-174.0,"open_interest":9202,"volume":2265},{"date":"2025-12-11","close":1009.0,"cost":1218.0,"deviation":-209.0,"open_interest":9410,"volume":4058},{"date":"2025-12-12","close":992.0,"cost":1218.0,"deviation":-226.0,"open_interest":10249,"volume":6287},{"date":"2025-12-15","close":1030.0,"cost":1218.0,"deviation":-188.0,"open_interest":11111,"volume":7043},{"date":"2025-12-16","close":1037.5,"cost":1218.0,"deviation":-180.5,"open_interest":9711,"volume":6734},{"date":"2025-12-17","close":1031.5,"cost":1218.0,"deviation":-186.5,"open_interest":9767,"volume":3610},{"date":"2025-12-18","close":1090.0,"cost":1218.0,"deviation":-128.0,"open_interest":10427,"volume":6409},{"date":"2025-12-19","close":1068.0,"cost":1240.0,"deviation":-172.0,"open_interest":10801,"volume":5088},{"date":"2025-12-22","close":1066.5,"cost":1240.0,"deviation":-173.5,"open_interest":10933,"volume":5337},{"date":"2025-12-23","close":1076.5,"cost":1240.0,"deviation":-163.5,"open_interest":11088,"volume":6599},{"date":"2025-12-24","close":1073.0,"cost":1240.0,"deviation":-167.0,"open_interest":11419,"volume":4110},{"date":"2025-12-25","close":1069.5,"cost":1240.0,"deviation":-170.5,"open_interest":11415,"volume":2541},{"date":"2025-12-26","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":11512,"volume":4664},{"date":"2025-12-29","close":1035.0,"cost":1240.0,"deviation":-205.0,"open_interest":11270,"volume":3842},{"date":"2025-12-30","close":1067.0,"cost":1240.0,"deviation":-173.0,"open_interest":11059,"volume":3747},{"date":"2025-12-31","close":1062.0,"cost":1240.0,"deviation":-178.0,"open_interest":11067,"volume":2597},{"date":"2026-01-05","close":1033.5,"cost":1240.0,"deviation":-206.5,"open_interest":11203,"volume":2506},{"date":"2026-01-06","close":1041.0,"cost":1240.0,"deviation":-199.0,"open_interest":11528,"volume":3861},{"date":"2026-01-07","close":1110.5,"cost":1240.0,"deviation":-129.5,"open_interest":12176,"volume":6055},{"date":"2026-01-08","close":1133.5,"cost":1240.0,"deviation":-106.5,"open_interest":12750,"volume":13364},{"date":"2026-01-09","close":1140.0,"cost":1240.0,"deviation":-100.0,"open_interest":12831,"volume":6334},{"date":"2026-01-12","close":1181.0,"cost":1240.0,"deviation":-59.0,"open_interest":13326,"volume":8614},{"date":"2026-01-13","close":1133.0,"cost":1240.0,"deviation":-107.0,"open_interest":13257,"volume":5355},{"date":"2026-01-14","close":1139.5,"cost":1240.0,"deviation":-100.5,"open_interest":13209,"volume":5068},{"date":"2026-01-15","close":1131.0,"cost":1240.0,"deviation":-109.0,"open_interest":12878,"volume":2818},{"date":"2026-01-16","close":1117.0,"cost":1240.0,"deviation":-123.0,"open_interest":12904,"volume":4847},{"date":"2026-01-19","close":1119.0,"cost":1240.0,"deviation":-121.0,"open_interest":13276,"volume":4551},{"date":"2026-01-20","close":1071.0,"cost":1240.0,"deviation":-169.0,"open_interest":13556,"volume":5615},{"date":"2026-01-21","close":1078.5,"cost":1240.0,"deviation":-161.5,"open_interest":13461,"volume":4901},{"date":"2026-01-22","close":1078.0,"cost":1240.0,"deviation":-162.0,"open_interest":13818,"volume":4575},{"date":"2026-01-23","close":1096.0,"cost":1240.0,"deviation":-144.0,"open_interest":14922,"volume":7982},{"date":"2026-01-26","close":1099.5,"cost":1240.0,"deviation":-140.5,"open_interest":15184,"volume":6545},{"date":"2026-01-27","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":15081,"volume":6005},{"date":"2026-01-28","close":1075.5,"cost":1240.0,"deviation":-164.5,"open_interest":15562,"volume":5960},{"date":"2026-01-29","close":1103.0,"cost":1240.0,"deviation":-137.0,"open_interest":15959,"volume":8017},{"date":"2026-01-30","close":1090.5,"cost":1240.0,"deviation":-149.5,"open_interest":16468,"volume":11514},{"date":"2026-02-02","close":1075.0,"cost":1240.0,"deviation":-165.0,"open_interest":17570,"volume":11161},{"date":"2026-02-03","close":1093.5,"cost":1240.0,"deviation":-146.5,"open_interest":18425,"volume":8893},{"date":"2026-02-04","close":1128.0,"cost":1240.0,"deviation":-112.0,"open_interest":21221,"volume":11606},{"date":"2026-02-05","close":1094.0,"cost":1240.0,"deviation":-146.0,"open_interest":21496,"volume":8278},{"date":"2026-02-06","close":1066.0,"cost":1216.0,"deviation":-150.0,"open_interest":22431,"volume":7454},{"date":"2026-02-09","close":1076.0,"cost":1216.0,"deviation":-140.0,"open_interest":23350,"volume":5496},{"date":"2026-02-10","close":1050.5,"cost":1216.0,"deviation":-165.5,"open_interest":23724,"volume":4121},{"date":"2026-02-11","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23750,"volume":3710},{"date":"2026-02-12","close":1053.0,"cost":1216.0,"deviation":-163.0,"open_interest":22591,"volume":3779},{"date":"2026-02-13","close":1053.5,"cost":1216.0,"deviation":-162.5,"open_interest":21344,"volume":5013},{"date":"2026-02-24","close":1038.0,"cost":1216.0,"deviation":-178.0,"open_interest":21718,"volume":5325},{"date":"2026-02-25","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23101,"volume":6271},{"date":"2026-02-26","close":1019.5,"cost":1216.0,"deviation":-196.5,"open_interest":23506,"volume":8758},{"date":"2026-02-27","close":1022.5,"cost":1216.0,"deviation":-193.5,"open_interest":23621,"volume":6402},{"date":"2026-03-02","close":1027.0,"cost":1216.0,"deviation":-189.0,"open_interest":21570,"volume":9253},{"date":"2026-03-03","close":1057.5,"cost":1216.0,"deviation":-158.5,"open_interest":20675,"volume":12406},{"date":"2026-03-04","close":1033.0,"cost":1216.0,"deviation":-183.0,"open_interest":20000,"volume":9905},{"date":"2026-03-05","close":1044.0,"cost":1216.0,"deviation":-172.0,"open_interest":19444,"volume":9846},{"date":"2026-03-06","close":1054.5,"cost":1216.0,"deviation":-161.5,"open_interest":18624,"volume":7325},{"date":"2026-03-09","close":1095.5,"cost":1216.0,"deviation":-120.5,"open_interest":16321,"volume":16322},{"date":"2026-03-10","close":1032.5,"cost":1216.0,"deviation":-183.5,"open_interest":16063,"volume":7406},{"date":"2026-03-11","close":1057.0,"cost":1216.0,"deviation":-159.0,"open_interest":15830,"volume":6218},{"date":"2026-03-12","close":1064.5,"cost":1216.0,"deviation":-151.5,"open_interest":15517,"volume":8984},{"date":"2026-03-13","close":1088.5,"cost":1216.0,"deviation":-127.5,"open_interest":14192,"volume":11546},{"date":"2026-03-16","close":1099.0,"cost":1216.0,"deviation":-117.0,"open_interest":14039,"volume":8770},{"date":"2026-03-17","close":1058.5,"cost":1216.0,"deviation":-157.5,"open_interest":14580,"volume":9786},{"date":"2026-03-18","close":1062.5,"cost":1216.0,"deviation":-153.5,"open_interest":6007,"volume":8740},{"date":"2026-03-19","close":1075.0,"cost":1216.0,"deviation":-141.0,"open_interest":3575,"volume":3809},{"date":"2026-03-20","close":1089.0,"cost":1216.0,"deviation":-127.0,"open_interest":2430,"volume":1973},{"date":"2026-03-23","close":1197.0,"cost":1216.0,"deviation":-19.0,"open_interest":2033,"volume":2273},{"date":"2026-03-24","close":1156.5,"cost":1216.0,"deviation":-59.5,"open_interest":1420,"volume":1763},{"date":"2026-03-25","close":1157.0,"cost":1216.0,"deviation":-59.0,"open_interest":1296,"volume":402},{"date":"2026-03-26","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1224,"volume":202},{"date":"2026-03-27","close":1128.0,"cost":1216.0,"deviation":-88.0,"open_interest":1125,"volume":407},{"date":"2026-03-30","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1028,"volume":206},{"date":"2026-03-31","close":1014.5,"cost":1216.0,"deviation":-201.5,"open_interest":898,"volume":475}]},"phase_series":{"JM2604":[{"t":-19,"date":"2026-03-04","close":1033.0,"deviation":-183.0,"open_interest":20000},{"t":-18,"date":"2026-03-05","close":1044.0,"deviation":-172.0,"open_interest":19444},{"t":-17,"date":"2026-03-06","close":1054.5,"deviation":-161.5,"open_interest":18624},{"t":-16,"date":"2026-03-09","close":1095.5,"deviation":-120.5,"open_interest":16321},{"t":-15,"date":"2026-03-10","close":1032.5,"deviation":-183.5,"open_interest":16063},{"t":-14,"date":"2026-03-11","close":1057.0,"deviation":-159.0,"open_interest":15830},{"t":-13,"date":"2026-03-12","close":1064.5,"deviation":-151.5,"open_interest":15517},{"t":-12,"date":"2026-03-13","close":1088.5,"deviation":-127.5,"open_interest":14192},{"t":-11,"date":"2026-03-16","close":1099.0,"deviation":-117.0,"open_interest":14039},{"t":-10,"date":"2026-03-17","close":1058.5,"deviation":-157.5,"open_interest":14580},{"t":-9,"date":"2026-03-18","close":1062.5,"deviation":-153.5,"open_interest":6007},{"t":-8,"date":"2026-03-19","close":1075.0,"deviation":-141.0,"open_interest":3575},{"t":-7,"date":"2026-03-20","close":1089.0,"deviation":-127.0,"open_interest":2430},{"t":-6,"date":"2026-03-23","close":1197.0,"deviation":-19.0,"open_interest":2033},{"t":-5,"date":"2026-03-24","close":1156.5,"deviation":-59.5,"open_interest":1420},{"t":-4,"date":"2026-03-25","close":1157.0,"deviation":-59.0,"open_interest":1296},{"t":-3,"date":"2026-03-26","close":1130.0,"deviation":-86.0,"open_interest":1224},{"t":-2,"date":"2026-03-27","close":1128.0,"deviation":-88.0,"open_interest":1125},{"t":-1,"date":"2026-03-30","close":1130.0,"deviation":-86.0,"open_interest":1028},{"t":0,"date":"2026-03-31","close":1014.5,"deviation":-201.5,"open_interest":898}],"JM2504":[{"t":-19,"date":"2025-03-04","close":1041.0,"deviation":-218.0,"open_interest":5093},{"t":-18,"date":"2025-03-05","close":1015.0,"deviation":-244.0,"open_interest":4979},{"t":-17,"date":"2025-03-06","close":1022.5,"deviation":-236.5,"open_interest":4910},{"t":-16,"date":"2025-03-07","close":1034.5,"deviation":344.5,"open_interest":4282},{"t":-15,"date":"2025-03-10","close":1018.0,"deviation":328.0,"open_interest":4111},{"t":-14,"date":"2025-03-11","close":1020.0,"deviation":330.0,"open_interest":3445},{"t":-13,"date":"2025-03-12","close":1025.0,"deviation":335.0,"open_interest":3246},{"t":-12,"date":"2025-03-13","close":1021.0,"deviation":331.0,"open_interest":2680},{"t":-11,"date":"2025-03-14","close":1018.0,"deviation":322.0,"open_interest":2565},{"t":-10,"date":"2025-03-17","close":993.0,"deviation":297.0,"open_interest":2069},{"t":-9,"date":"2025-03-18","close":989.0,"deviation":293.0,"open_interest":1863},{"t":-8,"date":"2025-03-19","close":976.5,"deviation":280.5,"open_interest":609},{"t":-7,"date":"2025-03-20","close":953.0,"deviation":257.0,"open_interest":498},{"t":-6,"date":"2025-03-21","close":946.0,"deviation":258.0,"open_interest":428},{"t":-5,"date":"2025-03-24","close":959.0,"deviation":271.0,"open_interest":353},{"t":-4,"date":"2025-03-25","close":959.5,"deviation":271.5,"open_interest":326},{"t":-3,"date":"2025-03-26","close":959.0,"deviation":271.0,"open_interest":303},{"t":-2,"date":"2025-03-27","close":960.5,"deviation":272.5,"open_interest":268},{"t":-1,"date":"2025-03-28","close":950.5,"deviation":266.5,"open_interest":212},{"t":0,"date":"2025-03-31","close":880.0,"deviation":196.0,"open_interest":200}],"JM2404":[{"t":-19,"date":"2024-03-04","close":1721.0,"deviation":null,"open_interest":663},{"t":-18,"date":"2024-03-05","close":1671.0,"deviation":null,"open_interest":664},{"t":-17,"date":"2024-03-06","close":1659.0,"deviation":null,"open_interest":641},{"t":-16,"date":"2024-03-07","close":1658.5,"deviation":null,"open_interest":638},{"t":-15,"date":"2024-03-08","close":1663.0,"deviation":null,"open_interest":645},{"t":-14,"date":"2024-03-11","close":1605.0,"deviation":null,"open_interest":633},{"t":-13,"date":"2024-03-12","close":1638.5,"deviation":null,"open_interest":628},{"t":-12,"date":"2024-03-13","close":1544.5,"deviation":null,"open_interest":621},{"t":-11,"date":"2024-03-14","close":1529.5,"deviation":null,"open_interest":618},{"t":-10,"date":"2024-03-15","close":1484.0,"deviation":null,"open_interest":623},{"t":-9,"date":"2024-03-18","close":1516.5,"deviation":null,"open_interest":620},{"t":-8,"date":"2024-03-19","close":1524.5,"deviation":null,"open_interest":617},{"t":-7,"date":"2024-03-20","close":1588.5,"deviation":null,"open_interest":614},{"t":-6,"date":"2024-03-21","close":1588.5,"deviation":null,"open_interest":613},{"t":-5,"date":"2024-03-22","close":1581.5,"deviation":null,"open_interest":614},{"t":-4,"date":"2024-03-25","close":1591.0,"deviation":null,"open_interest":612},{"t":-3,"date":"2024-03-26","close":1545.5,"deviation":null,"open_interest":612},{"t":-2,"date":"2024-03-27","close":1545.5,"deviation":null,"open_interest":611},{"t":-1,"date":"2024-03-28","close":1499.0,"deviation":null,"open_interest":608},{"t":0,"date":"2024-03-29","close":1480.0,"deviation":null,"open_interest":600}]},"sources":[{"name":"新浪财经期货实时/日线","url":"https://finance.sina.com.cn/futures/quotes/JM2604.shtml","fetched_at":"2026-03-31 17:18:34","fields":["JM2604最新价","涨跌额","涨跌幅","成交量","持仓量","日线历史序列"]},{"name":"中国煤炭经济研究会 周度数据汇总","url":"https://www.ccera.com.cn/web/177/list.html","fetched_at":"2026-03-31 17:00:00","fields":["CCP山西焦煤长协/现货指数","屯兰/马兰/双柳现货价格","运费/库存等周频数据"]},{"name":"CCERA最新周报","url":"https://www.ccera.com.cn/web/177/202603/26574.html","fetched_at":"2026-03-31 17:00:00","fields":["2026-03-27周频价格锚"]},{"name":"CCERA上期周报","url":"https://www.ccera.com.cn/web/177/202603/26552.html","fetched_at":"2026-03-31 17:00:00","fields":["2026-03-20周频价格锚"]},{"name":"CCTD转载的大商所公告","url":"https://www.cctd.com.cn/show-111-253137-1.html","fetched_at":"2026-03-31 17:18:34","fields":["焦煤期货合约/业务细则修改公告","官方附件下载链接"]},{"name":"一期货 焦煤合约信息页","url":"https://www.1qh.cn/Commodity/2.html","fetched_at":"2026-03-31 17:18:34","fields":["交易单位","合约月份","最后交易日","最后交割日","交割地点"]}],"rules":{"delivery_type":"实物交割","contract_months":"1-12月","rule_note":"CCTD转载的大商所公告显示：2025年1月24日修改后的焦煤期货业务细则自JM2604合约起施行；焦煤期货采用实物交割，标准品/替代品质量标准与升贴水见附件，指定交割仓库分为基准与非基准仓库。","supplement_note":"合约通用参数补充口径：交易单位60吨/手，最小变动价位0.5元/吨，最后交易日为合约月份第10个交易日，最后交割日为最后交易日后第3个交易日。"}}}</script>
 
-function toggleHelp(panelId, triggerId) {
-    const panel = document.getElementById(panelId);
-    const trigger = document.getElementById(triggerId);
-    if (!panel || !trigger) {
-        return;
-    }
-    const willOpen = panel.classList.contains("hidden");
-    panel.classList.toggle("hidden");
-    trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
-}
-
-function switchScenario(scenarioKey) {
-    const slices = document.querySelectorAll(".scenario-slice");
-    const details = document.querySelectorAll("[id^='scenario-detail-']");
-
-    slices.forEach(function(slice) {
-        const isActive = slice.dataset.scenario === scenarioKey;
-        slice.classList.toggle("active", isActive);
-        slice.setAttribute("aria-selected", isActive ? "true" : "false");
-    });
-
-    details.forEach(function(detail) {
-        detail.classList.toggle("hidden", detail.id !== "scenario-detail-" + scenarioKey);
-    });
-}
-
-function switchDataPanel(panelName) {
-    const panels = document.querySelectorAll(".data-panel");
-    const tags = document.querySelectorAll(".module-tag");
-
-    panels.forEach(function(panel) {
-        panel.classList.add("hidden");
-    });
-    tags.forEach(function(tag) {
-        tag.classList.remove("active");
-    });
-
-    const activePanel = document.getElementById("panel-" + panelName);
-    const activeTag = document.querySelector('.module-tag[data-panel="' + panelName + '"]');
-    if (activePanel) {
-        activePanel.classList.remove("hidden");
-    }
-    if (activeTag) {
-        activeTag.classList.add("active");
-    }
-
-    if (panelName === "acreage" && !acreageChart) {
-        initAcreageChart();
-    }
-    if (panelName === "share" && !shareChart) {
-        initShareChart();
-    }
-    if (panelName === "ratio" && !ratioChart) {
-        initRatioChart();
-    }
-    if (panelName === "profit" && !profitChart) {
-        initProfitChart();
-    }
-
-    setTimeout(function() {
-        if (panelName === "acreage" && acreageChart) acreageChart.resize();
-        if (panelName === "share" && shareChart) shareChart.resize();
-        if (panelName === "ratio" && ratioChart) ratioChart.resize();
-        if (panelName === "profit" && profitChart) profitChart.resize();
-    }, 80);
-}
-
-const releaseTime = new Date("2026-03-31T16:00:00Z").getTime();
-function millionToWanAcres(value) {
-    return value == null ? null : Number((value * 100).toFixed(0));
-}
-
-const acreageSeries = {
-    corn: {
-        label: "玉米",
-        forum: [92.0, 92.0, 91.0, 91.0, 94.0, 94.0],
-        prospective: [91.1, 89.5, 92.0, 90.0, 95.3, null],
-        acreage: [92.7, 89.9, 94.1, 91.5, 95.2, null],
-        summary: "2026 论坛基线 9400 万英亩，较 2025 最终种植面积 9880 万英亩回落 480 万。"
-    },
-    soybeans: {
-        label: "大豆",
-        forum: [90.0, 88.0, 87.5, 87.5, 84.0, 85.0],
-        prospective: [87.6, 91.0, 87.5, 86.5, 83.5, null],
-        acreage: [87.6, 88.3, 83.5, 86.1, 83.4, null],
-        summary: "2026 论坛基线 8500 万英亩，较 2025 最终种植面积 8120 万英亩回升 380 万。"
-    },
-    wheat: {
-        label: "小麦",
-        forum: [45.0, 48.0, 49.5, 47.0, 47.0, 45.0],
-        prospective: [46.4, 47.4, 49.9, 47.5, 45.4, null],
-        acreage: [46.7, 47.1, 49.6, 47.2, 45.5, null],
-        summary: "2026 论坛基线 4500 万英亩，较 2025 最终种植面积 4530 万英亩略低。"
-    }
-};
-
-Object.keys(acreageSeries).forEach(function(key) {
-    ["forum", "prospective", "acreage"].forEach(function(seriesKey) {
-        acreageSeries[key][seriesKey] = acreageSeries[key][seriesKey].map(millionToWanAcres);
-    });
-});
-
-const acreageYears = ["2021", "2022", "2023", "2024", "2025", "2026"];
-const shareYears = ["2021", "2022", "2023", "2024", "2025"];
-
-const prospectiveMix = {
-    corn: [91.1, 89.5, 92.0, 90.0, 95.3].map(millionToWanAcres),
-    soybeans: [87.6, 91.0, 87.5, 86.5, 83.5].map(millionToWanAcres)
-};
-
-const shareSeries = {
-    corn: prospectiveMix.corn.map(function(value, index) {
-        const total = value + prospectiveMix.soybeans[index];
-        return Number(((value / total) * 100).toFixed(1));
-    }),
-    soybeans: prospectiveMix.soybeans.map(function(value, index) {
-        const total = value + prospectiveMix.corn[index];
-        return Number(((value / total) * 100).toFixed(1));
-    })
-};
-
-const ratioYears = ["2021", "2022", "2023", "2024", "2025", "2026"];
-const ratioData = [
-    { year: "2021", corn: 4.58, soy: 11.87, ratio: 2.59 },
-    { year: "2022", corn: 5.90, soy: 14.33, ratio: 2.43 },
-    { year: "2023", corn: 5.91, soy: 13.76, ratio: 2.33 },
-    { year: "2024", corn: 4.66, soy: 11.55, ratio: 2.48 },
-    { year: "2025", corn: 4.70, soy: 10.54, ratio: 2.24 },
-    { year: "2026", corn: 4.62, soy: 11.09, ratio: 2.40 }
-];
-
-const profitModel = {
-    corn: {
-        label: "玉米",
-        price: 4.595,
-        yield: 186.5,
-        operatingCost: 449.02,
-        totalCost: 916.75,
-        fertilizer: 165.88
-    },
-    soybeans: {
-        label: "大豆",
-        price: 11.545,
-        yield: 53.0,
-        operatingCost: 248.87,
-        totalCost: 678.25,
-        fertilizer: 57.14
-    }
-};
-
-Object.keys(profitModel).forEach(function(key) {
-    const item = profitModel[key];
-    item.revenue = Number((item.price * item.yield).toFixed(2));
-    item.operatingMargin = Number((item.revenue - item.operatingCost).toFixed(2));
-    item.totalMargin = Number((item.revenue - item.totalCost).toFixed(2));
-});
-
-function buildAcreageOption(cropKey) {
-    const crop = acreageSeries[cropKey];
-    const seriesColors = {
-        forum: "#2563EB",
-        prospective: "#F97316",
-        acreage: "#16A34A"
+  <script>
+    window.__SNAPSHOT__ = {"meta":{"product":"交割风险预警雷达","subtitle":"交割月价格结构观察工具","generated_at":"2026-03-31 17:18:34","snapshot_note":"当前页面使用抓取时点数据快照","actual_contract":"JM2604","actual_contract_name":"焦煤2604","requested_contract":"焦煤2604","status_label":"交割敏感期","risk_level":"高","risk_heat_score":74,"headline":"当前盘面对标准化交割成本仍处明显贴水，交割阶段价格结构敏感度上升","hint":"当前贴水已处于历史偏高区间，关注交割阶段价格结构变化","days_to_delivery_month":1,"delivery_month_note":"按合约月份近似，距离2026年4月交割月还有1天。","degradation_note":"2024年3月以前的同口径公开周频现货链未纳入本次抓取，历史可比模块对JM2404退化为近月合约价格与持仓对照。"},"latest_metrics":{"latest_price":{"label":"当前期货价","value":1014.5,"unit":"元/吨","change":-115.5,"change_pct":-10.22,"source":"Sina Futures JM2604 日线/实时盘口快照"},"standard_cost":{"label":"标准化交割成本","value":1216.0,"unit":"元/吨","source":"CCP山西焦煤长协指数 + 标准化费用假设"},"deviation":{"label":"成本偏离值","value":-201.5,"unit":"元/吨","source":"当前期货价 - 标准化交割成本"},"historical_percentile":{"label":"历史分位","value":74.8,"unit":"%","source":"JM2604全样本绝对偏离分位"},"open_interest":{"label":"持仓量","value":898,"unit":"手","source":"Sina Futures JM2604日线"},"deviation_20d_mean":{"label":"近20日偏离均值","value":-127.7,"unit":"元/吨","source":"近20个交易日派生"},"deviation_60d_extreme":{"label":"近60日偏离极值","value":206.5,"unit":"元/吨","source":"近60个交易日绝对值极值"},"oi_120d_percentile":{"label":"持仓拥挤分位","value":0.8,"unit":"%","source":"近120个交易日持仓量分位"}},"cost_anchor":{"methodology":"基于公开市场价格、交易所规则与标准化费用假设估算","anchor_name":"中价·新华山西焦煤价格指数 长协指数","anchor_value":1164.0,"spot_reference_name":"中价·新华山西焦煤价格指数 现货指数","spot_reference_value":1235.0,"quality_adjustment":0,"quality_adjustment_note":"公开口径无法细化到具体可交割煤种与升贴水链条，当前按标准品0处理。","fee_items":[{"name":"入库及短驳","value":22,"type":"assumption"},{"name":"仓储与资金占用","value":18,"type":"assumption"},{"name":"检验及杂费","value":12,"type":"assumption"}],"estimated_cost":1216.0,"candidate_anchors":[{"name":"CCP山西长协指数","value":1164.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"CCP山西现货指数","value":1235.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"CCP综合长协指数","value":1137.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"CCP综合现货指数","value":1212.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"屯兰焦精煤现货(铁路)","value":1520.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"马兰肥精煤现货(铁路)","value":1505.0,"source":"CCERA周度数据汇总 2026-03-31"},{"name":"双柳肥精煤现货(公路)","value":1500.0,"source":"CCERA周度数据汇总 2026-03-31"}]},"history_compare":[{"label":"当前阶段","contract":"JM2604","date":"2026-03-31","close":1014.5,"open_interest":898,"cost":1216.0,"deviation":-201.5,"note":"公开周频焦煤价格已匹配到同日最近周度值。"},{"label":"去年同期可比阶段","contract":"JM2504","date":"2025-03-31","close":880.0,"open_interest":200,"cost":null,"deviation":null,"note":"使用同品种上年4月合约，成本锚沿用公开周频链。"},{"label":"前年同期可比阶段","contract":"JM2404","date":"2024-03-29","close":1480.0,"open_interest":600,"cost":null,"deviation":null,"note":"2024年3月以前的同口径公开周频现货链未纳入本次抓取，退化为近月合约价格与持仓对照。 当前模块以期货价格与持仓对照为主。"}],"compare_average_deviation":-2.8,"chart_windows":{"20":[{"date":"2026-03-04","close":1033.0,"cost":1216.0,"deviation":-183.0,"open_interest":20000,"volume":9905},{"date":"2026-03-05","close":1044.0,"cost":1216.0,"deviation":-172.0,"open_interest":19444,"volume":9846},{"date":"2026-03-06","close":1054.5,"cost":1216.0,"deviation":-161.5,"open_interest":18624,"volume":7325},{"date":"2026-03-09","close":1095.5,"cost":1216.0,"deviation":-120.5,"open_interest":16321,"volume":16322},{"date":"2026-03-10","close":1032.5,"cost":1216.0,"deviation":-183.5,"open_interest":16063,"volume":7406},{"date":"2026-03-11","close":1057.0,"cost":1216.0,"deviation":-159.0,"open_interest":15830,"volume":6218},{"date":"2026-03-12","close":1064.5,"cost":1216.0,"deviation":-151.5,"open_interest":15517,"volume":8984},{"date":"2026-03-13","close":1088.5,"cost":1216.0,"deviation":-127.5,"open_interest":14192,"volume":11546},{"date":"2026-03-16","close":1099.0,"cost":1216.0,"deviation":-117.0,"open_interest":14039,"volume":8770},{"date":"2026-03-17","close":1058.5,"cost":1216.0,"deviation":-157.5,"open_interest":14580,"volume":9786},{"date":"2026-03-18","close":1062.5,"cost":1216.0,"deviation":-153.5,"open_interest":6007,"volume":8740},{"date":"2026-03-19","close":1075.0,"cost":1216.0,"deviation":-141.0,"open_interest":3575,"volume":3809},{"date":"2026-03-20","close":1089.0,"cost":1216.0,"deviation":-127.0,"open_interest":2430,"volume":1973},{"date":"2026-03-23","close":1197.0,"cost":1216.0,"deviation":-19.0,"open_interest":2033,"volume":2273},{"date":"2026-03-24","close":1156.5,"cost":1216.0,"deviation":-59.5,"open_interest":1420,"volume":1763},{"date":"2026-03-25","close":1157.0,"cost":1216.0,"deviation":-59.0,"open_interest":1296,"volume":402},{"date":"2026-03-26","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1224,"volume":202},{"date":"2026-03-27","close":1128.0,"cost":1216.0,"deviation":-88.0,"open_interest":1125,"volume":407},{"date":"2026-03-30","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1028,"volume":206},{"date":"2026-03-31","close":1014.5,"cost":1216.0,"deviation":-201.5,"open_interest":898,"volume":475}],"60":[{"date":"2025-12-26","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":11512,"volume":4664},{"date":"2025-12-29","close":1035.0,"cost":1240.0,"deviation":-205.0,"open_interest":11270,"volume":3842},{"date":"2025-12-30","close":1067.0,"cost":1240.0,"deviation":-173.0,"open_interest":11059,"volume":3747},{"date":"2025-12-31","close":1062.0,"cost":1240.0,"deviation":-178.0,"open_interest":11067,"volume":2597},{"date":"2026-01-05","close":1033.5,"cost":1240.0,"deviation":-206.5,"open_interest":11203,"volume":2506},{"date":"2026-01-06","close":1041.0,"cost":1240.0,"deviation":-199.0,"open_interest":11528,"volume":3861},{"date":"2026-01-07","close":1110.5,"cost":1240.0,"deviation":-129.5,"open_interest":12176,"volume":6055},{"date":"2026-01-08","close":1133.5,"cost":1240.0,"deviation":-106.5,"open_interest":12750,"volume":13364},{"date":"2026-01-09","close":1140.0,"cost":1240.0,"deviation":-100.0,"open_interest":12831,"volume":6334},{"date":"2026-01-12","close":1181.0,"cost":1240.0,"deviation":-59.0,"open_interest":13326,"volume":8614},{"date":"2026-01-13","close":1133.0,"cost":1240.0,"deviation":-107.0,"open_interest":13257,"volume":5355},{"date":"2026-01-14","close":1139.5,"cost":1240.0,"deviation":-100.5,"open_interest":13209,"volume":5068},{"date":"2026-01-15","close":1131.0,"cost":1240.0,"deviation":-109.0,"open_interest":12878,"volume":2818},{"date":"2026-01-16","close":1117.0,"cost":1240.0,"deviation":-123.0,"open_interest":12904,"volume":4847},{"date":"2026-01-19","close":1119.0,"cost":1240.0,"deviation":-121.0,"open_interest":13276,"volume":4551},{"date":"2026-01-20","close":1071.0,"cost":1240.0,"deviation":-169.0,"open_interest":13556,"volume":5615},{"date":"2026-01-21","close":1078.5,"cost":1240.0,"deviation":-161.5,"open_interest":13461,"volume":4901},{"date":"2026-01-22","close":1078.0,"cost":1240.0,"deviation":-162.0,"open_interest":13818,"volume":4575},{"date":"2026-01-23","close":1096.0,"cost":1240.0,"deviation":-144.0,"open_interest":14922,"volume":7982},{"date":"2026-01-26","close":1099.5,"cost":1240.0,"deviation":-140.5,"open_interest":15184,"volume":6545},{"date":"2026-01-27","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":15081,"volume":6005},{"date":"2026-01-28","close":1075.5,"cost":1240.0,"deviation":-164.5,"open_interest":15562,"volume":5960},{"date":"2026-01-29","close":1103.0,"cost":1240.0,"deviation":-137.0,"open_interest":15959,"volume":8017},{"date":"2026-01-30","close":1090.5,"cost":1240.0,"deviation":-149.5,"open_interest":16468,"volume":11514},{"date":"2026-02-02","close":1075.0,"cost":1240.0,"deviation":-165.0,"open_interest":17570,"volume":11161},{"date":"2026-02-03","close":1093.5,"cost":1240.0,"deviation":-146.5,"open_interest":18425,"volume":8893},{"date":"2026-02-04","close":1128.0,"cost":1240.0,"deviation":-112.0,"open_interest":21221,"volume":11606},{"date":"2026-02-05","close":1094.0,"cost":1240.0,"deviation":-146.0,"open_interest":21496,"volume":8278},{"date":"2026-02-06","close":1066.0,"cost":1216.0,"deviation":-150.0,"open_interest":22431,"volume":7454},{"date":"2026-02-09","close":1076.0,"cost":1216.0,"deviation":-140.0,"open_interest":23350,"volume":5496},{"date":"2026-02-10","close":1050.5,"cost":1216.0,"deviation":-165.5,"open_interest":23724,"volume":4121},{"date":"2026-02-11","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23750,"volume":3710},{"date":"2026-02-12","close":1053.0,"cost":1216.0,"deviation":-163.0,"open_interest":22591,"volume":3779},{"date":"2026-02-13","close":1053.5,"cost":1216.0,"deviation":-162.5,"open_interest":21344,"volume":5013},{"date":"2026-02-24","close":1038.0,"cost":1216.0,"deviation":-178.0,"open_interest":21718,"volume":5325},{"date":"2026-02-25","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23101,"volume":6271},{"date":"2026-02-26","close":1019.5,"cost":1216.0,"deviation":-196.5,"open_interest":23506,"volume":8758},{"date":"2026-02-27","close":1022.5,"cost":1216.0,"deviation":-193.5,"open_interest":23621,"volume":6402},{"date":"2026-03-02","close":1027.0,"cost":1216.0,"deviation":-189.0,"open_interest":21570,"volume":9253},{"date":"2026-03-03","close":1057.5,"cost":1216.0,"deviation":-158.5,"open_interest":20675,"volume":12406},{"date":"2026-03-04","close":1033.0,"cost":1216.0,"deviation":-183.0,"open_interest":20000,"volume":9905},{"date":"2026-03-05","close":1044.0,"cost":1216.0,"deviation":-172.0,"open_interest":19444,"volume":9846},{"date":"2026-03-06","close":1054.5,"cost":1216.0,"deviation":-161.5,"open_interest":18624,"volume":7325},{"date":"2026-03-09","close":1095.5,"cost":1216.0,"deviation":-120.5,"open_interest":16321,"volume":16322},{"date":"2026-03-10","close":1032.5,"cost":1216.0,"deviation":-183.5,"open_interest":16063,"volume":7406},{"date":"2026-03-11","close":1057.0,"cost":1216.0,"deviation":-159.0,"open_interest":15830,"volume":6218},{"date":"2026-03-12","close":1064.5,"cost":1216.0,"deviation":-151.5,"open_interest":15517,"volume":8984},{"date":"2026-03-13","close":1088.5,"cost":1216.0,"deviation":-127.5,"open_interest":14192,"volume":11546},{"date":"2026-03-16","close":1099.0,"cost":1216.0,"deviation":-117.0,"open_interest":14039,"volume":8770},{"date":"2026-03-17","close":1058.5,"cost":1216.0,"deviation":-157.5,"open_interest":14580,"volume":9786},{"date":"2026-03-18","close":1062.5,"cost":1216.0,"deviation":-153.5,"open_interest":6007,"volume":8740},{"date":"2026-03-19","close":1075.0,"cost":1216.0,"deviation":-141.0,"open_interest":3575,"volume":3809},{"date":"2026-03-20","close":1089.0,"cost":1216.0,"deviation":-127.0,"open_interest":2430,"volume":1973},{"date":"2026-03-23","close":1197.0,"cost":1216.0,"deviation":-19.0,"open_interest":2033,"volume":2273},{"date":"2026-03-24","close":1156.5,"cost":1216.0,"deviation":-59.5,"open_interest":1420,"volume":1763},{"date":"2026-03-25","close":1157.0,"cost":1216.0,"deviation":-59.0,"open_interest":1296,"volume":402},{"date":"2026-03-26","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1224,"volume":202},{"date":"2026-03-27","close":1128.0,"cost":1216.0,"deviation":-88.0,"open_interest":1125,"volume":407},{"date":"2026-03-30","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1028,"volume":206},{"date":"2026-03-31","close":1014.5,"cost":1216.0,"deviation":-201.5,"open_interest":898,"volume":475}],"120":[{"date":"2025-09-25","close":1301.0,"cost":1114.0,"deviation":187.0,"open_interest":1145,"volume":246},{"date":"2025-09-26","close":1258.0,"cost":1114.0,"deviation":144.0,"open_interest":1085,"volume":379},{"date":"2025-09-29","close":1217.5,"cost":1114.0,"deviation":103.5,"open_interest":1077,"volume":328},{"date":"2025-09-30","close":1193.5,"cost":1114.0,"deviation":79.5,"open_interest":932,"volume":591},{"date":"2025-10-09","close":1238.0,"cost":1114.0,"deviation":124.0,"open_interest":934,"volume":337},{"date":"2025-10-10","close":1238.0,"cost":1158.0,"deviation":80.0,"open_interest":996,"volume":433},{"date":"2025-10-13","close":1221.0,"cost":1158.0,"deviation":63.0,"open_interest":1019,"volume":468},{"date":"2025-10-14","close":1215.0,"cost":1158.0,"deviation":57.0,"open_interest":1171,"volume":827},{"date":"2025-10-15","close":1208.5,"cost":1158.0,"deviation":50.5,"open_interest":1273,"volume":994},{"date":"2025-10-16","close":1248.0,"cost":1158.0,"deviation":90.0,"open_interest":1264,"volume":530},{"date":"2025-10-17","close":1241.0,"cost":1161.0,"deviation":80.0,"open_interest":1246,"volume":553},{"date":"2025-10-20","close":1264.0,"cost":1161.0,"deviation":103.0,"open_interest":1401,"volume":918},{"date":"2025-10-21","close":1232.5,"cost":1161.0,"deviation":71.5,"open_interest":1138,"volume":779},{"date":"2025-10-22","close":1264.5,"cost":1161.0,"deviation":103.5,"open_interest":1101,"volume":210},{"date":"2025-10-23","close":1304.0,"cost":1161.0,"deviation":143.0,"open_interest":1193,"volume":644},{"date":"2025-10-24","close":1293.5,"cost":1161.0,"deviation":132.5,"open_interest":1012,"volume":846},{"date":"2025-10-27","close":1306.5,"cost":1161.0,"deviation":145.5,"open_interest":1099,"volume":561},{"date":"2025-10-28","close":1288.5,"cost":1161.0,"deviation":127.5,"open_interest":1053,"volume":523},{"date":"2025-10-29","close":1355.5,"cost":1161.0,"deviation":194.5,"open_interest":1299,"volume":983},{"date":"2025-10-30","close":1338.0,"cost":1161.0,"deviation":177.0,"open_interest":1288,"volume":698},{"date":"2025-10-31","close":1333.0,"cost":1161.0,"deviation":172.0,"open_interest":1235,"volume":691},{"date":"2025-11-03","close":1323.5,"cost":1161.0,"deviation":162.5,"open_interest":1772,"volume":1659},{"date":"2025-11-04","close":1293.0,"cost":1161.0,"deviation":132.0,"open_interest":2353,"volume":3029},{"date":"2025-11-05","close":1311.0,"cost":1161.0,"deviation":150.0,"open_interest":2788,"volume":1622},{"date":"2025-11-06","close":1327.0,"cost":1161.0,"deviation":166.0,"open_interest":3202,"volume":2140},{"date":"2025-11-07","close":1301.0,"cost":1216.0,"deviation":85.0,"open_interest":3476,"volume":2395},{"date":"2025-11-10","close":1291.0,"cost":1216.0,"deviation":75.0,"open_interest":3886,"volume":2505},{"date":"2025-11-11","close":1250.0,"cost":1216.0,"deviation":34.0,"open_interest":4974,"volume":4582},{"date":"2025-11-12","close":1258.0,"cost":1216.0,"deviation":42.0,"open_interest":5462,"volume":1993},{"date":"2025-11-13","close":1242.0,"cost":1216.0,"deviation":26.0,"open_interest":5856,"volume":2237},{"date":"2025-11-14","close":1227.0,"cost":1218.0,"deviation":9.0,"open_interest":6192,"volume":2258},{"date":"2025-11-17","close":1255.0,"cost":1218.0,"deviation":37.0,"open_interest":6524,"volume":2345},{"date":"2025-11-18","close":1212.5,"cost":1218.0,"deviation":-5.5,"open_interest":7042,"volume":4241},{"date":"2025-11-19","close":1191.0,"cost":1218.0,"deviation":-27.0,"open_interest":7219,"volume":2811},{"date":"2025-11-20","close":1162.5,"cost":1218.0,"deviation":-55.5,"open_interest":7525,"volume":6969},{"date":"2025-11-21","close":1166.0,"cost":1218.0,"deviation":-52.0,"open_interest":7600,"volume":4974},{"date":"2025-11-24","close":1157.0,"cost":1218.0,"deviation":-61.0,"open_interest":7774,"volume":5922},{"date":"2025-11-25","close":1162.0,"cost":1218.0,"deviation":-56.0,"open_interest":7739,"volume":4153},{"date":"2025-11-26","close":1152.5,"cost":1218.0,"deviation":-65.5,"open_interest":8027,"volume":5083},{"date":"2025-11-27","close":1142.0,"cost":1218.0,"deviation":-76.0,"open_interest":7960,"volume":3322},{"date":"2025-11-28","close":1131.0,"cost":1218.0,"deviation":-87.0,"open_interest":8108,"volume":2899},{"date":"2025-12-01","close":1158.0,"cost":1218.0,"deviation":-60.0,"open_interest":8454,"volume":3953},{"date":"2025-12-02","close":1157.0,"cost":1218.0,"deviation":-61.0,"open_interest":8483,"volume":2073},{"date":"2025-12-03","close":1141.0,"cost":1218.0,"deviation":-77.0,"open_interest":8813,"volume":3384},{"date":"2025-12-04","close":1157.0,"cost":1218.0,"deviation":-61.0,"open_interest":8858,"volume":2264},{"date":"2025-12-05","close":1117.0,"cost":1218.0,"deviation":-101.0,"open_interest":8972,"volume":2167},{"date":"2025-12-08","close":1068.0,"cost":1218.0,"deviation":-150.0,"open_interest":9135,"volume":3638},{"date":"2025-12-09","close":1057.5,"cost":1218.0,"deviation":-160.5,"open_interest":9144,"volume":1708},{"date":"2025-12-10","close":1044.0,"cost":1218.0,"deviation":-174.0,"open_interest":9202,"volume":2265},{"date":"2025-12-11","close":1009.0,"cost":1218.0,"deviation":-209.0,"open_interest":9410,"volume":4058},{"date":"2025-12-12","close":992.0,"cost":1218.0,"deviation":-226.0,"open_interest":10249,"volume":6287},{"date":"2025-12-15","close":1030.0,"cost":1218.0,"deviation":-188.0,"open_interest":11111,"volume":7043},{"date":"2025-12-16","close":1037.5,"cost":1218.0,"deviation":-180.5,"open_interest":9711,"volume":6734},{"date":"2025-12-17","close":1031.5,"cost":1218.0,"deviation":-186.5,"open_interest":9767,"volume":3610},{"date":"2025-12-18","close":1090.0,"cost":1218.0,"deviation":-128.0,"open_interest":10427,"volume":6409},{"date":"2025-12-19","close":1068.0,"cost":1240.0,"deviation":-172.0,"open_interest":10801,"volume":5088},{"date":"2025-12-22","close":1066.5,"cost":1240.0,"deviation":-173.5,"open_interest":10933,"volume":5337},{"date":"2025-12-23","close":1076.5,"cost":1240.0,"deviation":-163.5,"open_interest":11088,"volume":6599},{"date":"2025-12-24","close":1073.0,"cost":1240.0,"deviation":-167.0,"open_interest":11419,"volume":4110},{"date":"2025-12-25","close":1069.5,"cost":1240.0,"deviation":-170.5,"open_interest":11415,"volume":2541},{"date":"2025-12-26","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":11512,"volume":4664},{"date":"2025-12-29","close":1035.0,"cost":1240.0,"deviation":-205.0,"open_interest":11270,"volume":3842},{"date":"2025-12-30","close":1067.0,"cost":1240.0,"deviation":-173.0,"open_interest":11059,"volume":3747},{"date":"2025-12-31","close":1062.0,"cost":1240.0,"deviation":-178.0,"open_interest":11067,"volume":2597},{"date":"2026-01-05","close":1033.5,"cost":1240.0,"deviation":-206.5,"open_interest":11203,"volume":2506},{"date":"2026-01-06","close":1041.0,"cost":1240.0,"deviation":-199.0,"open_interest":11528,"volume":3861},{"date":"2026-01-07","close":1110.5,"cost":1240.0,"deviation":-129.5,"open_interest":12176,"volume":6055},{"date":"2026-01-08","close":1133.5,"cost":1240.0,"deviation":-106.5,"open_interest":12750,"volume":13364},{"date":"2026-01-09","close":1140.0,"cost":1240.0,"deviation":-100.0,"open_interest":12831,"volume":6334},{"date":"2026-01-12","close":1181.0,"cost":1240.0,"deviation":-59.0,"open_interest":13326,"volume":8614},{"date":"2026-01-13","close":1133.0,"cost":1240.0,"deviation":-107.0,"open_interest":13257,"volume":5355},{"date":"2026-01-14","close":1139.5,"cost":1240.0,"deviation":-100.5,"open_interest":13209,"volume":5068},{"date":"2026-01-15","close":1131.0,"cost":1240.0,"deviation":-109.0,"open_interest":12878,"volume":2818},{"date":"2026-01-16","close":1117.0,"cost":1240.0,"deviation":-123.0,"open_interest":12904,"volume":4847},{"date":"2026-01-19","close":1119.0,"cost":1240.0,"deviation":-121.0,"open_interest":13276,"volume":4551},{"date":"2026-01-20","close":1071.0,"cost":1240.0,"deviation":-169.0,"open_interest":13556,"volume":5615},{"date":"2026-01-21","close":1078.5,"cost":1240.0,"deviation":-161.5,"open_interest":13461,"volume":4901},{"date":"2026-01-22","close":1078.0,"cost":1240.0,"deviation":-162.0,"open_interest":13818,"volume":4575},{"date":"2026-01-23","close":1096.0,"cost":1240.0,"deviation":-144.0,"open_interest":14922,"volume":7982},{"date":"2026-01-26","close":1099.5,"cost":1240.0,"deviation":-140.5,"open_interest":15184,"volume":6545},{"date":"2026-01-27","close":1057.0,"cost":1240.0,"deviation":-183.0,"open_interest":15081,"volume":6005},{"date":"2026-01-28","close":1075.5,"cost":1240.0,"deviation":-164.5,"open_interest":15562,"volume":5960},{"date":"2026-01-29","close":1103.0,"cost":1240.0,"deviation":-137.0,"open_interest":15959,"volume":8017},{"date":"2026-01-30","close":1090.5,"cost":1240.0,"deviation":-149.5,"open_interest":16468,"volume":11514},{"date":"2026-02-02","close":1075.0,"cost":1240.0,"deviation":-165.0,"open_interest":17570,"volume":11161},{"date":"2026-02-03","close":1093.5,"cost":1240.0,"deviation":-146.5,"open_interest":18425,"volume":8893},{"date":"2026-02-04","close":1128.0,"cost":1240.0,"deviation":-112.0,"open_interest":21221,"volume":11606},{"date":"2026-02-05","close":1094.0,"cost":1240.0,"deviation":-146.0,"open_interest":21496,"volume":8278},{"date":"2026-02-06","close":1066.0,"cost":1216.0,"deviation":-150.0,"open_interest":22431,"volume":7454},{"date":"2026-02-09","close":1076.0,"cost":1216.0,"deviation":-140.0,"open_interest":23350,"volume":5496},{"date":"2026-02-10","close":1050.5,"cost":1216.0,"deviation":-165.5,"open_interest":23724,"volume":4121},{"date":"2026-02-11","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23750,"volume":3710},{"date":"2026-02-12","close":1053.0,"cost":1216.0,"deviation":-163.0,"open_interest":22591,"volume":3779},{"date":"2026-02-13","close":1053.5,"cost":1216.0,"deviation":-162.5,"open_interest":21344,"volume":5013},{"date":"2026-02-24","close":1038.0,"cost":1216.0,"deviation":-178.0,"open_interest":21718,"volume":5325},{"date":"2026-02-25","close":1054.0,"cost":1216.0,"deviation":-162.0,"open_interest":23101,"volume":6271},{"date":"2026-02-26","close":1019.5,"cost":1216.0,"deviation":-196.5,"open_interest":23506,"volume":8758},{"date":"2026-02-27","close":1022.5,"cost":1216.0,"deviation":-193.5,"open_interest":23621,"volume":6402},{"date":"2026-03-02","close":1027.0,"cost":1216.0,"deviation":-189.0,"open_interest":21570,"volume":9253},{"date":"2026-03-03","close":1057.5,"cost":1216.0,"deviation":-158.5,"open_interest":20675,"volume":12406},{"date":"2026-03-04","close":1033.0,"cost":1216.0,"deviation":-183.0,"open_interest":20000,"volume":9905},{"date":"2026-03-05","close":1044.0,"cost":1216.0,"deviation":-172.0,"open_interest":19444,"volume":9846},{"date":"2026-03-06","close":1054.5,"cost":1216.0,"deviation":-161.5,"open_interest":18624,"volume":7325},{"date":"2026-03-09","close":1095.5,"cost":1216.0,"deviation":-120.5,"open_interest":16321,"volume":16322},{"date":"2026-03-10","close":1032.5,"cost":1216.0,"deviation":-183.5,"open_interest":16063,"volume":7406},{"date":"2026-03-11","close":1057.0,"cost":1216.0,"deviation":-159.0,"open_interest":15830,"volume":6218},{"date":"2026-03-12","close":1064.5,"cost":1216.0,"deviation":-151.5,"open_interest":15517,"volume":8984},{"date":"2026-03-13","close":1088.5,"cost":1216.0,"deviation":-127.5,"open_interest":14192,"volume":11546},{"date":"2026-03-16","close":1099.0,"cost":1216.0,"deviation":-117.0,"open_interest":14039,"volume":8770},{"date":"2026-03-17","close":1058.5,"cost":1216.0,"deviation":-157.5,"open_interest":14580,"volume":9786},{"date":"2026-03-18","close":1062.5,"cost":1216.0,"deviation":-153.5,"open_interest":6007,"volume":8740},{"date":"2026-03-19","close":1075.0,"cost":1216.0,"deviation":-141.0,"open_interest":3575,"volume":3809},{"date":"2026-03-20","close":1089.0,"cost":1216.0,"deviation":-127.0,"open_interest":2430,"volume":1973},{"date":"2026-03-23","close":1197.0,"cost":1216.0,"deviation":-19.0,"open_interest":2033,"volume":2273},{"date":"2026-03-24","close":1156.5,"cost":1216.0,"deviation":-59.5,"open_interest":1420,"volume":1763},{"date":"2026-03-25","close":1157.0,"cost":1216.0,"deviation":-59.0,"open_interest":1296,"volume":402},{"date":"2026-03-26","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1224,"volume":202},{"date":"2026-03-27","close":1128.0,"cost":1216.0,"deviation":-88.0,"open_interest":1125,"volume":407},{"date":"2026-03-30","close":1130.0,"cost":1216.0,"deviation":-86.0,"open_interest":1028,"volume":206},{"date":"2026-03-31","close":1014.5,"cost":1216.0,"deviation":-201.5,"open_interest":898,"volume":475}]},"phase_series":{"JM2604":[{"t":-19,"date":"2026-03-04","close":1033.0,"deviation":-183.0,"open_interest":20000},{"t":-18,"date":"2026-03-05","close":1044.0,"deviation":-172.0,"open_interest":19444},{"t":-17,"date":"2026-03-06","close":1054.5,"deviation":-161.5,"open_interest":18624},{"t":-16,"date":"2026-03-09","close":1095.5,"deviation":-120.5,"open_interest":16321},{"t":-15,"date":"2026-03-10","close":1032.5,"deviation":-183.5,"open_interest":16063},{"t":-14,"date":"2026-03-11","close":1057.0,"deviation":-159.0,"open_interest":15830},{"t":-13,"date":"2026-03-12","close":1064.5,"deviation":-151.5,"open_interest":15517},{"t":-12,"date":"2026-03-13","close":1088.5,"deviation":-127.5,"open_interest":14192},{"t":-11,"date":"2026-03-16","close":1099.0,"deviation":-117.0,"open_interest":14039},{"t":-10,"date":"2026-03-17","close":1058.5,"deviation":-157.5,"open_interest":14580},{"t":-9,"date":"2026-03-18","close":1062.5,"deviation":-153.5,"open_interest":6007},{"t":-8,"date":"2026-03-19","close":1075.0,"deviation":-141.0,"open_interest":3575},{"t":-7,"date":"2026-03-20","close":1089.0,"deviation":-127.0,"open_interest":2430},{"t":-6,"date":"2026-03-23","close":1197.0,"deviation":-19.0,"open_interest":2033},{"t":-5,"date":"2026-03-24","close":1156.5,"deviation":-59.5,"open_interest":1420},{"t":-4,"date":"2026-03-25","close":1157.0,"deviation":-59.0,"open_interest":1296},{"t":-3,"date":"2026-03-26","close":1130.0,"deviation":-86.0,"open_interest":1224},{"t":-2,"date":"2026-03-27","close":1128.0,"deviation":-88.0,"open_interest":1125},{"t":-1,"date":"2026-03-30","close":1130.0,"deviation":-86.0,"open_interest":1028},{"t":0,"date":"2026-03-31","close":1014.5,"deviation":-201.5,"open_interest":898}],"JM2504":[{"t":-19,"date":"2025-03-04","close":1041.0,"deviation":-218.0,"open_interest":5093},{"t":-18,"date":"2025-03-05","close":1015.0,"deviation":-244.0,"open_interest":4979},{"t":-17,"date":"2025-03-06","close":1022.5,"deviation":-236.5,"open_interest":4910},{"t":-16,"date":"2025-03-07","close":1034.5,"deviation":344.5,"open_interest":4282},{"t":-15,"date":"2025-03-10","close":1018.0,"deviation":328.0,"open_interest":4111},{"t":-14,"date":"2025-03-11","close":1020.0,"deviation":330.0,"open_interest":3445},{"t":-13,"date":"2025-03-12","close":1025.0,"deviation":335.0,"open_interest":3246},{"t":-12,"date":"2025-03-13","close":1021.0,"deviation":331.0,"open_interest":2680},{"t":-11,"date":"2025-03-14","close":1018.0,"deviation":322.0,"open_interest":2565},{"t":-10,"date":"2025-03-17","close":993.0,"deviation":297.0,"open_interest":2069},{"t":-9,"date":"2025-03-18","close":989.0,"deviation":293.0,"open_interest":1863},{"t":-8,"date":"2025-03-19","close":976.5,"deviation":280.5,"open_interest":609},{"t":-7,"date":"2025-03-20","close":953.0,"deviation":257.0,"open_interest":498},{"t":-6,"date":"2025-03-21","close":946.0,"deviation":258.0,"open_interest":428},{"t":-5,"date":"2025-03-24","close":959.0,"deviation":271.0,"open_interest":353},{"t":-4,"date":"2025-03-25","close":959.5,"deviation":271.5,"open_interest":326},{"t":-3,"date":"2025-03-26","close":959.0,"deviation":271.0,"open_interest":303},{"t":-2,"date":"2025-03-27","close":960.5,"deviation":272.5,"open_interest":268},{"t":-1,"date":"2025-03-28","close":950.5,"deviation":266.5,"open_interest":212},{"t":0,"date":"2025-03-31","close":880.0,"deviation":196.0,"open_interest":200}],"JM2404":[{"t":-19,"date":"2024-03-04","close":1721.0,"deviation":null,"open_interest":663},{"t":-18,"date":"2024-03-05","close":1671.0,"deviation":null,"open_interest":664},{"t":-17,"date":"2024-03-06","close":1659.0,"deviation":null,"open_interest":641},{"t":-16,"date":"2024-03-07","close":1658.5,"deviation":null,"open_interest":638},{"t":-15,"date":"2024-03-08","close":1663.0,"deviation":null,"open_interest":645},{"t":-14,"date":"2024-03-11","close":1605.0,"deviation":null,"open_interest":633},{"t":-13,"date":"2024-03-12","close":1638.5,"deviation":null,"open_interest":628},{"t":-12,"date":"2024-03-13","close":1544.5,"deviation":null,"open_interest":621},{"t":-11,"date":"2024-03-14","close":1529.5,"deviation":null,"open_interest":618},{"t":-10,"date":"2024-03-15","close":1484.0,"deviation":null,"open_interest":623},{"t":-9,"date":"2024-03-18","close":1516.5,"deviation":null,"open_interest":620},{"t":-8,"date":"2024-03-19","close":1524.5,"deviation":null,"open_interest":617},{"t":-7,"date":"2024-03-20","close":1588.5,"deviation":null,"open_interest":614},{"t":-6,"date":"2024-03-21","close":1588.5,"deviation":null,"open_interest":613},{"t":-5,"date":"2024-03-22","close":1581.5,"deviation":null,"open_interest":614},{"t":-4,"date":"2024-03-25","close":1591.0,"deviation":null,"open_interest":612},{"t":-3,"date":"2024-03-26","close":1545.5,"deviation":null,"open_interest":612},{"t":-2,"date":"2024-03-27","close":1545.5,"deviation":null,"open_interest":611},{"t":-1,"date":"2024-03-28","close":1499.0,"deviation":null,"open_interest":608},{"t":0,"date":"2024-03-29","close":1480.0,"deviation":null,"open_interest":600}]},"sources":[{"name":"新浪财经期货实时/日线","url":"https://finance.sina.com.cn/futures/quotes/JM2604.shtml","fetched_at":"2026-03-31 17:18:34","fields":["JM2604最新价","涨跌额","涨跌幅","成交量","持仓量","日线历史序列"]},{"name":"中国煤炭经济研究会 周度数据汇总","url":"https://www.ccera.com.cn/web/177/list.html","fetched_at":"2026-03-31 17:00:00","fields":["CCP山西焦煤长协/现货指数","屯兰/马兰/双柳现货价格","运费/库存等周频数据"]},{"name":"CCERA最新周报","url":"https://www.ccera.com.cn/web/177/202603/26574.html","fetched_at":"2026-03-31 17:00:00","fields":["2026-03-27周频价格锚"]},{"name":"CCERA上期周报","url":"https://www.ccera.com.cn/web/177/202603/26552.html","fetched_at":"2026-03-31 17:00:00","fields":["2026-03-20周频价格锚"]},{"name":"CCTD转载的大商所公告","url":"https://www.cctd.com.cn/show-111-253137-1.html","fetched_at":"2026-03-31 17:18:34","fields":["焦煤期货合约/业务细则修改公告","官方附件下载链接"]},{"name":"一期货 焦煤合约信息页","url":"https://www.1qh.cn/Commodity/2.html","fetched_at":"2026-03-31 17:18:34","fields":["交易单位","合约月份","最后交易日","最后交割日","交割地点"]}],"rules":{"delivery_type":"实物交割","contract_months":"1-12月","rule_note":"CCTD转载的大商所公告显示：2025年1月24日修改后的焦煤期货业务细则自JM2604合约起施行；焦煤期货采用实物交割，标准品/替代品质量标准与升贴水见附件，指定交割仓库分为基准与非基准仓库。","supplement_note":"合约通用参数补充口径：交易单位60吨/手，最小变动价位0.5元/吨，最后交易日为合约月份第10个交易日，最后交割日为最后交易日后第3个交易日。"}};
+  </script>
+  <script src="./echarts.min.js"></script>
+  <script>
+    const app = document.getElementById("app");
+    const loading = document.getElementById("loading");
+    const modal = document.getElementById("sourceModal");
+    const snapshotNode = document.getElementById("snapshot-data");
+    const SNAPSHOT = window.__SNAPSHOT__ || (snapshotNode ? JSON.parse(snapshotNode.textContent) : null);
+    const chartStore = {};
+    const CTD_ANCHOR_MODEL = {
+      anchor_name: "甘其毛都口岸蒙5#原煤市场报价",
+      methodology: "基于公开口岸日度报价、交割规则与标准化升贴水及杂费假设估算",
+      source_note: "日度样本优先采用汾渭 CCI 甘其毛都口岸蒙5#原煤价格指数；缺口以甘其毛都口岸公开市场报价补点，非公开日期按最近公开日度值前向填充。",
+      daily_series: {
+        "2025-09-18": 993,
+        "2025-12-31": 980,
+        "2026-01-28": 1014,
+        "2026-02-02": 1024,
+        "2026-02-25": 1010,
+        "2026-02-27": 1001,
+        "2026-02-28": 1005,
+        "2026-03-04": 1016,
+        "2026-03-11": 1045,
+        "2026-03-12": 1053,
+        "2026-03-13": 1082,
+        "2026-03-15": 1090
+      },
+      fee_items: [
+        { name: "交割升贴水/质量折算", value: 0, type: "assumption" },
+        { name: "入库及短驳", value: 22, type: "assumption" },
+        { name: "仓储与资金占用", value: 18, type: "assumption" },
+        { name: "检验及杂费", value: 12, type: "assumption" }
+      ],
+      candidate_anchors: [
+        { name: "甘其毛都蒙5#原煤公开报价", value: 1090, source: "CCTD口岸快讯 截至2026-03-15" },
+        { name: "CCI甘其毛都蒙5#原煤指数", value: 1082, source: "中国煤炭资源网 2026-03-13" },
+        { name: "甘其毛都蒙3#精煤公开报价", value: 1135, source: "CCTD口岸快讯 截至2026-03-15" },
+        { name: "甘其毛都蒙5#精煤公开报价", value: 1210, source: "CCTD口岸快讯 截至2026-03-15" }
+      ],
+      sources: [
+        {
+          name: "甘其毛都口岸蒙煤市场报价",
+          url: "https://www.cctd.com.cn/show-114-254056-1.html",
+          fetched_at: "2026-03-31 18:00:00",
+          fields: ["截至2026-03-15蒙5#原煤", "蒙3#精煤", "蒙5#精煤", "口岸市场报价"]
+        },
+        {
+          name: "汾渭 CCI 甘其毛都蒙5#原煤指数",
+          url: "https://www.sxcoal.com/news?type=0",
+          fetched_at: "2026-03-31 18:00:00",
+          fields: ["2026-03-11/12/13 日度口岸指数", "2026-02-27/28 日度口岸指数", "2025-12-31 日度口岸指数"]
+        }
+      ]
     };
-    return {
-        animationDuration: 700,
-        color: [seriesColors.forum, seriesColors.prospective, seriesColors.acreage],
-        grid: { left: 44, right: 22, top: 54, bottom: 48 },
-        tooltip: {
-            trigger: "axis",
-            backgroundColor: "#FFFFFF",
-            borderWidth: 1,
-            borderColor: "rgba(17,24,39,0.08)",
-            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
-            textStyle: { color: "#111827" },
-            formatter: function(params) {
-                const lines = ['<div style="font-weight:700;margin-bottom:6px;">' + params[0].axisValue + '年 ' + crop.label + '</div>'];
-                params.forEach(function(item) {
-                    const val = item.data == null ? "待公布" : item.data.toLocaleString("zh-CN") + " 万英亩";
-                    lines.push('<div style="margin:4px 0;">' + item.marker + item.seriesName + '：' + val + '</div>');
-                });
-                if (params[0].axisValue === "2026") {
-                    lines.push('<div style="margin-top:6px;color:rgba(17,24,39,0.62);">截至 2026-03-25，2026 年仅论坛值已公布</div>');
-                }
-                return lines.join("");
-            }
-        },
-        legend: {
-            top: 6,
-            itemWidth: 12,
-            itemHeight: 12,
-            textStyle: { color: "#1A56DB", fontSize: 12 },
-            data: ["展望论坛", "种植意向报告", "种植面积报告"]
-        },
-        xAxis: {
-            type: "category",
-            data: acreageYears,
-            boundaryGap: false,
-            axisLine: { lineStyle: { color: "#1A56DB" } },
-            axisLabel: { color: "#1A56DB" }
-        },
-        yAxis: {
-            type: "value",
-            name: "万英亩",
-            nameTextStyle: { color: "#1A56DB", padding: [0, 0, 6, 0] },
-            axisLabel: {
-                color: "#1A56DB",
-                formatter: function(value) { return value.toLocaleString("zh-CN"); }
-            },
-            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
-        },
-        series: [
-            {
-                name: "展望论坛",
-                type: "line",
-                smooth: 0.28,
-                symbol: "circle",
-                symbolSize: 8,
-                data: crop.forum,
-                lineStyle: { width: 3 },
-                itemStyle: { color: seriesColors.forum }
-            },
-            {
-                name: "种植意向报告",
-                type: "line",
-                smooth: 0.28,
-                symbol: "circle",
-                symbolSize: 8,
-                data: crop.prospective,
-                connectNulls: false,
-                lineStyle: { width: 3, type: "dashed" },
-                itemStyle: { color: seriesColors.prospective }
-            },
-            {
-                name: "种植面积报告",
-                type: "line",
-                smooth: 0.28,
-                symbol: "circle",
-                symbolSize: 8,
-                data: crop.acreage,
-                connectNulls: false,
-                lineStyle: { width: 3 },
-                itemStyle: { color: seriesColors.acreage },
-                areaStyle: {
-                    color: {
-                        type: "linear",
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [
-                            { offset: 0, color: "rgba(22,163,74,0.18)" },
-                            { offset: 1, color: "rgba(22,163,74,0.03)" }
-                        ]
-                    }
-                },
-                markPoint: {
-                    symbolSize: 54,
-                    label: {
-                        color: "#F3F4F6",
-                        fontWeight: "bold",
-                        fontSize: 9,
-                        lineHeight: 10,
-                        formatter: "待公布"
-                    },
-                    itemStyle: { color: "#1A56DB" },
-                    data: crop.acreage[5] == null ? [{ coord: ["2026", crop.forum[5]], value: "待公布" }] : []
-                }
-            }
-        ]
+
+    const state = {
+      window: "60",
+      compare: "price",
+      refreshMessage: "",
     };
-}
 
-let acreageChart = null;
-let shareChart = null;
-let ratioChart = null;
-let profitChart = null;
+    const numberFormat = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 1 });
+    const integerFormat = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 0 });
 
-function initAcreageChart() {
-    const chartEl = document.getElementById("acreage-chart");
-    if (!chartEl || typeof echarts === "undefined") {
-        return;
-    }
-    acreageChart = echarts.init(chartEl, null, { renderer: "svg" });
-    acreageChart.setOption(buildAcreageOption("corn"));
+    function applyCtdAnchorModel(snapshot) {
+      const sampleDates = Object.keys(CTD_ANCHOR_MODEL.daily_series).sort();
+      const feeSum = CTD_ANCHOR_MODEL.fee_items.reduce((sum, item) => sum + item.value, 0);
 
-    const buttons = document.querySelectorAll(".chart-toggle");
-    buttons.forEach(function(button) {
-        button.addEventListener("click", function() {
-            buttons.forEach(function(btn) {
-                btn.classList.remove("active");
-            });
-            button.classList.add("active");
-            acreageChart.setOption(buildAcreageOption(button.dataset.crop), true);
+      function findLatestQuote(date) {
+        let matched = null;
+        for (const sampleDate of sampleDates) {
+          if (sampleDate <= date) matched = sampleDate;
+          else break;
+        }
+        return matched ? {
+          sampleDate: matched,
+          portQuote: CTD_ANCHOR_MODEL.daily_series[matched],
+        } : null;
+      }
+
+      Object.values(snapshot.chart_windows).forEach((windowRows) => {
+        windowRows.forEach((item) => {
+          const quote = findLatestQuote(item.date);
+          if (!quote) return;
+          item.port_quote = quote.portQuote;
+          item.port_quote_date = quote.sampleDate;
+          item.cost = +(quote.portQuote + feeSum).toFixed(1);
+          item.deviation = +(item.close - item.cost).toFixed(1);
         });
-    });
+      });
 
-    window.addEventListener("resize", function() {
-        if (acreageChart) {
-            acreageChart.resize();
-        }
-        if (shareChart) {
-            shareChart.resize();
-        }
-        if (ratioChart) {
-            ratioChart.resize();
-        }
-        if (profitChart) {
-            profitChart.resize();
-        }
-    });
-}
+      const latestRow = snapshot.chart_windows["20"][snapshot.chart_windows["20"].length - 1];
+      const currentQuote = findLatestQuote(latestRow.date);
+      const deviationSeries = snapshot.chart_windows["120"]
+        .map((item) => item.deviation)
+        .filter((value) => value !== null && value !== undefined);
+      const absSeries = deviationSeries.map((value) => Math.abs(value));
+      const currentAbs = Math.abs(latestRow.deviation);
+      const percentile = absSeries.length
+        ? +(absSeries.filter((value) => value <= currentAbs).length / absSeries.length * 100).toFixed(1)
+        : null;
+      const mean20 = snapshot.chart_windows["20"]
+        .map((item) => item.deviation)
+        .filter((value) => value !== null && value !== undefined);
+      const extreme60 = snapshot.chart_windows["60"]
+        .map((item) => item.deviation)
+        .filter((value) => value !== null && value !== undefined)
+        .map((value) => Math.abs(value));
 
-function initShareChart() {
-    const chartEl = document.getElementById("share-chart");
-    if (!chartEl || typeof echarts === "undefined") {
-        return;
+      snapshot.meta.snapshot_note = "当前页面使用抓取时点数据快照，成本锚已切换为蒙5口岸口径";
+      snapshot.meta.headline = "当前盘面对蒙5原煤口岸成本锚仍处明显贴水，偏离已进入历史高位区间";
+      snapshot.meta.hint = "当前偏离已进入历史偏高区间，但持仓拥挤度较低，关注交割阶段价格结构变化";
+      snapshot.meta.risk_level = percentile !== null && percentile >= 90 ? "高" : percentile !== null && percentile >= 70 ? "中" : "低";
+      snapshot.meta.risk_heat_score = Math.round((percentile || 0) * 0.55 + 94 * 0.3 + snapshot.latest_metrics.oi_120d_percentile.value * 0.15);
+      snapshot.meta.degradation_note = "成本锚已改为蒙5原煤口岸日度口径。由于2026年3月17日至2026年3月31日缺少同源公开日更条目，主图成本线对该区间按最近公开日度报价前向填充；2024年3月以前的同口径公开链仍不足，JM2404继续仅做价格与持仓对照。";
+
+      snapshot.latest_metrics.standard_cost.value = latestRow.cost;
+      snapshot.latest_metrics.standard_cost.source = "甘其毛都口岸蒙5#原煤公开日度报价 + 标准化升贴水及杂费假设";
+      snapshot.latest_metrics.deviation.value = latestRow.deviation;
+      snapshot.latest_metrics.deviation.source = "当前期货价 - 蒙5原煤口岸成本锚";
+      snapshot.latest_metrics.historical_percentile.value = percentile;
+      snapshot.latest_metrics.historical_percentile.source = "近120个交易日蒙5口岸成本锚绝对偏离分位";
+      snapshot.latest_metrics.deviation_20d_mean.value = +(mean20.reduce((sum, value) => sum + value, 0) / mean20.length).toFixed(1);
+      snapshot.latest_metrics.deviation_20d_mean.source = "近20个交易日 / 蒙5口岸成本锚派生";
+      snapshot.latest_metrics.deviation_60d_extreme.value = +Math.max(...extreme60).toFixed(1);
+      snapshot.latest_metrics.deviation_60d_extreme.source = "近60个交易日 / 蒙5口岸成本锚绝对值极值";
+
+      snapshot.cost_anchor = {
+        methodology: CTD_ANCHOR_MODEL.methodology,
+        anchor_name: CTD_ANCHOR_MODEL.anchor_name,
+        anchor_value: currentQuote ? currentQuote.portQuote : null,
+        spot_reference_name: "甘其毛都口岸蒙5#原煤公开报价",
+        spot_reference_value: currentQuote ? currentQuote.portQuote : null,
+        quality_adjustment: 0,
+        quality_adjustment_note: "公开资料无法稳定折算到具体仓单品质与洗耗，当前质量/升贴水按0处理，重点作为 CTD 现货底线锚观察。",
+        fee_items: CTD_ANCHOR_MODEL.fee_items,
+        estimated_cost: latestRow.cost,
+        candidate_anchors: CTD_ANCHOR_MODEL.candidate_anchors
+      };
+
+      snapshot.history_compare[0].cost = latestRow.cost;
+      snapshot.history_compare[0].deviation = latestRow.deviation;
+      snapshot.history_compare[0].note = "当前成本锚已切换为甘其毛都口岸蒙5#原煤公开日度报价，并叠加标准化升贴水/杂费假设。";
+      snapshot.history_compare[1].note = "去年同期可比阶段保留价格与持仓对照；同源蒙5口岸公开日度链未完整回溯到该期。";
+
+      const currentPhaseDeviation = new Map(snapshot.chart_windows["20"].map((item) => [item.date, item.deviation]));
+      snapshot.phase_series.JM2604 = snapshot.phase_series.JM2604.map((item) => ({
+        ...item,
+        deviation: currentPhaseDeviation.has(item.date) ? currentPhaseDeviation.get(item.date) : null,
+      }));
+      snapshot.phase_series.JM2504 = snapshot.phase_series.JM2504.map((item) => ({ ...item, deviation: null }));
+
+      snapshot.sources = [
+        ...CTD_ANCHOR_MODEL.sources,
+        ...snapshot.sources.filter((item) => !/CCERA|中国煤炭经济研究会/.test(item.name))
+      ];
     }
-    shareChart = echarts.init(chartEl, null, { renderer: "svg" });
-    shareChart.setOption({
-        animationDuration: 700,
-        color: ["#E02424", "#057A55"],
-        grid: { left: 44, right: 22, top: 34, bottom: 42 },
+
+    applyCtdAnchorModel(SNAPSHOT);
+
+    function fmt(value, digits = 1) {
+      if (value === null || value === undefined || Number.isNaN(value)) {
+        return "--";
+      }
+      const formatter = digits === 0 ? integerFormat : numberFormat;
+      return formatter.format(value);
+    }
+
+    function pct(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) {
+        return "--";
+      }
+      return `${fmt(value)}%`;
+    }
+
+    function riskClass(level) {
+      if (level === "低") return "risk-low";
+      if (level === "中") return "risk-mid";
+      if (level === "高") return "risk-high";
+      return "risk-extreme";
+    }
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    function getChart(id) {
+      if (!window.echarts) return null;
+      if (!chartStore[id]) {
+        chartStore[id] = echarts.init(el(id), null, { renderer: "canvas" });
+      }
+      return chartStore[id];
+    }
+
+    function lineGradient(color) {
+      return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: color.replace("0.1", "0.22").replace("0.12", "0.22") },
+        { offset: 1, color: "rgba(0,0,0,0)" },
+      ]);
+    }
+
+    function baseChartOption(categories, cfg = {}) {
+      return {
+        animationDuration: 380,
+        animationEasing: "cubicOut",
+        backgroundColor: "transparent",
+        grid: { top: 18, right: 14, bottom: cfg.bottom || 28, left: 40, containLabel: false },
+        textStyle: { color: "#8ea3bf", fontFamily: '"SF Pro Display","PingFang SC","Segoe UI","Noto Sans SC",sans-serif' },
         tooltip: {
-            trigger: "axis",
-            axisPointer: { type: "shadow" },
-            backgroundColor: "#FFFFFF",
-            borderWidth: 1,
-            borderColor: "rgba(17,24,39,0.08)",
-            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
-            textStyle: { color: "#111827" },
-            formatter: function(params) {
-                const year = params[0].axisValue;
-                const cornAcres = prospectiveMix.corn[params[0].dataIndex];
-                const soyAcres = prospectiveMix.soybeans[params[0].dataIndex];
-                return [
-                    '<div style="font-weight:700;margin-bottom:6px;">' + year + '年 3月种植意向报告</div>',
-                    '<div style="margin:4px 0;">' + params[0].marker + '玉米占比：' + params[0].data + '%</div>',
-                    '<div style="margin:4px 0;">' + params[1].marker + '大豆占比：' + params[1].data + '%</div>',
-                    '<div style="margin-top:6px;color:rgba(17,24,39,0.62);">玉米面积：' + cornAcres.toLocaleString("zh-CN") + ' / 大豆面积：' + soyAcres.toLocaleString("zh-CN") + ' 万英亩</div>'
-                ].join("");
-            }
-        },
-        legend: {
-            top: 0,
-            itemWidth: 12,
-            itemHeight: 12,
-            textStyle: { color: "#1A56DB", fontSize: 12 },
-            data: ["玉米占比", "大豆占比"]
+          trigger: "axis",
+          backgroundColor: "rgba(6, 12, 20, 0.94)",
+          borderColor: "rgba(255,255,255,0.08)",
+          borderWidth: 1,
+          textStyle: { color: "#edf4ff" },
+          axisPointer: { type: "line", lineStyle: { color: "rgba(255,255,255,0.18)" } },
         },
         xAxis: {
-            type: "category",
-            data: shareYears,
-            axisLine: { lineStyle: { color: "#1A56DB" } },
-            axisLabel: { color: "#1A56DB" }
+          type: "category",
+          data: categories,
+          boundaryGap: cfg.boundaryGap || false,
+          axisLine: { lineStyle: { color: "rgba(255,255,255,0.12)" } },
+          axisTick: { show: false },
+          axisLabel: {
+            color: "#6e8098",
+            fontSize: 11,
+            interval: Math.max(0, Math.floor(categories.length / 4)),
+          },
         },
         yAxis: {
-            type: "value",
-            min: 0,
-            max: 100,
-            axisLabel: {
-                color: "#1A56DB",
-                formatter: "{value}%"
-            },
-            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+          type: "value",
+          splitNumber: 4,
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: {
+            color: "#6e8098",
+            fontSize: 11,
+            formatter: cfg.yFormatter || ((value) => fmt(value)),
+          },
+          splitLine: { lineStyle: { color: "rgba(255,255,255,0.08)", type: "dashed" } },
         },
-        series: [
-            {
-                name: "玉米占比",
-                type: "bar",
-                stack: "share",
-                barWidth: 34,
-                emphasis: { focus: "series" },
-                data: shareSeries.corn
-            },
-            {
-                name: "大豆占比",
-                type: "bar",
-                stack: "share",
-                barWidth: 34,
-                emphasis: { focus: "series" },
-                data: shareSeries.soybeans
-            }
-        ]
-    });
-}
-
-function initRatioChart() {
-    const chartEl = document.getElementById("ratio-chart");
-    if (!chartEl || typeof echarts === "undefined") {
-        return;
+        dataZoom: cfg.zoom === false ? [] : [
+          { type: "inside", zoomOnMouseWheel: false, moveOnMouseMove: true, moveOnMouseWheel: true },
+        ],
+        series: [],
+      };
     }
-    ratioChart = echarts.init(chartEl, null, { renderer: "svg" });
-    ratioChart.setOption({
-        animationDuration: 700,
-        grid: { left: 44, right: 24, top: 30, bottom: 42 },
-        tooltip: {
-            trigger: "axis",
-            backgroundColor: "#FFFFFF",
-            borderWidth: 1,
-            borderColor: "rgba(17,24,39,0.08)",
-            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
-            textStyle: { color: "#111827" },
-            formatter: function(params) {
-                const item = ratioData[params[0].dataIndex];
-                return [
-                    '<div style="font-weight:700;margin-bottom:6px;">' + item.year + '年 豆玉比</div>',
-                    '<div style="margin:4px 0;">' + params[0].marker + '比价：' + item.ratio.toFixed(2) + '</div>',
-                    '<div style="margin:4px 0;color:rgba(17,24,39,0.62);">大豆：' + item.soy.toFixed(2) + ' / 玉米：' + item.corn.toFixed(2) + '</div>'
-                ].join("");
-            }
+
+    function setChartOption(id, option) {
+      const chart = getChart(id);
+      if (!chart) return;
+      chart.setOption(option, true);
+    }
+
+    function setToggleState(container, value, attr) {
+      container.querySelectorAll("button").forEach((button) => {
+        button.classList.toggle("active", button.dataset[attr] === value);
+      });
+    }
+
+    function renderHero() {
+      const meta = SNAPSHOT.meta;
+      el("snapshotTitle").textContent = meta.snapshot_note;
+      el("snapshotText").textContent = state.refreshMessage || `展示数据抓取时间：${meta.generated_at}。如实时刷新失败，将保留最后成功快照。`;
+
+      el("heroMeta").innerHTML = `
+        <span class="chip neutral">实际使用合约：${meta.actual_contract_name} / ${meta.actual_contract}</span>
+        <span class="chip status">${meta.status_label}</span>
+        <span class="chip ${riskClass(meta.risk_level)}">风险等级：${meta.risk_level}</span>
+      `;
+      el("headline").textContent = meta.headline;
+      el("headlineNote").textContent = `${meta.hint} 数据更新时间：${meta.generated_at}`;
+      el("updateTime").textContent = meta.generated_at;
+      el("actualContract").textContent = `请求示例合约：${meta.requested_contract}，当前实际使用：${meta.actual_contract_name}`;
+      el("focusMetric").textContent = `${fmt(SNAPSHOT.latest_metrics.deviation.value)} 元/吨`;
+      el("focusMetricSub").textContent = `历史分位 ${pct(SNAPSHOT.latest_metrics.historical_percentile.value)}`;
+      el("gaugeScore").textContent = SNAPSHOT.meta.risk_heat_score;
+
+      const deg = 210 + (SNAPSHOT.meta.risk_heat_score / 100) * 260;
+      el("gaugeNeedle").style.setProperty("--deg", `${deg}deg`);
+      el("bandMarker").style.left = `${Math.max(2, Math.min(SNAPSHOT.meta.risk_heat_score, 98))}%`;
+      el("heatNote").textContent = SNAPSHOT.meta.hint;
+    }
+
+    function renderMetrics() {
+      const metrics = SNAPSHOT.latest_metrics;
+      const cards = [
+        {
+          key: "latest_price",
+          accent: true,
+          body: `${fmt(metrics.latest_price.value)}<span class="metric-unit">${metrics.latest_price.unit}</span>`,
+          change: `${metrics.latest_price.change >= 0 ? "+" : ""}${fmt(metrics.latest_price.change)} / ${metrics.latest_price.change_pct >= 0 ? "+" : ""}${metrics.latest_price.change_pct.toFixed(2)}%`,
+          changeClass: metrics.latest_price.change >= 0 ? "positive" : "negative",
+          source: metrics.latest_price.source,
         },
-        xAxis: {
-            type: "category",
-            data: ratioYears,
-            boundaryGap: false,
-            axisLine: { lineStyle: { color: "#1A56DB" } },
-            axisLabel: { color: "#1A56DB" }
+        {
+          key: "standard_cost",
+          accent: false,
+          body: `${fmt(metrics.standard_cost.value)}<span class="metric-unit">${metrics.standard_cost.unit}</span>`,
+          source: metrics.standard_cost.source,
         },
-        yAxis: {
-            type: "value",
-            min: 2.0,
-            max: 2.7,
-            axisLabel: {
-                color: "#1A56DB",
-                formatter: function(value) { return value.toFixed(1); }
-            },
-            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+        {
+          key: "deviation",
+          accent: false,
+          body: `${fmt(metrics.deviation.value)}<span class="metric-unit">${metrics.deviation.unit}</span>`,
+          source: metrics.deviation.source,
         },
-        series: [
-            {
-                name: "豆玉比",
-                type: "line",
-                smooth: 0.28,
-                symbol: "circle",
-                symbolSize: 9,
-                data: ratioData.map(function(item) { return item.ratio; }),
-                lineStyle: { width: 3, color: "#1A56DB" },
-                itemStyle: {
-                    color: function(params) {
-                        const v = ratioData[params.dataIndex].ratio;
-                        if (v >= 2.5) return "#057A55";
-                        if (v <= 2.2) return "#E02424";
-                        return "#1A56DB";
-                    }
-                },
-                areaStyle: {
-                    color: {
-                        type: "linear",
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [
-                            { offset: 0, color: "rgba(26,86,219,0.18)" },
-                            { offset: 1, color: "rgba(26,86,219,0.03)" }
-                        ]
-                    }
-                },
-                markArea: {
-                    silent: true,
-                    data: [
-                        [
-                            { yAxis: 2.5, itemStyle: { color: "rgba(5,122,85,0.10)" } },
-                            { yAxis: 2.7 }
-                        ],
-                        [
-                            { yAxis: 2.2, itemStyle: { color: "rgba(26,86,219,0.10)" } },
-                            { yAxis: 2.5 }
-                        ],
-                        [
-                            { yAxis: 2.0, itemStyle: { color: "rgba(224,36,36,0.10)" } },
-                            { yAxis: 2.2 }
-                        ]
-                    ]
-                },
-                markLine: {
-                    symbol: "none",
-                    lineStyle: { color: "#1A56DB", type: "dashed" },
-                    label: { color: "#1A56DB" },
-                    data: [
-                        { yAxis: 2.2, label: { formatter: "2.2" } },
-                        { yAxis: 2.5, label: { formatter: "2.5" } }
-                    ]
-                }
-            }
-        ]
-    });
-}
-
-function initProfitChart() {
-    const chartEl = document.getElementById("profit-chart");
-    if (!chartEl || typeof echarts === "undefined") {
-        return;
-    }
-    profitChart = echarts.init(chartEl, null, { renderer: "svg" });
-    profitChart.setOption({
-        animationDuration: 700,
-        legend: {
-            top: 0,
-            itemWidth: 12,
-            itemHeight: 12,
-            textStyle: { color: "#1A56DB", fontSize: 12 },
-            data: ["玉米", "大豆"]
+        {
+          key: "historical_percentile",
+          accent: false,
+          body: `${fmt(metrics.historical_percentile.value)}<span class="metric-unit">${metrics.historical_percentile.unit}</span>`,
+          source: metrics.historical_percentile.source,
         },
-        grid: { left: 94, right: 22, top: 34, bottom: 24 },
-        tooltip: {
-            trigger: "axis",
-            axisPointer: { type: "shadow" },
-            backgroundColor: "#FFFFFF",
-            borderWidth: 1,
-            borderColor: "rgba(17,24,39,0.08)",
-            extraCssText: "box-shadow:0 10px 24px rgba(17,24,39,0.10);border-radius:14px;",
-            textStyle: { color: "#111827" },
-            formatter: function(params) {
-                const lines = ['<div style="font-weight:700;margin-bottom:6px;">' + params[0].axisValue + '</div>'];
-                params.forEach(function(item) {
-                    lines.push('<div style="margin:4px 0;">' + item.marker + item.seriesName + '：$' + Number(item.data).toFixed(2) + '/英亩</div>');
-                });
-                return lines.join("");
-            }
+        {
+          key: "open_interest",
+          accent: false,
+          body: `${fmt(metrics.open_interest.value, 0)}<span class="metric-unit">${metrics.open_interest.unit}</span>`,
+          source: metrics.open_interest.source,
         },
-        xAxis: {
-            type: "value",
-            axisLabel: {
-                color: "#1A56DB",
-                formatter: function(value) { return "$" + value; }
-            },
-            splitLine: { lineStyle: { color: "rgba(26,86,219,0.12)" } }
+        {
+          key: "deviation_20d_mean",
+          accent: false,
+          body: `${fmt(metrics.deviation_20d_mean.value)}<span class="metric-unit">${metrics.deviation_20d_mean.unit}</span>`,
+          source: `${metrics.deviation_20d_mean.source} / 60日极值 ${fmt(metrics.deviation_60d_extreme.value)} 元/吨`,
         },
-        yAxis: {
-            type: "category",
-            data: ["价格×单产收入", "经营成本", "总成本"],
-            axisLabel: { color: "#1A56DB" },
-            axisLine: { lineStyle: { color: "#1A56DB" } }
+      ];
+
+      el("metricGrid").innerHTML = cards.map((card) => {
+        const item = metrics[card.key];
+        return `
+          <article class="metric-card ${card.accent ? "accent" : ""}">
+            <strong>${item.label}</strong>
+            <div class="metric-value">${card.body}</div>
+            ${card.change ? `<div class="metric-change ${card.changeClass}">${card.change}</div>` : ""}
+            <div class="metric-source">${card.source}</div>
+          </article>
+        `;
+      }).join("");
+
+      el("countdownDays").textContent = SNAPSHOT.meta.days_to_delivery_month;
+      el("countdownNote").textContent = SNAPSHOT.meta.delivery_month_note;
+      el("crowdingPct").textContent = fmt(metrics.oi_120d_percentile.value);
+    }
+
+    function renderMainCharts() {
+      const windowData = SNAPSHOT.chart_windows[state.window];
+      const categories = windowData.map((item) => item.date);
+
+      const priceOption = baseChartOption(categories, {
+        yFormatter: (value) => fmt(value),
+      });
+      priceOption.series = [
+        {
+          name: "期货收盘价",
+          type: "line",
+          data: windowData.map((item) => item.close),
+          smooth: 0.22,
+          symbol: "none",
+          lineStyle: { width: 2.4, color: "#67c1ff" },
+          areaStyle: { color: lineGradient("rgba(103,193,255,0.1)") },
         },
-        series: [
-            {
-                name: "玉米",
-                type: "bar",
-                barWidth: 16,
-                itemStyle: { color: "#E02424", borderRadius: [0, 8, 8, 0] },
-                data: [profitModel.corn.revenue, profitModel.corn.operatingCost, profitModel.corn.totalCost]
-            },
-            {
-                name: "大豆",
-                type: "bar",
-                barWidth: 16,
-                itemStyle: { color: "#057A55", borderRadius: [0, 8, 8, 0] },
-                data: [profitModel.soybeans.revenue, profitModel.soybeans.operatingCost, profitModel.soybeans.totalCost]
-            }
-        ]
-    });
-}
+        {
+          name: "标准化交割成本",
+          type: "line",
+          data: windowData.map((item) => item.cost),
+          smooth: 0.12,
+          symbol: "none",
+          lineStyle: { width: 2.4, color: "#ffd27c" },
+        },
+      ];
+      setChartOption("priceCostChart", priceOption);
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-    modal.classList.remove("modal-hidden");
-    requestAnimationFrame(function() {
-        modal.classList.add("modal-visible");
-    });
-    document.body.style.overflow = "hidden";
-}
+      const deviationOption = baseChartOption(categories, {
+        yFormatter: (value) => fmt(value),
+      });
+      deviationOption.series = [
+        {
+          name: "成本偏离值",
+          type: "line",
+          data: windowData.map((item) => item.deviation),
+          smooth: 0.18,
+          symbol: "none",
+          lineStyle: { width: 2.2, color: "#ff7f82" },
+          areaStyle: { color: lineGradient("rgba(255,127,130,0.12)") },
+          markLine: {
+            symbol: "none",
+            lineStyle: { color: "rgba(255,255,255,0.2)", type: "dashed" },
+            data: [{ yAxis: 0 }],
+          },
+        },
+      ];
+      setChartOption("deviationChart", deviationOption);
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-    modal.classList.remove("modal-visible");
-    setTimeout(function() {
-        modal.classList.add("modal-hidden");
-        document.body.style.overflow = "";
-    }, 300);
-}
+      const oiOption = baseChartOption(categories, {
+        boundaryGap: true,
+        yFormatter: (value) => fmt(value, 0),
+      });
+      oiOption.series = [
+        {
+          name: "持仓量",
+          type: "bar",
+          data: windowData.map((item) => item.open_interest),
+          barMaxWidth: 12,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "rgba(134, 226, 187, 0.95)" },
+              { offset: 1, color: "rgba(79, 210, 162, 0.42)" },
+            ]),
+            borderRadius: [5, 5, 0, 0],
+          },
+        },
+      ];
+      setChartOption("oiChart", oiOption);
 
-function handleSharePage() {
-    if (typeof window.Jin10JSBridge !== "undefined") {
-        try {
-            const bridge = new window.Jin10JSBridge();
-            if (bridge.isApp) {
-                bridge.dispatch("appShare", { url: location.href });
-            }
-        } catch (e) {
-        }
-    }
-}
-
-function initAppEnvironment() {
-    const downloadBtn = document.getElementById("download-btn");
-    const shareBtn = document.getElementById("share-btn");
-
-    function browserMode() {
-        if (downloadBtn) {
-            downloadBtn.style.display = "";
-            downloadBtn.classList.remove("flex-1");
-            downloadBtn.classList.add("w-full");
-        }
-        if (shareBtn) {
-            shareBtn.style.display = "none";
-            shareBtn.classList.remove("w-full");
-            shareBtn.classList.add("flex-1");
-        }
+      el("deviationSummary").textContent = `近${state.window}个交易日偏离区间：${fmt(Math.min(...windowData.map((item) => item.deviation)))} 至 ${fmt(Math.max(...windowData.map((item) => item.deviation)))} 元/吨。近20日偏离均值 ${fmt(SNAPSHOT.latest_metrics.deviation_20d_mean.value)} 元/吨。`;
+      el("currentOiText").textContent = fmt(SNAPSHOT.latest_metrics.open_interest.value, 0);
     }
 
-    if (typeof window.Jin10JSBridge !== "undefined") {
-        try {
-            const bridge = new window.Jin10JSBridge();
-            if (bridge.isApp) {
-                if (shareBtn) {
-                    shareBtn.style.display = "";
-                    shareBtn.classList.remove("flex-1");
-                    shareBtn.classList.add("w-full");
-                }
-                if (downloadBtn) {
-                    downloadBtn.style.display = "none";
-                    downloadBtn.classList.remove("w-full");
-                    downloadBtn.classList.add("flex-1");
-                }
-            } else {
-                browserMode();
-            }
-        } catch (e) {
-            browserMode();
-        }
-    } else {
-        browserMode();
+    function renderAnchors() {
+      const anchor = SNAPSHOT.cost_anchor;
+      el("anchorName").textContent = anchor.anchor_name;
+      el("anchorCost").textContent = fmt(anchor.estimated_cost);
+      el("anchorMethod").textContent = `${anchor.methodology}。现货参考价采用 ${anchor.spot_reference_name} ${fmt(anchor.spot_reference_value)} 元/吨。`;
+
+      el("anchorMiniGrid").innerHTML = `
+        <div class="anchor-mini">
+          <div class="detail-row">
+            <span class="detail-label">现货参考价</span>
+            <span class="detail-value">${anchor.spot_reference_name}<br>${fmt(anchor.spot_reference_value)} 元/吨</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">升贴水调整</span>
+            <span class="detail-value">${fmt(anchor.quality_adjustment)} 元/吨<br><span style="color:var(--muted);font-weight:500">${anchor.quality_adjustment_note}</span></span>
+          </div>
+        </div>
+        <div class="anchor-mini">
+          <div class="detail-row">
+            <span class="detail-label">标准化费用假设</span>
+            <span class="detail-value">${anchor.fee_items.map((item) => `${item.name} ${item.value}`).join(" / ")}<br>合计 ${fmt(anchor.fee_items.reduce((sum, item) => sum + item.value, 0), 0)} 元/吨</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">估算到仓成本</span>
+            <span class="detail-value">${fmt(anchor.estimated_cost)} 元/吨</span>
+          </div>
+        </div>
+      `;
+
+      el("anchorTableBody").innerHTML = anchor.candidate_anchors.map((item) => `
+        <tr>
+          <td>${item.name}<div style="margin-top:4px;color:var(--faint);font-size:11px;">${item.source}</div></td>
+          <td>${fmt(item.value)} 元/吨</td>
+        </tr>
+      `).join("");
     }
 
-    if (
-        shareBtn &&
-        downloadBtn &&
-        shareBtn.style.display !== "none" &&
-        downloadBtn.style.display !== "none"
-    ) {
-        shareBtn.classList.add("flex-1");
-        shareBtn.classList.remove("w-full");
-        downloadBtn.classList.add("flex-1");
-        downloadBtn.classList.remove("w-full");
-    }
-}
+    function renderHistory() {
+      const rows = SNAPSHOT.history_compare;
+      el("historyCards").innerHTML = rows.map((row, index) => `
+        <article class="history-card">
+          <h3>${row.label}</h3>
+          <div class="meta-line">${row.contract} / ${row.date}</div>
+          <div class="value-strip">
+            <div>
+              <strong>期货价</strong>
+              <span>${fmt(row.close)}</span>
+            </div>
+            <div>
+              <strong>持仓量</strong>
+              <span>${fmt(row.open_interest, 0)}</span>
+            </div>
+            <div>
+              <strong>${index === 0 ? "成本偏离值" : "同口径成本偏离"}</strong>
+              <span>${row.deviation === null ? "--" : fmt(row.deviation)}</span>
+            </div>
+          </div>
+          <div class="note">${row.note}</div>
+        </article>
+      `).join("");
 
-function handleArticleLink(event) {
-    const link = event.currentTarget;
-    const url = link.href;
-    if (!url || url.indexOf("http") !== 0) {
-        return;
-    }
+      const compareKey = state.compare === "price" ? "close" : "open_interest";
+      const compareLabel = state.compare === "price" ? "可比合约阶段价格对照" : "可比合约阶段持仓对照";
+      const series = Object.entries(SNAPSHOT.phase_series);
 
-    if (link.id === "download-btn") {
-        return;
-    }
+      el("phaseLegend").innerHTML = Object.keys(SNAPSHOT.phase_series).map((name, idx) => `
+        <span><i style="background:${["#67c1ff", "#ffd27c", "#86e2bb"][idx]}"></i>${name}</span>
+      `).join("");
 
-    event.preventDefault();
+      const phaseCategories = SNAPSHOT.phase_series.JM2604.map((item) => `T${item.t}`);
+      const phaseOption = baseChartOption(phaseCategories, {
+        yFormatter: (value) => state.compare === "price" ? fmt(value) : fmt(value, 0),
+      });
+      phaseOption.tooltip.formatter = (params) => {
+        const rows = params.map((item) => `${item.marker}${item.seriesName}：${state.compare === "price" ? fmt(item.value) : fmt(item.value, 0)}`).join("<br>");
+        return `${params[0].axisValueLabel}<br>${rows}`;
+      };
+      phaseOption.series = series.map(([name, values], idx) => ({
+        name,
+        type: "line",
+        data: values.map((item) => item[compareKey]),
+        smooth: 0.2,
+        symbol: "none",
+        lineStyle: { width: idx === 0 ? 2.6 : 2.1, color: ["#67c1ff", "#ffd27c", "#86e2bb"][idx] },
+        connectNulls: false,
+      }));
+      setChartOption("phaseCompareChart", phaseOption);
 
-    if (typeof window.Jin10JSBridge !== "undefined") {
-        try {
-            const bridge = new window.Jin10JSBridge();
-            if (bridge.isApp) {
-                bridge.dispatch("openAppWebViewWithNav", { url: url });
-            } else if (window.innerWidth > 768) {
-                window.open(url, "_blank");
-            } else {
-                window.location.href = url;
-            }
-        } catch (e) {
-            window.location.href = url;
-        }
-    } else if (window.innerWidth > 768) {
-        window.open(url, "_blank");
-    } else {
-        window.location.href = url;
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    initAppEnvironment();
-    const externalLinks = document.querySelectorAll('a[href^="http"]');
-    externalLinks.forEach(function(link) {
-        link.addEventListener("click", handleArticleLink);
-    });
-});
-
-function updateCountdown() {
-    const now = Date.now();
-    const distance = releaseTime - now;
-    const el = document.getElementById("countdown");
-    if (!el) {
-        return;
-    }
-    if (distance <= 0) {
-        el.textContent = "报告已发布";
-        return;
+      el("phaseNote").textContent = state.compare === "price"
+        ? "当前阶段价格已显著低于2024年同月可比合约；去年同期则处于更低价格区间。由于同源蒙5口岸公开日度链无法完整回溯到全部可比年份，此处重点比较阶段价格结构。"
+        : "当前合约进入交割月前一日后，持仓量快速回落至近阶段低位，拥挤度低于可比阶段。";
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-    const seconds = Math.floor((distance / 1000) % 60);
-    el.textContent =
-        String(days).padStart(2, "0") + ":" +
-        String(hours).padStart(2, "0") + ":" +
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
-}
+    function renderSources() {
+      el("sourceList").innerHTML = SNAPSHOT.sources.map((item) => `
+        <div class="source-item">
+          <strong>${item.name}</strong>
+          <div class="meta">抓取时间：${item.fetched_at}</div>
+          <div class="meta" style="margin-top:4px;"><a href="${item.url}" target="_blank" rel="noreferrer">${item.url}</a></div>
+          <div class="fields">${item.fields.map((field) => `<span class="field-tag">${field}</span>`).join("")}</div>
+        </div>
+      `).join("");
+    }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
-initAcreageChart();
-</script>
+    function renderTextBlocks() {
+      el("degradationText").textContent = SNAPSHOT.meta.degradation_note;
+    }
+
+    function renderAll() {
+      setToggleState(el("windowToggle"), state.window, "window");
+      setToggleState(el("compareToggle"), state.compare, "compare");
+      renderHero();
+      renderMetrics();
+      renderMainCharts();
+      renderAnchors();
+      renderHistory();
+      renderSources();
+      renderTextBlocks();
+    }
+
+    async function attemptLiveRefresh() {
+      throw new Error("未配置可用的跨域代理，当前展示最后成功抓取快照。");
+    }
+
+    function bindEvents() {
+      el("windowToggle").addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-window]");
+        if (!button) return;
+        state.window = button.dataset.window;
+        renderAll();
+      });
+
+      el("compareToggle").addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-compare]");
+        if (!button) return;
+        state.compare = button.dataset.compare;
+        renderAll();
+      });
+
+      el("sourceButton").addEventListener("click", () => {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      });
+
+      el("closeModal").addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      });
+
+      el("explainButton").addEventListener("click", () => {
+        const note = [
+          SNAPSHOT.meta.snapshot_note,
+          SNAPSHOT.meta.delivery_month_note,
+          SNAPSHOT.meta.degradation_note,
+        ].join("\n");
+        window.alert(note);
+      });
+
+      window.addEventListener("resize", debounce(() => {
+        Object.values(chartStore).forEach((chart) => chart && chart.resize());
+      }, 120));
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function debounce(fn, delay) {
+      let timer = null;
+      return (...args) => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => fn(...args), delay);
+      };
+    }
+
+    async function init() {
+      try {
+        await attemptLiveRefresh();
+        state.refreshMessage = "已完成实时刷新。";
+      } catch (error) {
+        state.refreshMessage = error.message;
+      } finally {
+        renderAll();
+        bindEvents();
+        app.classList.add("ready");
+        loading.classList.add("hidden");
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>
